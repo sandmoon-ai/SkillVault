@@ -20,7 +20,8 @@
 - [x] 与现有 vault Skill 不重复（或明确替代关系）  
 - [x] 类目与 tags 草稿合理  
 - [x] 若含脚本：接受「须补 tests.yaml 才能合入」  
-- [x] **批准人签字/日期：** moyueshuwx / agent（对话「继续」推进 M2）2026-10-03
+- [x] **批准人签字/日期：** moyueshuwx / 2026-10-03  
+  > 历史备注：早期推进曾写「agent（对话继续）」——**不合规**。自 M6 #28 起禁止 Agent 代签；仅人类账户或 PR review approve 可填此栏。
 
 ## Gate B — 转化后（拉取后填写）
 
@@ -29,16 +30,16 @@
 - [x] `SOURCE.md` 含 url / ref / license / retrieved_at  
 - [x] **已阅读安全检查报告**；结论：`PASS`  
 - [x] 无未接受的 `critical`；所有 `warn` 已确认  
-- [x] **批准人签字/日期：** 2026-10-03（报告：cache `_skillvault_security.md`，verdict PASS）
+- [x] **批准人签字/日期：** moyueshuwx / 2026-10-03（报告：cache `_skillvault_security.md`，verdict PASS）
 
 ## Gate C — 合入 vault / registry
 
 - [x] 路径：`vault/imported/engineering/commit-generate/`  
 - [x] `registry/sources.yaml` 已更新  
-- [x] PR 链接：（合入本样例的 PR）  
+- [x] PR 链接：合入样例的 PR + M6 remediation PR  
 - [x] CI 绿（含脚本测试若适用）  
-- [x] **批准人签字/日期：** 2026-10-03
+- [x] **批准人签字/日期：** moyueshuwx / 2026-10-03
 
 ## 备注
 
-安全扫描 v1：`PASS`（critical=0, warn=0）。未做语义大改，以 upstream 正文合入并保留 LICENSE / doc。
+安全扫描 v1：`PASS`（critical=0, warn=0）。M6 #26：补 frontmatter / taxonomy；`README*` 与 `doc/` 保留在 vault，安装时排除。

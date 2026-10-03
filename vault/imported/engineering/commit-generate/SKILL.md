@@ -1,6 +1,15 @@
 ---
 name: commit-generate
-description: Generate bilingual (English + Traditional Chinese) commit message from git changes.
+description: >-
+  Generate bilingual (English + Traditional Chinese) commit messages from staged
+  git changes. Use when the user asks for a commit message, conventional commit
+  tag, or a message derived from git diff / staged files.
+license: MIT
+compatibility: linux, macos, windows
+metadata:
+  category: engineering
+  tags: [git, commit, bilingual]
+  vault: imported
 ---
 
 # Commit Message Generator

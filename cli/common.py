@@ -12,7 +12,15 @@ VAULT_IMPORTED = REPO_ROOT / "vault" / "imported"
 ADAPTERS_DIR = REPO_ROOT / "adapters"
 REGISTRY_PATH = REPO_ROOT / "registry" / "sources.yaml"
 CACHE_DIR = REPO_ROOT / ".cache"
-EXCLUDE_ON_INSTALL = {"SOURCE.md", ".gitkeep", "tests.yaml"}
+EXCLUDE_ON_INSTALL = {
+    "SOURCE.md",
+    ".gitkeep",
+    "tests.yaml",
+    ".gitattributes",
+    ".gitignore",
+}
+# Upstream packaging / docs noise — skill runtime refs belong under references/
+EXCLUDE_ON_INSTALL_DIRS = frozenset({"doc"})
 SKILLVAULT_SIDECAR_PREFIX = "_skillvault_"
 SKIP_SKILL_DIRS = {"_template"}
 
@@ -24,7 +32,14 @@ def is_skillvault_sidecar(name: str) -> bool:
 
 def should_exclude_on_install(name: str) -> bool:
     """True if a file/dir basename must not be projected into an IDE."""
-    return name in EXCLUDE_ON_INSTALL or is_skillvault_sidecar(name)
+    if name in EXCLUDE_ON_INSTALL or name in EXCLUDE_ON_INSTALL_DIRS:
+        return True
+    if is_skillvault_sidecar(name):
+        return True
+    lower = name.lower()
+    if lower == "readme.md" or lower.startswith("readme."):
+        return True
+    return False
 # 与 docs/taxonomy.md 对齐；未知类目仍允许（便于演进），list 时原样显示
 KNOWN_CATEGORIES = frozenset(
     {

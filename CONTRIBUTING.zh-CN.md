@@ -81,6 +81,7 @@ py cli/sv.py install <skill> --ide <ide> --os <os> [--force]
 - 分支 Ruleset `protect-main` 要求 `Skill script tests`；禁止 force push / 删分支——[docs/ci.md](docs/ci.md)。
 - 外部变更优先经 PR 合并。
 - Gate 是否通过由人决定；CI 不能代替 A–C。
+- Intent 中 Gate 批准人签字**必须是人类**（账户名或 PR review）；Agent 可起草材料，禁止代签。
 
 ## Issue 与 Milestone
 

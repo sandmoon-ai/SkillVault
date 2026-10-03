@@ -11,7 +11,8 @@
 2. **换机可复现：** 文档写清 clone → 装依赖 → install 的清单  
 3. **现状对齐：** `docs/status.md` 与仓库真实能力一致  
 
-> 命名说明：今日 `cli/sync_cmd.py` 实现的是**上游 registry 再拉取**；本文规格是 **vault↔IDE 有无对照**（实现时可用子命令如 `sv status` / `sv doctor`，或拆分 `sync --target ide`，避免一词两义）。
+> 命名：`sv doctor` = vault↔IDE 有无对照；`sv sync` = 上游 registry 再拉取。  
+> `sv sync --ide/--os` 仍可用但已弃用（stderr 提示改用 doctor）。
 
 ## 2. Vault↔IDE Sync 行为规格
 
@@ -19,11 +20,13 @@
 
 ```bash
 # vault ↔ IDE 有无对照（本里程碑）
-py cli/sv.py sync --ide <ide> --os <os> [--scope user|project] [--project-root <path>]
+py cli/sv.py doctor --ide <ide> --os <os> [--scope user|project] [--project-root <path>]
 
-# 上游 registry 再拉取（既有能力；勿与上混用同一条命令）
+# 上游 registry 再拉取（勿与上混用）
 py cli/sv.py sync <name>|--all [--apply]
 ```
+
+**内容更新：** doctor / in_sync **只比目录名**。vault 内 Skill 正文变更后，即使显示 in_sync，各机仍须 `install --force` 才能对齐 IDE 副本。
 
 ### 2.2 报告语义
 
@@ -31,7 +34,7 @@ py cli/sv.py sync <name>|--all [--apply]
 |------|------|----------|
 | pending_install | vault 有、目标 IDE 目录无同名 skill | `sv install <name> ...` |
 | orphan_in_ide | IDE 有、vault 无对应 name | 人工确认：迁回 vault 或删除 IDE 侧 |
-| in_sync | 两侧都有同名目录 | 不强制内容 diff（本周期不做哈希比对） |
+| in_sync | 两侧都有同名目录 | 不比对内容；vault 更新后须 `install --force` |
 
 输出：stdout 人类可读；可选日后加 `--json`（非本周期必须）。
 
@@ -82,7 +85,8 @@ py cli/sv.py sync <name>|--all [--apply]
 4. py -m pytest
 5. py cli/sv.py list
 6. py cli/sv.py install hello-skillvault --ide cursor --os <your-os>
-7. （可选）py cli/sv.py sync --ide cursor --os <your-os>
+7. （可选）py cli/sv.py doctor --ide cursor --os <your-os>  
+8. vault 内容更新后：`install --force`（doctor 不比对文件哈希）
 ```
 
 Windows 注意：bash 若为 WSL stub，脚本测试会 skip bash runner（见 `docs/script-testing.md`）。
@@ -91,7 +95,7 @@ Windows 注意：bash 若为 WSL stub，脚本测试会 skip bash runner（见 `
 
 | 日期 | sync 单测 | 换机清单自测 | status 已刷新 |
 |------|-----------|--------------|---------------|
-| 2026-10-03 | pass（test_ide_sync） | pass：list / install 已有；`sv sync --ide cursor --os windows` 输出 pending/orphan/in_sync | pass |
+| 2026-10-03 | pass（test_ide_sync） | pass：list / install 已有；`sv doctor --ide cursor --os windows` 输出 pending/orphan/in_sync | pass |
 
 ## 7. 非目标（M3）
 
