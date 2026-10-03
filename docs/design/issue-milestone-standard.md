@@ -33,6 +33,7 @@ M<序号> - <English short name>
 - 序号与设计执行顺序一致（M1→M2→…）。  
 - 短名用英文（GitHub 列表清晰）；Description 可用中文。  
 - 标题用 **ASCII 连字符 `-`**（避免 em-dash `—` 在 API/部分环境下乱码）。  
+- 用 `gh api` 写 Description 时须 **UTF-8 JSON 文件**（`ensure_ascii=False`）；勿用会丢编码的 PowerShell 管道字符串，否则中文会变成 `?`。  
 - **禁止**同一阶段多个 Milestone（如「M1a / M1 补充」）；追加工作进原 Milestone 的新 Issue。
 
 仓库中对应标题示例：`M1 - Install loop` … `M5 - Security rules watch`。
