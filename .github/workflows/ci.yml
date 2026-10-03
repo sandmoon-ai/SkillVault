@@ -44,5 +44,6 @@ jobs:
       - name: Install package
         run: python -m pip install -e ".[dev]"
 
-      - name: Run skill script tests
-        run: python -m pytest tests/test_skill_scripts.py -v
+      - name: Run tests
+        # Full suite: skill script gate + CLI unit tests (M1)
+        run: python -m pytest tests/ -v
