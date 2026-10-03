@@ -355,6 +355,9 @@ def apply_import(result: FetchResult, *, name: str, category: str = "inbox") -> 
         last_synced=now,
         category=category,
     )
+    from cli.catalog_cmd import refresh_catalog_after_mutation
+
+    refresh_catalog_after_mutation()
     return dest
 
 

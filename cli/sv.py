@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from cli import __version__
+from cli.catalog_cmd import catalog_is_fresh, write_catalog
 from cli.common import KNOWN_CATEGORIES, iter_vault_skills, validate_category
 from cli.import_cmd import apply_import, import_from_url, print_import_summary
 from cli.install_cmd import install_skills
@@ -39,6 +40,17 @@ def _build_parser() -> argparse.ArgumentParser:
         ),
     )
     p_list.set_defaults(func=cmd_list)
+
+    p_catalog = sub.add_parser(
+        "catalog",
+        help="Regenerate or check the vault skill index (catalog.yaml + skills-index.md)",
+    )
+    p_catalog.add_argument(
+        "--check",
+        action="store_true",
+        help="Exit non-zero if index is stale (CI gate); do not write",
+    )
+    p_catalog.set_defaults(func=cmd_catalog)
 
     p_install = sub.add_parser("install", help="Install skill(s) into an IDE path")
     p_install.add_argument("skills", nargs="*", help="Skill name(s)")
@@ -247,6 +259,20 @@ def cmd_list(args: argparse.Namespace) -> int:
     print("name\tcategory\torigin\tpath")
     for name, path, origin, cat in skills:
         print(f"{name}\t{cat}\t{origin}\t{path}")
+    return 0
+
+
+def cmd_catalog(args: argparse.Namespace) -> int:
+    if args.check:
+        ok, message = catalog_is_fresh()
+        print(message)
+        return 0 if ok else 2
+    catalog = write_catalog()
+    counts = catalog.get("counts") or {}
+    print(
+        f"Wrote registry/catalog.yaml and docs/skills-index.md "
+        f"({counts.get('total', 0)} skills)."
+    )
     return 0
 
 

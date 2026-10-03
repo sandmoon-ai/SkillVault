@@ -1,0 +1,107 @@
+"""Tests for skill catalog generation and freshness gate."""
+
+from __future__ import annotations
+
+from pathlib import Path
+
+import yaml
+
+from cli import catalog_cmd
+from cli.sv import main
+
+
+def _seed(root: Path) -> None:
+    skill = root / "vault" / "own" / "meta" / "hello-a"
+    skill.mkdir(parents=True)
+    (skill / "SKILL.md").write_text(
+        "---\nname: hello-a\ndescription: A short hello skill.\n"
+        "metadata:\n  category: meta\n  tags: [smoke]\n---\n\n# hello-a\n",
+        encoding="utf-8",
+    )
+    imported = root / "vault" / "imported" / "deliver" / "demo-skill"
+    imported.mkdir(parents=True)
+    (imported / "SKILL.md").write_text(
+        "---\nname: demo-skill\ndescription: Demo imported skill.\n---\n\n# demo\n",
+        encoding="utf-8",
+    )
+    (imported / "SOURCE.md").write_text(
+        "# Source\n\n- License: Apache-2.0\n",
+        encoding="utf-8",
+    )
+    reg = root / "registry"
+    reg.mkdir(parents=True)
+    (reg / "sources.yaml").write_text(
+        "skills:\n"
+        "- name: demo-skill\n"
+        "  url: https://example.com/demo\n"
+        "  license: Apache-2.0\n"
+        "  category: deliver\n"
+        "  local: vault/imported/deliver/demo-skill\n",
+        encoding="utf-8",
+    )
+
+
+def test_write_and_check_catalog(tmp_path: Path, monkeypatch) -> None:
+    import cli.common as common
+
+    _seed(tmp_path)
+    monkeypatch.setattr(common, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(common, "VAULT_OWN", tmp_path / "vault" / "own")
+    monkeypatch.setattr(common, "VAULT_IMPORTED", tmp_path / "vault" / "imported")
+    monkeypatch.setattr(common, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
+    monkeypatch.setattr(catalog_cmd, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(catalog_cmd, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
+    monkeypatch.setattr(catalog_cmd, "CATALOG_YAML", tmp_path / "registry" / "catalog.yaml")
+    monkeypatch.setattr(catalog_cmd, "SKILLS_INDEX_MD", tmp_path / "docs" / "skills-index.md")
+
+    ok, msg = catalog_cmd.catalog_is_fresh()
+    assert not ok
+    assert "missing" in msg
+
+    catalog = catalog_cmd.write_catalog()
+    assert catalog["counts"]["total"] == 2
+    assert catalog["counts"]["own"] == 1
+    assert catalog["counts"]["imported"] == 1
+    names = {s["name"] for s in catalog["skills"]}
+    assert names == {"hello-a", "demo-skill"}
+    demo = next(s for s in catalog["skills"] if s["name"] == "demo-skill")
+    assert demo["license"] == "Apache-2.0"
+    assert demo["upstream"] == "https://example.com/demo"
+
+    ok, msg = catalog_cmd.catalog_is_fresh()
+    assert ok, msg
+
+    # Stale after vault change
+    extra = tmp_path / "vault" / "own" / "meta" / "hello-b"
+    extra.mkdir(parents=True)
+    (extra / "SKILL.md").write_text(
+        "---\nname: hello-b\ndescription: Another.\n---\n\n# b\n",
+        encoding="utf-8",
+    )
+    ok, msg = catalog_cmd.catalog_is_fresh()
+    assert not ok
+    assert "stale" in msg
+
+
+def test_cli_catalog_check_exit_codes(tmp_path: Path, monkeypatch, capsys) -> None:
+    import cli.common as common
+
+    _seed(tmp_path)
+    monkeypatch.setattr(common, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(common, "VAULT_OWN", tmp_path / "vault" / "own")
+    monkeypatch.setattr(common, "VAULT_IMPORTED", tmp_path / "vault" / "imported")
+    monkeypatch.setattr(common, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
+    monkeypatch.setattr(catalog_cmd, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(catalog_cmd, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
+    monkeypatch.setattr(catalog_cmd, "CATALOG_YAML", tmp_path / "registry" / "catalog.yaml")
+    monkeypatch.setattr(catalog_cmd, "SKILLS_INDEX_MD", tmp_path / "docs" / "skills-index.md")
+
+    assert main(["catalog", "--check"]) == 2
+    assert main(["catalog"]) == 0
+    out = capsys.readouterr().out
+    assert "Wrote registry/catalog.yaml" in out
+    assert main(["catalog", "--check"]) == 0
+    data = yaml.safe_load(
+        (tmp_path / "registry" / "catalog.yaml").read_text(encoding="utf-8")
+    )
+    assert data["counts"]["total"] == 2

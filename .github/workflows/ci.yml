@@ -54,3 +54,6 @@ jobs:
       - name: Run tests
         # Full suite: skill script gate + CLI / vault gates
         run: python -m pytest tests/ -v
+
+      - name: Skill catalog freshness
+        run: python cli/sv.py catalog --check
