@@ -109,12 +109,41 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     p_scan.set_defaults(func=cmd_security_scan)
 
+    p_doctor = sub.add_parser(
+        "doctor",
+        help="Vault↔IDE presence report (pending / orphan / in_sync by name)",
+    )
+    p_doctor.add_argument("--ide", required=True, choices=list_ides(), help="Target IDE")
+    p_doctor.add_argument(
+        "--os",
+        required=True,
+        choices=["linux", "macos", "windows"],
+        dest="os_name",
+        help="Host OS",
+    )
+    p_doctor.add_argument(
+        "--scope",
+        default="user",
+        choices=["user", "project"],
+        help="Scope (default: user)",
+    )
+    p_doctor.add_argument(
+        "--project-root",
+        type=Path,
+        default=None,
+        help="Project root when --scope project",
+    )
+    p_doctor.add_argument(
+        "--home",
+        type=Path,
+        default=None,
+        help=argparse.SUPPRESS,
+    )
+    p_doctor.set_defaults(func=cmd_doctor)
+
     p_sync = sub.add_parser(
         "sync",
-        help=(
-            "Vault↔IDE presence report (--ide/--os), or re-fetch upstream "
-            "registry skills (names / --all)"
-        ),
+        help="Re-fetch upstream registry skills and diff vs vault/imported",
     )
     p_sync.add_argument("skills", nargs="*", help="Upstream skill name(s) to re-fetch")
     p_sync.add_argument(
@@ -125,34 +154,39 @@ def _build_parser() -> argparse.ArgumentParser:
     p_sync.add_argument(
         "--apply",
         action="store_true",
-        help="Apply upstream files into vault/imported (upstream mode only)",
+        help="Apply upstream files into vault/imported",
     )
     p_sync.add_argument(
         "--accept-security-risks",
         action="store_true",
         help=(
-            "Allow upstream --apply when security verdict is FAIL "
+            "Allow --apply when security verdict is FAIL "
             "(Gate B must document acceptance)"
         ),
     )
-    p_sync.add_argument("--ide", choices=list_ides(), help="IDE for vault↔IDE report")
+    # Deprecated: use `sv doctor` for vault↔IDE presence
+    p_sync.add_argument(
+        "--ide",
+        choices=list_ides(),
+        help=argparse.SUPPRESS,
+    )
     p_sync.add_argument(
         "--os",
         choices=["linux", "macos", "windows"],
         dest="os_name",
-        help="OS for vault↔IDE report",
+        help=argparse.SUPPRESS,
     )
     p_sync.add_argument(
         "--scope",
         default="user",
         choices=["user", "project"],
-        help="Scope for vault↔IDE report (default: user)",
+        help=argparse.SUPPRESS,
     )
     p_sync.add_argument(
         "--project-root",
         type=Path,
         default=None,
-        help="Project root when --scope project",
+        help=argparse.SUPPRESS,
     )
     p_sync.add_argument(
         "--home",
@@ -290,34 +324,47 @@ def cmd_watch_security_sources(args: argparse.Namespace) -> int:
     return 2 if report.has_changes else 0
 
 
+def _run_doctor(args: argparse.Namespace) -> int:
+    if args.scope == "project" and args.project_root is None:
+        raise ValueError("--project-root is required when --scope project")
+    report = compare_vault_to_ide(
+        ide=args.ide,
+        os_name=args.os_name,
+        scope=args.scope,
+        project_root=args.project_root,
+        home_override=args.home,
+    )
+    print(format_ide_sync_report(report))
+    return 0
+
+
+def cmd_doctor(args: argparse.Namespace) -> int:
+    return _run_doctor(args)
+
+
 def cmd_sync(args: argparse.Namespace) -> int:
     ide_mode = args.ide is not None or args.os_name is not None
     upstream_mode = bool(args.skills) or args.all or args.apply
 
     if ide_mode and upstream_mode:
         raise ValueError(
-            "Use either vault↔IDE mode (--ide/--os) or upstream mode "
+            "Use either `sv doctor --ide/--os` or upstream `sv sync` "
             "(skill names / --all), not both."
         )
     if ide_mode:
         if not args.ide or not args.os_name:
-            raise ValueError("vault↔IDE sync requires both --ide and --os")
-        if args.scope == "project" and args.project_root is None:
-            raise ValueError("--project-root is required when --scope project")
-        report = compare_vault_to_ide(
-            ide=args.ide,
-            os_name=args.os_name,
-            scope=args.scope,
-            project_root=args.project_root,
-            home_override=args.home,
+            raise ValueError("deprecated vault↔IDE mode requires both --ide and --os")
+        print(
+            "warning: `sv sync --ide/--os` is deprecated; use "
+            f"`sv doctor --ide {args.ide} --os {args.os_name}` instead.",
+            file=sys.stderr,
         )
-        print(format_ide_sync_report(report))
-        return 0
+        return _run_doctor(args)
 
     if not upstream_mode:
         raise ValueError(
-            "Specify --ide/--os for vault↔IDE report, or skill names / --all "
-            "for upstream re-fetch."
+            "Specify skill names or --all for upstream re-fetch. "
+            "For vault↔IDE presence, use `sv doctor --ide <ide> --os <os>`."
         )
     reports = sync_skills(
         args.skills,

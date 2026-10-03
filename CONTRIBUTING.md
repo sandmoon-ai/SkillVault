@@ -81,6 +81,7 @@ py cli/sv.py install <skill> --ide <ide> --os <os> [--force]
 - Branch Ruleset `protect-main` requires the `Skill script tests` check; force-push and branch deletion are blocked — [docs/ci.md](docs/ci.md).
 - Prefer merging via PR for all external changes.
 - Gate approval is a human decision; bots/CI do not skip A–C.
+- Intent Gate sign-off fields must be filled by a **human** (account name or PR review). Agents may draft materials but must not sign as approver.
 
 ## Issues and milestones
 

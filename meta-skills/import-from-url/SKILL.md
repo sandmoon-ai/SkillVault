@@ -81,6 +81,8 @@ py cli/sv.py import <url> [--name <skill-name>] [--ref <ref>]
 5. 提示 commit；用户要求时可代为提交
 6. 若用户接着要「装到某 IDE」→ 直接转入 `meta-skills/install`，勿只丢 CLI 文档
 
+**签字：** intent 中 Gate A/B/C「批准人签字」只能由**人类**填写（或留下可核验的 PR review approve）。Agent **不得代签**，不得以「对话继续 / agent」充当批准人。
+
 ## 示例对话意图
 
 - 「把 https://github.com/.../tree/.../some-skill 收进 SkillVault」→ 本 play 全流程
@@ -91,5 +93,6 @@ py cli/sv.py import <url> [--name <skill-name>] [--ref <ref>]
 
 - 无 Gate 确认就写入 `vault/imported` 或改 registry
 - 无安全报告（或报告过期）就请求合入确认
+- 代填 Gate 批准人签字（含「agent」「对话继续」等）
 - 只回复「请运行 sv import」却拒绝在可写环境代为拉取/转化（用户要的是收录结果）
 - 把 CLI `--apply` 当成跳过人工审查或跳过安全检查的捷径

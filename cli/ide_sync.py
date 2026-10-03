@@ -65,13 +65,20 @@ def compare_vault_to_ide(
 
 def format_ide_sync_report(report: IdeSyncReport) -> str:
     lines = [
-        f"IDE sync: ide={report.ide} os={report.os_name} scope={report.scope}",
+        f"doctor: ide={report.ide} os={report.os_name} scope={report.scope}",
         f"IDE skills root: {report.ide_root}",
+        "",
+        "note: presence by directory name only — vault content updates need "
+        f"`install --force --ide {report.ide} --os {report.os_name}`",
         "",
         f"in_sync ({len(report.in_sync)}):",
     ]
     if report.in_sync:
         lines.extend(f"  - {n}" for n in report.in_sync)
+        lines.append(
+            "  hint: name present on both sides; re-run install --force after "
+            "vault content changes"
+        )
     else:
         lines.append("  (none)")
     lines.append("")

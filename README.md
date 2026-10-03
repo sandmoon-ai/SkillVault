@@ -95,7 +95,7 @@ vault/own/<category>/<skill-name>/
 | 收录公开 Skill | 给出 URL，按 [`meta-skills/import-from-url`](meta-skills/import-from-url/SKILL.md) | `py cli/sv.py import <url>`（只进 cache + 安全扫描）+ AI 转化 |
 | 收录前安全扫描 | Gate B 必看报告 | `py cli/sv.py security-scan <path>` |
 | 本库 GitHub 操作 | 按 [`meta-skills/github-ops`](meta-skills/github-ops/SKILL.md)（PR / Issue / Milestone） | `gh` CLI |
-| vault↔IDE 对照 | 看哪些待装 / 孤儿 | `py cli/sv.py sync --ide cursor --os windows` |
+| vault↔IDE 对照 | 看哪些待装 / 孤儿（仅比目录名） | `py cli/sv.py doctor --ide cursor --os windows` |
 | 上游更新 | 让 Agent 跑 sync 流程并展示 diff | `py cli/sv.py sync <name>\|--all` |
 
 ### 换机 / 日常安装
@@ -109,7 +109,8 @@ py cli/sv.py list
 py cli/sv.py list --category meta
 py cli/sv.py install <skill> --ide cursor --os windows
 py cli/sv.py install <skill> --ide claude-code --os linux
-py cli/sv.py sync --ide cursor --os windows   # pending / orphan / in_sync
+py cli/sv.py doctor --ide cursor --os windows   # pending / orphan / in_sync
+# vault 内容更新后：doctor 仍可能显示 in_sync（只比名字）→ 需 install --force
 
 # 项目级必须显式
 py cli/sv.py install <skill> --ide cursor --os windows \
@@ -117,7 +118,7 @@ py cli/sv.py install <skill> --ide cursor --os windows \
 ```
 
 3. 重载 Agent；必要时做触发抽检  
-
+   
 路径对照：[docs/ide-targets.md](docs/ide-targets.md)。完整换机清单：[docs/design/m3-sync-harden.md](docs/design/m3-sync-harden.md)。
 
 ### 收录公开 Skill
@@ -130,7 +131,7 @@ py cli/sv.py install <skill> --ide cursor --os windows \
 ### 上游更新
 
 AI 或 `sv sync <name>|--all` 重新拉取并给出 diff；**默认不覆盖**已审内容，确认后再 `--apply` / 开 PR。  
-（与 `sv sync --ide/--os` 的 vault↔IDE 对照不同。）
+vault↔IDE 有无对照用 `sv doctor`（勿与上游 `sv sync` 混淆）。
 
 ## 支持的 IDE 与 OS
 
