@@ -101,6 +101,7 @@ vault/own/<category>/<skill-name>/
 | 收录前安全扫描 | Gate B 必看报告 | `py cli/sv.py security-scan <path>` |
 | 本库 GitHub 操作 | 按 [`meta-skills/github-ops`](meta-skills/github-ops/SKILL.md)（PR / Issue / Milestone） | `gh` CLI |
 | vault↔IDE 对照 | 看哪些待装 / 孤儿（仅比目录名） | `py cli/sv.py doctor --ide cursor --os windows` |
+| 仓库+内容对比与更新提示 | 按 [`meta-skills/compare-skills`](meta-skills/compare-skills/SKILL.md)（远端对齐 + 指纹；plugin 算已装不维护版本） | `doctor` 仅名字；安装仍走 `install` |
 | 上游更新 | 让 Agent 跑 sync 流程并展示 diff | `py cli/sv.py sync <name>\|--all` |
 
 ### 换机 / 日常安装
