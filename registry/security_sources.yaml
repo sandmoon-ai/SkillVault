@@ -1,0 +1,30 @@
+# Pinned upstream sources for security rule maintenance (M5).
+# Watch job never auto-edits cli/security_rules.yaml — humans update last_seen via PR.
+sources:
+  - id: skillspector
+    url: https://api.github.com/repos/NVIDIA/SkillSpector/releases/latest
+    kind: github-release
+    track: tag_name
+    last_seen: v2.12.0
+    notes: Optional scanner integration reference; Apache-2.0
+
+  - id: gitleaks
+    url: https://api.github.com/repos/gitleaks/gitleaks/releases/latest
+    kind: github-release
+    track: tag_name
+    last_seen: v8.30.1
+    notes: Secret-pattern inspiration for cli/security_rules.yaml
+
+  - id: skillsafe-ruleset
+    url: https://skillsafe.ai/security/ruleset_v2026.06.12/
+    kind: pin
+    track: ruleset_v2026.06.12
+    last_seen: ruleset_v2026.06.12
+    notes: Public ruleset page; bump pin+URL together when adopting a newer ruleset
+
+  - id: owasp-ast10-checklist
+    url: https://raw.githubusercontent.com/OWASP/www-project-agentic-skills-top-10/main/checklist.md
+    kind: raw
+    track: sha256
+    last_seen: 5706f84be7b510838afc18da6c5c4e49d5a4e8d346e027db613c1342bf5a0f24
+    notes: OWASP Agentic Skills Top 10 checklist

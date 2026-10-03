@@ -1,6 +1,7 @@
 # 上游定时检知 + 自动 Issue
 
-**状态：** 设计已定；实现待做（建议在 M2 有 ≥1 条 registry 样例之后落地）  
+**状态：** 已实现（`sv watch upstream` + `.github/workflows/upstream-watch.yml`）  
+
 **关联：** [`cli/sync_cmd.py`](../../cli/sync_cmd.py)、[m2-import.md](./m2-import.md)、[ci.md](../ci.md)、[architecture.md](../architecture.md)
 
 > 与 [m3-sync-harden.md](./m3-sync-harden.md) 的「vault ↔ IDE 有无对照」不同：本文是 **上游 URL ↔ `vault/imported`** 的变更检知。
@@ -94,11 +95,11 @@ jobs:
 
 ## 5. 完成标准
 
-- [ ] Workflow 合入；仅 Ubuntu；无 artifact  
-- [ ] 空 registry 或全无 drift 时不产生 Issue  
-- [ ] 制造一条测试 drift（或 workflow_dispatch + 临时夹具）能开/更新 Issue  
-- [ ] [ci.md](../ci.md) 与 [status.md](../status.md) 已链到本文  
-- [ ] 成本卫生检查仍绿（若新增 workflow 触发规则）
+- [x] Workflow 合入；仅 Ubuntu；无 artifact  
+- [x] 空 registry 或全无 drift 时不产生 Issue（`publish_watch_issue` 看 `has_drift`）  
+- [x] 单测覆盖 change 检测；可用 `workflow_dispatch` 手工跑  
+- [x] [ci.md](../ci.md) 与 [status.md](../status.md) 已链到本文  
+- [x] 成本卫生检查仍绿（workflow 含 guard）
 
 ## 6. 非目标
 

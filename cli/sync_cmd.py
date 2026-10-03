@@ -15,15 +15,21 @@ def _dir_diff(left: Path, right: Path) -> list[str]:
     if not left.exists() or not right.exists():
         return ["<missing-side>"]
 
+    skip = {
+        "SOURCE.md",
+        "_skillvault_summary.json",
+        "_skillvault_security.json",
+        "_skillvault_security.md",
+    }
     left_files = {
         p.relative_to(left).as_posix()
         for p in left.rglob("*")
-        if p.is_file() and p.name not in {"SOURCE.md", "_skillvault_summary.json"}
+        if p.is_file() and p.name not in skip
     }
     right_files = {
         p.relative_to(right).as_posix()
         for p in right.rglob("*")
-        if p.is_file() and p.name not in {"SOURCE.md", "_skillvault_summary.json"}
+        if p.is_file() and p.name not in skip
     }
 
     for rel in sorted(left_files | right_files):
