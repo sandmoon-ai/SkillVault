@@ -68,7 +68,7 @@
 
 - [x] 路径：`vault/imported/engineering/<name>/`（B 子集 10 个；材料已落盘）
 - [x] `registry/sources.yaml` 已更新（每 skill 一条；ref `8ca22db`）
-- [ ] PR 链接：
+- [x] PR 链接：https://github.com/sandmoon-ai/SkillVault/pull/45
 - [x] 本地脚本测试绿（`pytest -k "brainstorming or systematic-debugging"`：3 passed）；CI 待 PR
 - [ ] **批准人签字/日期（人类）：** _______________
 
