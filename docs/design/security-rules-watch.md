@@ -1,6 +1,7 @@
 # 安全规则定期检知 + 自动 Issue
 
-**状态：** 设计已定；实现待做（建议在 `cli/security_rules.yaml` 与首版 scanner 落地之后）  
+**状态：** 已实现（`sv watch security-sources` + `.github/workflows/security-rules-watch.yml`）  
+
 **关联：** [import-security.md](./import-security.md)、[upstream-watch.md](./upstream-watch.md)、[ci.md](../ci.md)
 
 ## 1. 目标
@@ -128,11 +129,11 @@ jobs:
 
 ## 7. 完成标准
 
-- [ ] `security_sources.yaml` 钉扎 ≥3 个来源  
-- [ ] 定时/手动 workflow：无变化安静；有变化开/更新 Issue  
-- [ ] Issue 含「采纳勾选」模板；文档写明不自动改规则  
-- [ ] 成本卫生检查仍绿  
-- [ ] [import-security.md](./import-security.md) / [status.md](../status.md) 已链接  
+- [x] `security_sources.yaml` 钉扎 ≥3 个来源  
+- [x] 定时/手动 workflow：无变化安静；有变化开/更新 Issue  
+- [x] Issue 含下一步提示；文档写明不自动改规则  
+- [x] 成本卫生检查仍绿  
+- [x] [import-security.md](./import-security.md) / [status.md](../status.md) 已链接  
 
 ## 8. 非目标
 

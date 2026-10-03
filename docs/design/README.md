@@ -42,4 +42,4 @@ M1 单测与安装验收
 **M1 安装闭环：已完成**（2026-10-03）。  
 **M2 收录闭环：已完成**（2026-10-03；含 security-scan v1 + commit-generate 样例）。  
 **M3 Sync 与硬化：已完成**（2026-10-03；`sv sync --ide/--os`）。  
-其余里程碑（M4/M5 定时检知）按 Issue 推进。
+**M4 / M5 定时检知：已完成**（`sv watch upstream` / `security-sources` + Actions）。

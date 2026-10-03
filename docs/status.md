@@ -83,11 +83,11 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | Phase 1 安装闭环 | **已完成** | 见 [design/m1-install.md](./design/m1-install.md)；CLI 单测 + `list --category` + Windows 双 IDE / AI 通路验收（Issues #4–#8） |
 | Phase 2 收录闭环（门禁） | **已完成** | 样例 `vault/imported/engineering/commit-generate`；见 [design/m2-import.md](./design/m2-import.md) |
 | 收录前安全检查 | **v1 已完成** | `sv security-scan`；import 自动扫描；见 [design/import-security.md](./design/import-security.md) |
-| 安全规则定期检知 | **设计已定 / 实现待做** | 见 [design/security-rules-watch.md](./design/security-rules-watch.md)；Issue 收集，人决定采纳 |
 | Issue / Milestone 标准 | **设计已定** | 见 [design/issue-milestone-standard.md](./design/issue-milestone-standard.md)；模板在 `.github/ISSUE_TEMPLATE/` |
 | Phase 3 sync + 换机文档 | **已完成** | `sv sync --ide/--os` vault↔IDE 对照；见 [design/m3-sync-harden.md](./design/m3-sync-harden.md) |
-| 上游定时检知 + Issue | **设计已定 / 实现待做** | 见 [design/upstream-watch.md](./design/upstream-watch.md)；registry 有样例后再落地 |
-| Phase 4 硬化 | **部分完成** | Skill 脚本 pytest + CI 全量 `tests/` + 成本卫生 + Ruleset；CLI paths/install/list 单测已有 |
+| 上游定时检知 + Issue | **已完成** | `sv watch upstream` + weekly workflow；见 [design/upstream-watch.md](./design/upstream-watch.md) |
+| 安全规则定期检知 | **已完成** | `sv watch security-sources` + monthly workflow；见 [design/security-rules-watch.md](./design/security-rules-watch.md) |
+| Phase 4 硬化 | **基本完成** | 全量 tests CI、Ruleset、成本卫生、双 watch workflow |
 
 下一阶段执行顺序与非目标：[`docs/design/README.md`](./design/README.md)。
 

@@ -13,6 +13,12 @@ from cli.paths import list_ides
 from cli.ide_sync import compare_vault_to_ide, format_ide_sync_report
 from cli.security_scan import scan_tree, write_reports
 from cli.sync_cmd import sync_skills
+from cli.watch_security_sources import (
+    format_security_sources,
+    watch_security_sources,
+    write_security_json,
+)
+from cli.watch_upstream import format_upstream_watch, watch_upstream, write_upstream_json
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -148,6 +154,33 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     p_sync.set_defaults(func=cmd_sync)
 
+    p_watch = sub.add_parser(
+        "watch",
+        help="Scheduled watch helpers: upstream drift or security rule sources",
+    )
+    watch_sub = p_watch.add_subparsers(dest="watch_cmd", required=True)
+    p_watch_up = watch_sub.add_parser(
+        "upstream", help="Compare registry upstream vs vault/imported (no --apply)"
+    )
+    p_watch_up.add_argument(
+        "--json-out",
+        type=Path,
+        default=None,
+        help="Write machine-readable report JSON",
+    )
+    p_watch_up.set_defaults(func=cmd_watch_upstream)
+    p_watch_sec = watch_sub.add_parser(
+        "security-sources",
+        help="Fingerprint pinned security rule sources (no auto-edit)",
+    )
+    p_watch_sec.add_argument(
+        "--json-out",
+        type=Path,
+        default=None,
+        help="Write machine-readable report JSON",
+    )
+    p_watch_sec.set_defaults(func=cmd_watch_security_sources)
+
     return parser
 
 
@@ -229,6 +262,24 @@ def cmd_security_scan(args: argparse.Namespace) -> int:
     print(f"Report: {md_path}")
     print(f"JSON: {json_path}")
     return 0 if report.verdict != "FAIL" else 2
+
+
+def cmd_watch_upstream(args: argparse.Namespace) -> int:
+    report = watch_upstream(all_skills=True)
+    print(format_upstream_watch(report))
+    if args.json_out:
+        write_upstream_json(args.json_out, report)
+        print(f"JSON: {args.json_out}")
+    return 2 if report.has_drift else 0
+
+
+def cmd_watch_security_sources(args: argparse.Namespace) -> int:
+    report = watch_security_sources()
+    print(format_security_sources(report))
+    if args.json_out:
+        write_security_json(args.json_out, report)
+        print(f"JSON: {args.json_out}")
+    return 2 if report.has_changes else 0
 
 
 def cmd_sync(args: argparse.Namespace) -> int:
