@@ -177,15 +177,27 @@ def _find_skill_md(root: Path) -> Path | None:
     return matches[0] if matches else None
 
 
+def _json_safe(value: object) -> object:
+    """Make YAML-loaded values JSON-serializable (dates, nested maps, etc.)."""
+    if isinstance(value, dict):
+        return {str(k): _json_safe(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_json_safe(v) for v in value]
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+    return str(value)
+
+
 def _summarize(cache_dir: Path, skill_md: Path | None) -> dict:
     files = sorted(
         str(p.relative_to(cache_dir)).replace("\\", "/")
         for p in cache_dir.rglob("*")
         if p.is_file()
     )
-    meta = {}
+    meta: dict = {}
     if skill_md and skill_md.is_file():
-        meta, _ = read_frontmatter(skill_md)
+        raw_meta, _ = read_frontmatter(skill_md)
+        meta = _json_safe(raw_meta)  # type: ignore[assignment]
     scripts = [f for f in files if "/scripts/" in f or f.startswith("scripts/")]
     return {
         "files": files,
@@ -242,14 +254,18 @@ def import_from_url(
 
     summary = _summarize(cache_dir, skill_md if skill_md and skill_md.name == "SKILL.md" else None)
     summary_path = cache_dir / "_skillvault_summary.json"
-    summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    summary_path.write_text(
+        json.dumps(summary, indent=2, default=str), encoding="utf-8"
+    )
 
     scan_root = skill_md.parent if skill_md and skill_md.name == "SKILL.md" else cache_dir
     report = scan_tree(scan_root)
     write_reports(scan_root, report)
     summary["security_verdict"] = report.verdict
     summary["security_counts"] = report.counts
-    summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    summary_path.write_text(
+        json.dumps(summary, indent=2, default=str), encoding="utf-8"
+    )
 
     result = FetchResult(
         cache_dir=cache_dir,

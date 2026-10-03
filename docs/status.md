@@ -90,6 +90,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | Phase 4 硬化 | **基本完成** | 全量 tests CI、Ruleset、成本卫生、双 watch workflow |
 | M6 Gate hardening | **已完成** | Milestone 全部 Issue 已关；门禁硬化合入 |
 | 个人书系（L3） | **已定案** | 书系在私有仓 [`SkillVault-personal`](https://github.com/sandmoon-ai/SkillVault-personal)；公开仓不含 `from-book`；见 [design/personal-vault.md](./design/personal-vault.md) |
+| pm-skills 批量收录 | **进行中** | 68 个 Apache-2.0 Skill 自 [pm-skills](https://github.com/product-on-purpose/pm-skills) 进 `vault/imported`；溯源见 [design/skill-provenance.md](./design/skill-provenance.md) |
 
 下一阶段执行顺序与非目标：[`docs/design/README.md`](./design/README.md)。
 
