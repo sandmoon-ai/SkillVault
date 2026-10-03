@@ -1,6 +1,7 @@
 # 收录前安全检查（Import Security Scan）
 
-**状态：** 设计已定；实现待做  
+**状态：** v1 已实现（`sv security-scan`；`sv import` 自动扫描；`--apply` 遇 FAIL 默认拒绝）  
+
 **关联：** [m2-import.md](./m2-import.md)、[meta-skills/import-from-url](../../meta-skills/import-from-url/SKILL.md)、[architecture.md](../architecture.md)
 
 ## 1. 目标
@@ -103,11 +104,11 @@ Intent Gate B 勾选（见模板）：
 
 ## 8. 完成标准
 
-- [ ] 对 `.cache` 技能树可产出 JSON + MD 报告  
-- [ ] Gate B 材料含报告；模板勾选已更新  
-- [ ] `--apply` 在 FAIL 时默认拒绝  
-- [ ] 单测覆盖至少 1 个 PASS、1 个 FAIL 夹具  
-- [ ] [m2-import.md](./m2-import.md) / [status.md](../status.md) 已链到本文  
+- [x] 对 `.cache` 技能树可产出 JSON + MD 报告  
+- [x] Gate B 材料含报告；模板勾选已更新  
+- [x] `--apply` 在 FAIL 时默认拒绝  
+- [x] 单测覆盖至少 1 个 PASS、1 个 FAIL 夹具  
+- [x] [m2-import.md](./m2-import.md) / [status.md](../status.md) 已链到本文  
 
 ## 9. 非目标（v1）
 

@@ -139,6 +139,7 @@ def import_from_url(
     ref: str | None = None,
     apply: bool = False,
     accept_security_risks: bool = False,
+    category: str = "inbox",
 ) -> FetchResult:
     cache_id = hashlib.sha1(url.encode("utf-8")).hexdigest()[:12]
     cache_dir = CACHE_DIR / "import" / cache_id
@@ -205,7 +206,7 @@ def import_from_url(
                 name = skill_md.stem.replace("_", "-").lower()
             else:
                 raise ValueError("--apply requires --name when SKILL.md is missing")
-        apply_import(result, name=name, category="inbox")
+        apply_import(result, name=name, category=category or "inbox")
 
     return result
 
