@@ -1,0 +1,12 @@
+# Smoke for imported anthropics/skills web-artifacts-builder helpers.
+# Full project init/bundle needs a real app tree; here we only check early exits.
+tests:
+  - script: init-artifact.sh
+    platforms: [linux, macos]
+    expect_exit: 1
+    expect_stdout_contains: "Usage:"
+
+  - script: bundle-artifact.sh
+    platforms: [linux, macos]
+    expect_exit: 1
+    expect_stdout_contains: "No package.json found"

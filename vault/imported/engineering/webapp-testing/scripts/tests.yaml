@@ -1,0 +1,8 @@
+# Smoke for imported anthropics/skills webapp-testing helper.
+tests:
+  - script: with_server.py
+    platforms: [linux, macos, windows]
+    runner: python
+    args: ["--help"]
+    expect_exit: 0
+    expect_stdout_contains: "Run command with one or more servers"
