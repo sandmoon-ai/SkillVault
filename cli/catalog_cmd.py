@@ -233,10 +233,23 @@ def catalog_is_fresh(
     return True, "catalog up to date"
 
 
+def _vault_roots_aligned() -> bool:
+    """False when tests monkeypatch vault dirs outside REPO_ROOT."""
+    root = _repo_root().resolve()
+    for vault in (common.VAULT_OWN, common.VAULT_IMPORTED):
+        try:
+            vault.resolve().relative_to(root)
+        except ValueError:
+            return False
+    return True
+
+
 def refresh_catalog_after_mutation() -> None:
     """Best-effort regenerate after import/sync; never raises to callers."""
     try:
+        if not _vault_roots_aligned():
+            return
         write_catalog()
     except Exception:
-        # Tests often monkeypatch vault roots without a writable docs/ tree.
+        # Tests may omit a writable docs/ tree; real CLI paths should still work.
         pass
