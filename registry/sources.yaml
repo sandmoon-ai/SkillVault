@@ -591,3 +591,11 @@ skills:
   local: vault/imported/engineering/webapp-testing
   license: Apache-2.0
   last_synced: '2026-10-03T06:26:55Z'
+- name: internal-comms
+  url: https://github.com/anthropics/skills/tree/main/skills/internal-comms
+  ref: main
+  path: skills/internal-comms
+  category: deliver
+  local: vault/imported/deliver/internal-comms
+  license: Apache-2.0
+  last_synced: '2026-10-03T06:43:25Z'
