@@ -27,12 +27,15 @@
 ### 1.2 命名
 
 ```text
-M<序号> — <English short name>
+M<序号> - <English short name>
 ```
 
 - 序号与设计执行顺序一致（M1→M2→…）。  
 - 短名用英文（GitHub 列表清晰）；Description 可用中文。  
+- 标题用 **ASCII 连字符 `-`**（避免 em-dash `—` 在 API/部分环境下乱码）。  
 - **禁止**同一阶段多个 Milestone（如「M1a / M1 补充」）；追加工作进原 Milestone 的新 Issue。
+
+仓库中对应标题示例：`M1 - Install loop` … `M5 - Security rules watch`。
 
 ### 1.3 Description 必填结构
 
