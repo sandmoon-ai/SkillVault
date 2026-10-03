@@ -63,7 +63,8 @@ def sync_skills(names: list[str] | None, *, all_skills: bool = False, apply: boo
         url = entry["url"]
         ref = entry.get("ref") or "main"
         result = import_from_url(url, name=name, ref=ref, apply=False)
-        local = VAULT_IMPORTED / name
+        category = entry.get("category") or "inbox"
+        local = VAULT_IMPORTED / category / name
         diffs = _dir_diff(result.cache_dir, local) if local.exists() else ["new-skill"]
         report = [f"## {name}", f"cache: {result.cache_dir}", f"diff count: {len(diffs)}"]
         report.extend(f"  - {d}" for d in diffs[:50])

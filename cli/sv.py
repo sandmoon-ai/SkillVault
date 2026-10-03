@@ -90,8 +90,9 @@ def cmd_list(_: argparse.Namespace) -> int:
     if not skills:
         print("No skills in vault.")
         return 0
-    for name, path, origin in skills:
-        print(f"{name}\t{origin}\t{path}")
+    print("name\tcategory\torigin\tpath")
+    for name, path, origin, category in skills:
+        print(f"{name}\t{category}\t{origin}\t{path}")
     return 0
 
 

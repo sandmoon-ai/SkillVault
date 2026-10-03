@@ -6,12 +6,15 @@ description: >-
 license: MIT
 compatibility: linux, windows
 metadata:
+  category: meta
+  tags: [smoke, skillvault]
   vault: own
 ---
 
 # Hello SkillVault
 
-Conforms to [Agent Skills](https://agentskills.io/specification).
+Conforms to [Agent Skills](https://agentskills.io/specification).  
+Vault path: `vault/own/meta/hello-skillvault/`（类目见 `docs/taxonomy.md`）。
 
 ## When to use
 
@@ -20,8 +23,8 @@ Conforms to [Agent Skills](https://agentskills.io/specification).
 
 ## Steps
 
-1. Confirm this file exists under the target IDE skills directory as `hello-skillvault/SKILL.md`.
-2. Confirm `SOURCE.md` is **not** present (install must exclude vault provenance files).
+1. Confirm this file exists under the target IDE skills directory as `hello-skillvault/SKILL.md`（IDE 侧扁平，无 category 前缀）。
+2. Confirm `SOURCE.md` / `tests.yaml` are **not** required in the IDE copy.
 3. On Linux/macOS, optional helper: `scripts/hello.sh`
 4. On Windows, optional helper: `scripts/hello.ps1`
 5. Script tests: `scripts/tests.yaml` — run `py -m pytest tests/test_skill_scripts.py -k hello-skillvault`

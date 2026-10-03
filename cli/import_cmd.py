@@ -18,6 +18,7 @@ from cli.common import (
     dump_yaml,
     load_yaml,
     read_frontmatter,
+    validate_category,
     validate_skill_name,
 )
 
@@ -194,14 +195,15 @@ def import_from_url(
                 name = skill_md.stem.replace("_", "-").lower()
             else:
                 raise ValueError("--apply requires --name when SKILL.md is missing")
-        apply_import(result, name=name)
+        apply_import(result, name=name, category="inbox")
 
     return result
 
 
-def apply_import(result: FetchResult, *, name: str) -> Path:
+def apply_import(result: FetchResult, *, name: str, category: str = "inbox") -> Path:
     validate_skill_name(name)
-    dest = VAULT_IMPORTED / name
+    validate_category(category)
+    dest = VAULT_IMPORTED / category / name
     if dest.exists():
         shutil.rmtree(dest)
     dest.mkdir(parents=True)
@@ -260,6 +262,7 @@ def apply_import(result: FetchResult, *, name: str) -> Path:
         path=result.upstream_path,
         license_name="unknown",
         last_synced=now,
+        category=category,
     )
     return dest
 
@@ -272,6 +275,7 @@ def _upsert_registry(
     path: str | None,
     license_name: str,
     last_synced: str,
+    category: str = "inbox",
 ) -> None:
     data = load_yaml(REGISTRY_PATH)
     skills = list(data.get("skills") or [])
@@ -280,7 +284,8 @@ def _upsert_registry(
         "url": url,
         "ref": ref,
         "path": path,
-        "local": f"vault/imported/{name}",
+        "category": category,
+        "local": f"vault/imported/{category}/{name}",
         "license": license_name,
         "last_synced": last_synced,
     }

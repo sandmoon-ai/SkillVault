@@ -24,11 +24,11 @@ description: >-
 
 ```text
 Install Progress:
-- [ ] 1. 列出 vault 中可选 Skill（读 vault/own、vault/imported）
+- [ ] 1. 列出 vault 中可选 Skill（`vault/{own,imported}/<category>/<skill>/`）
 - [ ] 2. 确认 skill 名、IDE、OS；项目级则再要 project-root
 - [ ] 3. 读 adapters/targets.yaml，解析目标目录
 - [ ] 4. 向用户复述将写入的绝对路径，等人确认（Gate）
-- [ ] 5. 复制 Skill 目录到目标/<skill-name>/（排除 SOURCE.md）
+- [ ] 5. 复制到目标/<skill-name>/（IDE 侧扁平，不带 category）
 - [ ] 6. 按 adapters/frontmatter.yaml 裁剪目标侧 SKILL.md frontmatter（可选但推荐）
 - [ ] 7. 回报结果；建议重载 Agent；可选触发抽检
 ```
@@ -38,16 +38,17 @@ Install Progress:
 1. 打开 [`adapters/targets.yaml`](../../adapters/targets.yaml)
 2. 取 `ides.<ide>.<scope>.<os>` 模板
 3. 展开 `{home}` → 当前用户主目录；`{project_root}` → 用户给出的根
-4. 最终目录 = `解析后的路径 / <skill-name>`
+4. 最终目录 = `解析后的路径 / <skill-name>`（**不要**拼接 category）
 
-路径对照也可看 [`docs/ide-targets.md`](../../docs/ide-targets.md)。
+路径对照也可看 [`docs/ide-targets.md`](../../docs/ide-targets.md)。  
+类目约定见 [`docs/taxonomy.md`](../../docs/taxonomy.md)。
 
 `--ide` 取值：`cursor` | `claude-code` | `codex` | `copilot` | `pi` | `opencode`
 
 ### 复制规则
 
-- 源：`vault/own/<name>/` 或 `vault/imported/<name>/`（own 优先）
-- 排除：`SOURCE.md` 及仓库内部占位文件
+- 源：`vault/own/<category>/<name>/` 或 `vault/imported/<category>/<name>/`（own 优先；也可用 `py cli/sv.py list`）
+- 排除：`SOURCE.md`、`tests.yaml`、占位文件
 - 目标已存在：先说明将覆盖，**等人确认**后再覆盖（对齐 CLI 的 `--force` 语义）
 - 不要发明第二套路径约定
 

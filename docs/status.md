@@ -42,7 +42,8 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | CI | `.github/workflows/ci.yml`（pytest + 成本卫生检查） |
 | Artifact 月度清理 | `.github/workflows/actions-storage-cleanup.yml` |
 | 成本卫生脚本 | `.github/scripts/check_actions_cost_hygiene.py` |
-| 示例 Skill + 脚本测试 | `vault/own/hello-skillvault/`、`tests/test_skill_scripts.py` |
+| 示例 Skill + 脚本测试 | `vault/own/meta/hello-skillvault/`、`tests/test_skill_scripts.py` |
+| Skill 分类约定 | `docs/taxonomy.md`（阶段类目 + tags）；安装到 IDE 仍扁平 |
 | 包装与依赖 | `pyproject.toml` |
 | Frontmatter 适配表 | `adapters/frontmatter.yaml` |
 
@@ -97,6 +98,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | 文档 | 内容 |
 |------|------|
 | [architecture.md](./architecture.md) | 格式标准、边界、产物链、双通路、治理 |
+| [taxonomy.md](./taxonomy.md) | Skill 类目（阶段）+ 标签 |
 | [ide-targets.md](./ide-targets.md) | 六 IDE 用户/项目路径 |
 | [script-testing.md](./script-testing.md) | Skill 脚本测试规范 |
 | [ci.md](./ci.md) | CI 概念、用法、成本防护、**已启用的 Ruleset** |

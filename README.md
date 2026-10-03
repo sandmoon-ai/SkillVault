@@ -58,28 +58,30 @@ install --ide --os   （默认用户级）
 
 ```text
 SkillVault/
-├── docs/                    # 架构与 IDE 路径说明
-├── adapters/                # ide × os × scope 路径与 frontmatter 适配
-├── registry/sources.yaml    # 已收录上游索引
-├── intents/                 # 收录意图（intent-import 产物）
+├── docs/                         # 含 taxonomy（分类）
+├── adapters/
+├── registry/                     # sources + catalog
+├── intents/
 ├── vault/
-│   ├── own/                 # 自建 Skill
-│   └── imported/            # 公开源转化结果（经门禁）
-├── meta-skills/             # AI 一等通路（import / install）
-├── cli/                     # CLI 等价通路
-└── .cache/                  # 本地缓存（不提交）
+│   ├── own/<category>/<skill>/   # 自建（按工作阶段分类）
+│   └── imported/<category>/...   # 收录（默认先 inbox）
+├── meta-skills/                  # AI 一等通路
+├── cli/
+└── .cache/
 ```
 
 单个 Skill 包（[agentskills.io](https://agentskills.io/specification)）：
 
 ```text
-<skill-name>/          # 目录名 = name
-├── SKILL.md           # 必需
-├── scripts/           # 可选
-├── references/        # 可选
-├── assets/            # 可选
-└── SOURCE.md          # 仅 vault/imported 溯源；安装时不拷贝
+vault/own/<category>/<skill-name>/
+├── SKILL.md           # 必需；metadata.category 与目录一致
+├── scripts/           # 可选 + tests.yaml
+├── references/
+├── assets/
+└── SOURCE.md          # 仅 imported；安装时不拷贝
 ```
+
+分类约定：[docs/taxonomy.md](docs/taxonomy.md)。安装到 IDE 时仍是扁平的 `<skill-name>/`。
 
 ## 使用概览：AI 与 CLI 双通路
 
@@ -146,6 +148,7 @@ AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，
 | 文档 | 内容 |
 |------|------|
 | [docs/status.md](docs/status.md) | **现状整理**：原则、已落地项、进度 |
+| [docs/taxonomy.md](docs/taxonomy.md) | Skill 类目（阶段）+ 标签 |
 | [docs/architecture.md](docs/architecture.md) | 格式标准、边界、产物链、双通路、治理 |
 | [docs/ide-targets.md](docs/ide-targets.md) | 各 IDE 用户级 / 项目级路径 |
 | [docs/script-testing.md](docs/script-testing.md) | Skill 脚本测试硬性规范 |
