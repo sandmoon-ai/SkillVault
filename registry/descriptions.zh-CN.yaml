@@ -16,6 +16,7 @@ descriptions:
   internal-comms: 按公司常用格式撰写内部沟通：3P 更新、周报、领导同步、项目进展、事故通报、FAQ、内刊等。
   canvas-design: 按设计哲学创作海报/视觉作品（png/pdf）。用户要做海报、静态视觉或艺术表达时使用。
   frontend-design: 指导有辨识度、有意图的 UI 视觉方向：审美、字体与差异化，避免千篇一律的默认风。
+  ui-ux-pro-max: 可检索的 UI/UX 设计智能（风格/配色/字体/落地页模式/交付检查）；含本地设计系统生成脚本。与 frontend-design 互补，不做纯后端。
   theme-factory: 为幻灯片/文档/报告/落地页等套用主题；内置约 10 套配色与字体主题。
   web-artifacts-builder: 用 React/Tailwind/shadcn 搭建复杂多组件 HTML artifact（偏 claude.ai 产物）。
   discover-competitive-analysis: 结构化竞品分析：功能/定价/定位对比（3–5 家）、2x2 图与行动建议。

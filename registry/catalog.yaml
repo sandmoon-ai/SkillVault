@@ -1,13 +1,13 @@
 generated_by: py cli/sv.py catalog
-generated_at: '2026-10-03T07:05:03Z'
+generated_at: '2026-10-03T09:33:35Z'
 counts:
-  total: 76
+  total: 77
   own: 1
-  imported: 75
+  imported: 76
   by_category:
     define: 5
     deliver: 7
-    design: 4
+    design: 5
     discover: 5
     engineering: 6
     foundation: 11
@@ -197,6 +197,22 @@ skills:
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/theme-factory
+- name: ui-ux-pro-max
+  category: design
+  origin: imported
+  path: vault/imported/design/ui-ux-pro-max
+  description: UI/UX design intelligence for web, mobile, and desktop. Use when designing,
+    building, reviewing, or fixing interfaces (pages, components, design systems,
+    acces…
+  description_zh: 可检索的 UI/UX 设计智能（风格/配色/字体/落地页模式/交付检查）；含本地设计系统生成脚本。与 frontend-design
+    互补，不做纯后端。
+  license: MIT
+  tags:
+  - ui
+  - ux
+  - design-system
+  - has-scripts
+  upstream: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/main/.claude/skills/ui-ux-pro-max
 - name: web-artifacts-builder
   category: design
   origin: imported

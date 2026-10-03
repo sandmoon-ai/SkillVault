@@ -583,6 +583,14 @@ skills:
   local: vault/imported/design/web-artifacts-builder
   license: Apache-2.0
   last_synced: '2026-10-03T06:26:55Z'
+- name: ui-ux-pro-max
+  url: https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/tree/main/.claude/skills/ui-ux-pro-max
+  ref: 09170eec67eefd46a7ae85de61b40c194020f997
+  path: .claude/skills/ui-ux-pro-max
+  category: design
+  local: vault/imported/design/ui-ux-pro-max
+  license: MIT
+  last_synced: '2026-10-03T09:32:00Z'
 - name: webapp-testing
   url: https://github.com/anthropics/skills/tree/main/skills/webapp-testing
   ref: main

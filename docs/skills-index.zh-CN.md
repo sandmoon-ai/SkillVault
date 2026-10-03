@@ -2,8 +2,8 @@
 
 > 由 `py cli/sv.py catalog` **自动生成**，请勿手改。真相源是 `vault/**/SKILL.md`；机器可读见 [`registry/catalog.yaml`](../registry/catalog.yaml)；中文简介词条维护于 [`registry/descriptions.zh-CN.yaml`](../registry/descriptions.zh-CN.yaml)。英文版：[skills-index.md](./skills-index.md)。
 
-- 生成时间（UTC）：`2026-10-03T07:05:03Z`
-- 合计：**76**（自建 1 / 收录 75）
+- 生成时间（UTC）：`2026-10-03T09:33:35Z`
+- 合计：**77**（自建 1 / 收录 76）
 
 ## 按类目
 
@@ -11,7 +11,7 @@
 |------|------|-----:|
 | `define` | 定义 | 5 |
 | `deliver` | 交付 | 7 |
-| `design` | 设计 | 4 |
+| `design` | 设计 | 5 |
 | `discover` | 发现 / 调研 | 5 |
 | `engineering` | 工程 | 6 |
 | `foundation` | 立项 / 基础 | 11 |
@@ -47,6 +47,7 @@
 | [`canvas-design`](../vault/imported/design/canvas-design/) | Apache-2.0 | 按设计哲学创作海报/视觉作品（png/pdf）。用户要做海报、静态视觉或艺术表达时使用。 |
 | [`frontend-design`](../vault/imported/design/frontend-design/) | Apache-2.0 | 指导有辨识度、有意图的 UI 视觉方向：审美、字体与差异化，避免千篇一律的默认风。 |
 | [`theme-factory`](../vault/imported/design/theme-factory/) | Apache-2.0 | 为幻灯片/文档/报告/落地页等套用主题；内置约 10 套配色与字体主题。 |
+| [`ui-ux-pro-max`](../vault/imported/design/ui-ux-pro-max/) | MIT | 可检索的 UI/UX 设计智能（风格/配色/字体/落地页模式/交付检查）；含本地设计系统生成脚本。与 frontend-design 互补，不做纯后端。 |
 | [`web-artifacts-builder`](../vault/imported/design/web-artifacts-builder/) | Apache-2.0 | 用 React/Tailwind/shadcn 搭建复杂多组件 HTML artifact（偏 claude.ai 产物）。 |
 ### 发现 / 调研（`discover`）
 
