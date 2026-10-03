@@ -73,21 +73,21 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 - `cli/`（Python CLI 草稿：list/install/import/sync）
 - `docs/design/`（M1–M3 设计说明；实现与验收按各篇勾选）
 
-> CLI 已能支撑双通路中的脚本侧；M1–M3 **设计已定**，实现与实机验收见 `docs/design/`。
+> CLI 双通路可用；**M1 安装闭环已完成**。M2–M5 见 `docs/design/` 与 GitHub Milestones。
 
 ## 4. 推进进度（相对计划）
 
 | 阶段 | 状态 | 备注 |
 |------|------|------|
 | Phase 0 文档与产物链 / agentskills 规范 | **基本完成** | architecture / README / meta-skills / 脚本测试规范 |
-| Phase 1 安装闭环 | **设计已定 / 实现待做** | 见 [design/m1-install.md](./design/m1-install.md) |
+| Phase 1 安装闭环 | **已完成** | 见 [design/m1-install.md](./design/m1-install.md)；CLI 单测 + `list --category` + Windows 双 IDE / AI 通路验收（Issues #4–#8） |
 | Phase 2 收录闭环（门禁） | **设计已定 / 样例待做** | 见 [design/m2-import.md](./design/m2-import.md)；模板 `intents/_template-import.md` |
 | 收录前安全检查 | **设计已定 / 实现待做** | 见 [design/import-security.md](./design/import-security.md)；Gate B 必看报告 |
 | 安全规则定期检知 | **设计已定 / 实现待做** | 见 [design/security-rules-watch.md](./design/security-rules-watch.md)；Issue 收集，人决定采纳 |
 | Issue / Milestone 标准 | **设计已定** | 见 [design/issue-milestone-standard.md](./design/issue-milestone-standard.md)；模板在 `.github/ISSUE_TEMPLATE/` |
 | Phase 3 sync + 换机文档 | **设计已定 / 硬化待做** | 见 [design/m3-sync-harden.md](./design/m3-sync-harden.md) |
 | 上游定时检知 + Issue | **设计已定 / 实现待做** | 见 [design/upstream-watch.md](./design/upstream-watch.md)；registry 有样例后再落地 |
-| Phase 4 硬化 | **部分完成** | Skill 脚本 pytest + CI + 成本卫生 + Ruleset；CLI 单测仍缺 |
+| Phase 4 硬化 | **部分完成** | Skill 脚本 pytest + CI 全量 `tests/` + 成本卫生 + Ruleset；CLI paths/install/list 单测已有 |
 
 下一阶段执行顺序与非目标：[`docs/design/README.md`](./design/README.md)。
 
