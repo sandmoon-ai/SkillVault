@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import filecmp
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
@@ -39,9 +38,26 @@ def _dir_diff(left: Path, right: Path) -> list[str]:
             diffs.append(f"only-in-cache: {rel}")
         elif not rp.exists():
             diffs.append(f"only-in-vault: {rel}")
-        elif not filecmp.cmp(lp, rp, shallow=False):
+        elif not _files_equal(lp, rp):
             diffs.append(f"changed: {rel}")
     return diffs
+
+
+def _files_equal(left: Path, right: Path) -> bool:
+    """Byte-compare; for text, ignore CRLF vs LF to avoid Windows false drift."""
+    try:
+        lb = left.read_bytes()
+        rb = right.read_bytes()
+    except OSError:
+        return False
+    if lb == rb:
+        return True
+    # Heuristic: treat as text if no NUL in either
+    if b"\x00" in lb[:8192] or b"\x00" in rb[:8192]:
+        return False
+    return lb.replace(b"\r\n", b"\n").replace(b"\r", b"\n") == rb.replace(
+        b"\r\n", b"\n"
+    ).replace(b"\r", b"\n")
 
 
 def sync_skills(names: list[str] | None, *, all_skills: bool = False, apply: bool = False) -> list[str]:
