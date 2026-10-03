@@ -2,8 +2,8 @@
 
 > 由 `py cli/sv.py catalog` **自动生成**，请勿手改。真相源是 `vault/**/SKILL.md`；机器可读见 [`registry/catalog.yaml`](../registry/catalog.yaml)；中文简介词条维护于 [`registry/descriptions.zh-CN.yaml`](../registry/descriptions.zh-CN.yaml)。英文版：[skills-index.md](./skills-index.md)。
 
-- 生成时间（UTC）：`2026-10-03T09:33:35Z`
-- 合计：**77**（自建 1 / 收录 76）
+- 生成时间（UTC）：`2026-10-03T12:32:53Z`
+- 合计：**87**（自建 1 / 收录 86）
 
 ## 按类目
 
@@ -13,7 +13,7 @@
 | `deliver` | 交付 | 7 |
 | `design` | 设计 | 5 |
 | `discover` | 发现 / 调研 | 5 |
-| `engineering` | 工程 | 6 |
+| `engineering` | 工程 | 16 |
 | `foundation` | 立项 / 基础 | 11 |
 | `meta` | 元工具 | 28 |
 | `ops` | 运营 / 度量 | 10 |
@@ -62,12 +62,22 @@
 
 | 名称 | 许可 | 用途（中文） |
 |------|------|--------------|
+| [`brainstorming`](../vault/imported/engineering/brainstorming/) | MIT | 创意/功能动手前先对齐意图与设计；通过对话收敛需求并拿到认可后再实现。 |
 | [`commit-generate`](../vault/imported/engineering/commit-generate/) | MIT | 根据已暂存改动生成中英双语 Conventional Commit 信息。 |
 | [`develop-adr`](../vault/imported/engineering/develop-adr/) | Apache-2.0 | 按 Nygard 格式写架构决策记录（ADR）：上下文、决策与后果。 |
 | [`develop-design-rationale`](../vault/imported/engineering/develop-design-rationale/) | Apache-2.0 | 记录设计决策理由：备选方案、权衡与原则。用于重大 UX/设计取舍。 |
 | [`develop-solution-brief`](../vault/imported/engineering/develop-solution-brief/) | Apache-2.0 | 一页纸方案概述：路径、关键决策与权衡。用于向干系人推销方案。 |
 | [`develop-spike-summary`](../vault/imported/engineering/develop-spike-summary/) | Apache-2.0 | 总结技术/设计 spike：问题、方法、证据与是否继续的结论。 |
+| [`executing-plans`](../vault/imported/engineering/executing-plans/) | MIT | 在当前会话按计划逐步执行（非每任务子代理）；适合内联落地。 |
+| [`finishing-a-development-branch`](../vault/imported/engineering/finishing-a-development-branch/) | MIT | 实现与测试通过后决定合并/开 PR/保留/丢弃并清理 worktree。 |
+| [`receiving-code-review`](../vault/imported/engineering/receiving-code-review/) | MIT | 收到码评后先核实再改，避免表演式同意或盲从。 |
+| [`requesting-code-review`](../vault/imported/engineering/requesting-code-review/) | MIT | 任务完成或合并前请求码评；按严重级别处理反馈。 |
+| [`systematic-debugging`](../vault/imported/engineering/systematic-debugging/) | MIT | 遇 bug/失败时先查根因再改；禁止无根因的症状式修补。 |
+| [`test-driven-development`](../vault/imported/engineering/test-driven-development/) | MIT | 实现功能或修 bug 前先写失败测试，再最小实现通过（红绿重构）。 |
+| [`using-git-worktrees`](../vault/imported/engineering/using-git-worktrees/) | MIT | 需要隔离工作区时用原生工具或 git worktree 建干净环境。 |
+| [`verification-before-completion`](../vault/imported/engineering/verification-before-completion/) | MIT | 声称完成/通过前必须跑验证命令并出示证据。 |
 | [`webapp-testing`](../vault/imported/engineering/webapp-testing/) | Apache-2.0 | 用 Playwright 测本地 Web 应用：功能验证、UI 调试与浏览器自动化。 |
+| [`writing-plans`](../vault/imported/engineering/writing-plans/) | MIT | 有规格后、动代码前：把工作拆成可独立验证的小任务实现计划。 |
 ### 立项 / 基础（`foundation`）
 
 | 名称 | 许可 | 用途（中文） |

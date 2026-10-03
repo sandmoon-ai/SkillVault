@@ -1,15 +1,15 @@
 generated_by: py cli/sv.py catalog
-generated_at: '2026-10-03T09:33:35Z'
+generated_at: '2026-10-03T12:32:53Z'
 counts:
-  total: 77
+  total: 87
   own: 1
-  imported: 76
+  imported: 86
   by_category:
     define: 5
     deliver: 7
     design: 5
     discover: 5
-    engineering: 6
+    engineering: 16
     foundation: 11
     meta: 28
     ops: 10
@@ -289,6 +289,21 @@ skills:
   - pm-skills
   - apache-2.0
   upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/discover-stakeholder-summary
+- name: brainstorming
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/brainstorming
+  description: You MUST use this before any creative work - creating features, building
+    components, adding functionality, or modifying behavior. Explores user intent,
+    require…
+  description_zh: 创意/功能动手前先对齐意图与设计；通过对话收敛需求并拿到认可后再实现。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - design
+  - has-scripts
+  upstream: https://github.com/obra/superpowers/tree/main/skills/brainstorming
 - name: commit-generate
   category: engineering
   origin: imported
@@ -354,6 +369,117 @@ skills:
   - pm-skills
   - apache-2.0
   upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/develop-spike-summary
+- name: executing-plans
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/executing-plans
+  description: Use when executing an implementation plan in the current session as
+    the implementer yourself — your human partner chose inline execution, or no subagent
+    tool i…
+  description_zh: 在当前会话按计划逐步执行（非每任务子代理）；适合内联落地。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - implementation
+  upstream: https://github.com/obra/superpowers/tree/main/skills/executing-plans
+- name: finishing-a-development-branch
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/finishing-a-development-branch
+  description: Use when implementation is complete, all tests pass, and you need to
+    decide how to integrate the work
+  description_zh: 实现与测试通过后决定合并/开 PR/保留/丢弃并清理 worktree。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - git
+  - pr
+  upstream: https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch
+- name: receiving-code-review
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/receiving-code-review
+  description: Use when receiving code review feedback, before implementing suggestions,
+    especially if feedback seems unclear or technically questionable - requires technical…
+  description_zh: 收到码评后先核实再改，避免表演式同意或盲从。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - code-review
+  upstream: https://github.com/obra/superpowers/tree/main/skills/receiving-code-review
+- name: requesting-code-review
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/requesting-code-review
+  description: Use when completing tasks, implementing major features, or before merging
+    to verify work meets requirements
+  description_zh: 任务完成或合并前请求码评；按严重级别处理反馈。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - code-review
+  upstream: https://github.com/obra/superpowers/tree/main/skills/requesting-code-review
+- name: systematic-debugging
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/systematic-debugging
+  description: Use when encountering any bug, test failure, or unexpected behavior,
+    before proposing fixes
+  description_zh: 遇 bug/失败时先查根因再改；禁止无根因的症状式修补。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - debugging
+  - has-scripts
+  upstream: https://github.com/obra/superpowers/tree/main/skills/systematic-debugging
+- name: test-driven-development
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/test-driven-development
+  description: Use when implementing any feature or bugfix, before writing implementation
+    code
+  description_zh: 实现功能或修 bug 前先写失败测试，再最小实现通过（红绿重构）。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - tdd
+  - testing
+  upstream: https://github.com/obra/superpowers/tree/main/skills/test-driven-development
+- name: using-git-worktrees
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/using-git-worktrees
+  description: Use when starting feature work that needs isolation from current workspace
+    or before executing implementation plans - ensures an isolated workspace exists
+    via…
+  description_zh: 需要隔离工作区时用原生工具或 git worktree 建干净环境。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - git
+  - worktree
+  upstream: https://github.com/obra/superpowers/tree/main/skills/using-git-worktrees
+- name: verification-before-completion
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/verification-before-completion
+  description: Use when about to claim work is complete, fixed, or passing, before
+    committing or creating PRs - requires running verification commands and confirming
+    output b…
+  description_zh: 声称完成/通过前必须跑验证命令并出示证据。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - verification
+  upstream: https://github.com/obra/superpowers/tree/main/skills/verification-before-completion
 - name: webapp-testing
   category: engineering
   origin: imported
@@ -365,6 +491,19 @@ skills:
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/webapp-testing
+- name: writing-plans
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/writing-plans
+  description: Use when you have a spec or requirements for a multi-step task, before
+    touching code
+  description_zh: 有规格后、动代码前：把工作拆成可独立验证的小任务实现计划。
+  license: MIT
+  tags:
+  - superpowers
+  - sdlc
+  - planning
+  upstream: https://github.com/obra/superpowers/tree/main/skills/writing-plans
 - name: foundation-build-risk-review
   category: foundation
   origin: imported
