@@ -88,7 +88,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | 上游定时检知 + Issue | **已完成** | `sv watch upstream` + weekly workflow；见 [design/upstream-watch.md](./design/upstream-watch.md) |
 | 安全规则定期检知 | **已完成** | `sv watch security-sources` + monthly workflow；见 [design/security-rules-watch.md](./design/security-rules-watch.md) |
 | Phase 4 硬化 | **基本完成** | 全量 tests CI、Ruleset、成本卫生、双 watch workflow |
-| M6 Gate hardening | **进行中** | P0 #23–#25 已合入；本批 #26/#27/#28/#31（转化、doctor、真人签字、force 文档）；见 [Milestone M6](https://github.com/sandmoon-ai/SkillVault/milestone/6) |
+| M6 Gate hardening | **进行中** | 见 [Milestone M6](https://github.com/sandmoon-ai/SkillVault/milestone/6)；P0 #23–#25 已合入；#26/#27/#28/#31（doctor 等）在本 PR；书系 own Skill 已迁入（`from-book`，#32） |
 
 下一阶段执行顺序与非目标：[`docs/design/README.md`](./design/README.md)。
 
