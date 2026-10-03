@@ -10,6 +10,7 @@ from cli.common import KNOWN_CATEGORIES, iter_vault_skills, validate_category
 from cli.import_cmd import apply_import, import_from_url, print_import_summary
 from cli.install_cmd import install_skills
 from cli.paths import list_ides
+from cli.security_scan import scan_tree, write_reports
 from cli.sync_cmd import sync_skills
 
 
@@ -78,7 +79,23 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Copy into vault/imported and update registry (raw; prefer AI conversion)",
     )
+    p_import.add_argument(
+        "--accept-security-risks",
+        action="store_true",
+        help="Allow --apply when security verdict is FAIL (Gate B must document acceptance)",
+    )
     p_import.set_defaults(func=cmd_import)
+
+    p_scan = sub.add_parser(
+        "security-scan",
+        help="Scan a skill directory or import cache for security findings",
+    )
+    p_scan.add_argument(
+        "path",
+        type=Path,
+        help="Path to skill root (contains SKILL.md) or import cache dir",
+    )
+    p_scan.set_defaults(func=cmd_security_scan)
 
     p_sync = sub.add_parser("sync", help="Re-fetch registered upstream skills")
     p_sync.add_argument("skills", nargs="*", help="Skill name(s)")
@@ -140,6 +157,7 @@ def cmd_import(args: argparse.Namespace) -> int:
         name=args.name,
         ref=args.ref,
         apply=args.apply,
+        accept_security_risks=args.accept_security_risks,
     )
     print(print_import_summary(result))
     if args.apply:
@@ -148,6 +166,22 @@ def cmd_import(args: argparse.Namespace) -> int:
             pass
         print(f"Applied to vault/imported/{args.name or '(from frontmatter)'}")
     return 0
+
+
+def cmd_security_scan(args: argparse.Namespace) -> int:
+    root = args.path.expanduser().resolve()
+    if not root.exists():
+        raise FileNotFoundError(f"Path not found: {root}")
+    report = scan_tree(root)
+    json_path, md_path = write_reports(root, report)
+    print(f"Verdict: {report.verdict}")
+    print(
+        f"Counts: critical={report.counts.get('critical', 0)} "
+        f"warn={report.counts.get('warn', 0)} info={report.counts.get('info', 0)}"
+    )
+    print(f"Report: {md_path}")
+    print(f"JSON: {json_path}")
+    return 0 if report.verdict != "FAIL" else 2
 
 
 def cmd_sync(args: argparse.Namespace) -> int:

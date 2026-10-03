@@ -23,6 +23,9 @@ sv = "cli.sv:main"
 [tool.setuptools.packages.find]
 include = ["cli*"]
 
+[tool.setuptools.package-data]
+cli = ["*.yaml"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]

@@ -92,7 +92,8 @@ vault/own/<category>/<skill-name>/
 | 场景 | AI 通路（推荐日常） | CLI 通路 |
 |------|---------------------|----------|
 | 安装到本机 IDE | 打开本仓库，让 Agent 按 [`meta-skills/install`](meta-skills/install/SKILL.md) 执行 | `py cli/sv.py install ...` |
-| 收录公开 Skill | 给出 URL，按 [`meta-skills/import-from-url`](meta-skills/import-from-url/SKILL.md) | `py cli/sv.py import <url>`（只进 cache）+ AI 转化 |
+| 收录公开 Skill | 给出 URL，按 [`meta-skills/import-from-url`](meta-skills/import-from-url/SKILL.md) | `py cli/sv.py import <url>`（只进 cache + 安全扫描）+ AI 转化 |
+| 收录前安全扫描 | Gate B 必看报告 | `py cli/sv.py security-scan <path>` |
 | 本库 GitHub 操作 | 按 [`meta-skills/github-ops`](meta-skills/github-ops/SKILL.md)（PR / Issue / Milestone） | `gh` CLI |
 | 上游更新 | 让 Agent 跑 sync 流程并展示 diff | `py cli/sv.py sync ...` |
 

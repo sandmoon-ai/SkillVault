@@ -1,0 +1,129 @@
+# SkillVault import security rules (v1)
+# Spec: docs/design/import-security.md
+version: "1.0.0"
+
+limits:
+  max_file_bytes: 524288      # 512 KiB
+  max_files: 200
+  max_tree_bytes: 5242880     # 5 MiB
+
+text_extensions:
+  - .md
+  - .txt
+  - .yml
+  - .yaml
+  - .json
+  - .py
+  - .sh
+  - .ps1
+  - .js
+  - .ts
+  - .toml
+  - .cfg
+  - .ini
+  - .html
+  - .css
+  - .svg
+
+image_extensions:
+  - .png
+  - .jpg
+  - .jpeg
+  - .gif
+  - .webp
+  - .ico
+
+archive_exec_extensions:
+  - .zip
+  - .tar
+  - .gz
+  - .tgz
+  - .7z
+  - .rar
+  - .exe
+  - .dll
+  - .so
+  - .dylib
+  - .msi
+  - .bat
+  - .cmd
+
+skip_names:
+  - _skillvault_summary.json
+  - _skillvault_security.json
+  - _skillvault_security.md
+  - .gitkeep
+
+secret_patterns:
+  - id: aws_access_key
+    severity: critical
+    regex: 'AKIA[0-9A-Z]{16}'
+  - id: private_key
+    severity: critical
+    regex: '-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----'
+  - id: github_token
+    severity: critical
+    regex: 'gh[pousr]_[A-Za-z0-9_]{36,}'
+  - id: slack_token
+    severity: critical
+    regex: 'xox[baprs]-[0-9A-Za-z-]{10,}'
+  - id: generic_api_key
+    severity: critical
+    regex: '(?i)(api[_-]?key|secret[_-]?key|access[_-]?token|auth[_-]?token|password)\s*[:=]\s*[''"][^''"]{16,}[''"]'
+
+script_danger_patterns:
+  - id: curl_bash
+    severity: critical
+    regex: 'curl[^\n]*\|\s*(?:ba)?sh'
+  - id: wget_bash
+    severity: critical
+    regex: 'wget[^\n]*\|\s*(?:ba)?sh'
+  - id: irm_iex
+    severity: critical
+    regex: '(?i)irm\s+[^\n]*\|\s*iex'
+  - id: eval_call
+    severity: warn
+    regex: '(?i)\beval\s*\('
+  - id: invoke_expression
+    severity: critical
+    regex: '(?i)Invoke-Expression'
+  - id: reverse_shell_devtcp
+    severity: critical
+    regex: '/dev/tcp/'
+
+exfil_patterns:
+  - id: webhook_exfil
+    severity: warn
+    regex: '(?i)(webhook\.site|requestbin\.com|ngrok\.io|pipedream\.net)'
+  - id: discord_webhook
+    severity: warn
+    regex: 'discord(?:app)?\.com/api/webhooks/'
+
+path_escape_patterns:
+  - id: parent_escape
+    severity: warn
+    regex: '(?:\.\./){2,}'
+  - id: home_ssh_write
+    severity: critical
+    regex: '(?i)(?:~|/home/[^/\s]+)/\.ssh/'
+
+agent_config_patterns:
+  - id: agent_config_poison
+    severity: critical
+    regex: '(?i)(?:>>|>)\s*(?:CLAUDE\.md|MEMORY\.md|AGENTS\.md|\.cursorrules)'
+
+prompt_injection_patterns:
+  - id: ignore_previous
+    severity: warn
+    regex: '(?i)ignore\s+(?:all\s+)?(?:previous|prior)\s+instructions'
+  - id: exfil_instruction
+    severity: warn
+    regex: '(?i)(?:exfiltrat\w+|send\s+(?:all\s+)?(?:secrets?|api\s*keys?)\s+to)'
+
+unicode:
+  zero_width_codepoints:
+    - 0x200B
+    - 0x200C
+    - 0x200D
+    - 0x2060
+    - 0xFEFF
