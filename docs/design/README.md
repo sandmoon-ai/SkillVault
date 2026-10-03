@@ -16,6 +16,7 @@
 | [issue-milestone-standard.md](./issue-milestone-standard.md) | 推进方式 | Issue / Milestone 命名、模板、DoD |
 | [personal-vault.md](./personal-vault.md) | 个人私有仓（L3） | 书系 / 私有 own 多机同步；不进公开仓 |
 | [skill-provenance.md](./skill-provenance.md) | orphan 溯源 | A=pm-skills；B=Leonxlnx/taste-skill |
+| [ai-native-sdlc-composition.md](./ai-native-sdlc-composition.md) | 工作流组合（草案） | playbook 管全局阶段与门禁；Matt skills 管 Build |
 
 制造阶段用 GitHub **Milestone + Issue** 推进；标准见上表末行。Issue 表单在 `.github/ISSUE_TEMPLATE/`。
 
