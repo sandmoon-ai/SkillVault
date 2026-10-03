@@ -12,7 +12,19 @@
 - **Skill = 需一致执行的制度知识**（不是项目杂项提示）
 - **Git 为真相源**；安装只是把真相源投影到各 IDE 路径
 
-完整架构见 [`docs/architecture.md`](docs/architecture.md)。
+完整架构见 [`docs/architecture.md`](docs/architecture.md)。  
+**截至目前的落地对照与进度**见 [`docs/status.md`](docs/status.md)。
+
+## 质量与 GitHub 门禁（已启用）
+
+| 项 | 状态 |
+|----|------|
+| Skill 脚本测试 | `py -m pytest tests/test_skill_scripts.py`；规范见 [docs/script-testing.md](docs/script-testing.md) |
+| CI | push/PR 跑卫生检查 + 脚本测试 → [Actions](https://github.com/sandmoon-ai/SkillVault/actions) |
+| 分支 Ruleset `protect-main` | `main` 要求检查 `Skill script tests`；禁 force push / 删分支 → [规则](https://github.com/sandmoon-ai/SkillVault/rules/24400124) |
+| Artifact 保留 | 仓库设置为 **1 天**；CI 另限制 `retention-days`≤7 + 月度清理 |
+
+说明见 [docs/ci.md](docs/ci.md)。
 
 ## Skill 放什么、不放什么
 
@@ -133,10 +145,11 @@ AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，
 
 | 文档 | 内容 |
 |------|------|
-| [docs/architecture.md](docs/architecture.md) | 格式标准、边界、产物链、门禁、治理 |
+| [docs/status.md](docs/status.md) | **现状整理**：原则、已落地项、进度 |
+| [docs/architecture.md](docs/architecture.md) | 格式标准、边界、产物链、双通路、治理 |
 | [docs/ide-targets.md](docs/ide-targets.md) | 各 IDE 用户级 / 项目级路径 |
 | [docs/script-testing.md](docs/script-testing.md) | Skill 脚本测试硬性规范 |
-| [docs/ci.md](docs/ci.md) | CI 说明、强制门禁、成本/存储防护 |
+| [docs/ci.md](docs/ci.md) | CI、Ruleset、成本/存储防护 |
 | [agentskills.io](https://agentskills.io/specification) | 外部规范（本仓库格式真相源） |
 | [meta-skills/](meta-skills/) | AI 收录 / AI 安装一等通路 |
 

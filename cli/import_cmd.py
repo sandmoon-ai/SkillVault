@@ -1,0 +1,316 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import re
+import shutil
+import urllib.error
+import urllib.parse
+import urllib.request
+from dataclasses import dataclass
+from datetime import datetime, timezone
+from pathlib import Path
+
+from cli.common import (
+    CACHE_DIR,
+    REGISTRY_PATH,
+    VAULT_IMPORTED,
+    dump_yaml,
+    load_yaml,
+    read_frontmatter,
+    validate_skill_name,
+)
+
+GITHUB_TREE_RE = re.compile(
+    r"^https?://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+)/tree/(?P<ref>[^/]+)(?:/(?P<path>.*))?$"
+)
+GITHUB_BLOB_RE = re.compile(
+    r"^https?://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+)/blob/(?P<ref>[^/]+)/(?P<path>.+)$"
+)
+GITHUB_RAW_RE = re.compile(
+    r"^https?://raw\.githubusercontent\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+)/(?P<ref>[^/]+)/(?P<path>.+)$"
+)
+
+
+@dataclass
+class FetchResult:
+    cache_dir: Path
+    source_url: str
+    ref: str | None
+    upstream_path: str | None
+    skill_md: Path | None
+    summary: dict
+
+
+def _http_get_json(url: str) -> dict | list:
+    req = urllib.request.Request(
+        url,
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "skillvault"},
+    )
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def _http_download(url: str, dest: Path) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    req = urllib.request.Request(url, headers={"User-Agent": "skillvault"})
+    with urllib.request.urlopen(req, timeout=60) as resp, dest.open("wb") as out:
+        shutil.copyfileobj(resp, out)
+
+
+def _parse_github(url: str) -> tuple[str, str, str, str | None] | None:
+    for pattern in (GITHUB_TREE_RE, GITHUB_BLOB_RE, GITHUB_RAW_RE):
+        m = pattern.match(url.rstrip("/"))
+        if m:
+            path = m.groupdict().get("path") or None
+            return m.group("owner"), m.group("repo"), m.group("ref"), path
+    return None
+
+
+def _fetch_github_dir(
+    owner: str, repo: str, ref: str, path: str | None, dest: Path
+) -> None:
+    api = (
+        f"https://api.github.com/repos/{owner}/{repo}/contents/"
+        f"{urllib.parse.quote(path or '')}?ref={urllib.parse.quote(ref)}"
+    )
+    data = _http_get_json(api)
+    if isinstance(data, dict) and data.get("type") == "file":
+        # Single file URL pointed at a file
+        name = data["name"]
+        _http_download(data["download_url"], dest / name)
+        return
+    if not isinstance(data, list):
+        raise RuntimeError(f"Unexpected GitHub API response for {api}")
+
+    dest.mkdir(parents=True, exist_ok=True)
+    for item in data:
+        rel = item["name"]
+        target = dest / rel
+        if item["type"] == "file":
+            _http_download(item["download_url"], target)
+        elif item["type"] == "dir":
+            child_path = "/".join(p for p in (path, rel) if p)
+            _fetch_github_dir(owner, repo, ref, child_path, target)
+
+
+def _copy_local(src: Path, dest: Path) -> None:
+    if src.is_file():
+        dest.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dest / src.name)
+        return
+    if dest.exists():
+        shutil.rmtree(dest)
+    shutil.copytree(src, dest)
+
+
+def _find_skill_md(root: Path) -> Path | None:
+    direct = root / "SKILL.md"
+    if direct.is_file():
+        return direct
+    matches = sorted(root.rglob("SKILL.md"))
+    return matches[0] if matches else None
+
+
+def _summarize(cache_dir: Path, skill_md: Path | None) -> dict:
+    files = sorted(
+        str(p.relative_to(cache_dir)).replace("\\", "/")
+        for p in cache_dir.rglob("*")
+        if p.is_file()
+    )
+    meta = {}
+    if skill_md and skill_md.is_file():
+        meta, _ = read_frontmatter(skill_md)
+    scripts = [f for f in files if "/scripts/" in f or f.startswith("scripts/")]
+    return {
+        "files": files,
+        "frontmatter": meta,
+        "scripts": scripts,
+        "has_skill_md": skill_md is not None,
+    }
+
+
+def import_from_url(
+    url: str,
+    *,
+    name: str | None = None,
+    ref: str | None = None,
+    apply: bool = False,
+) -> FetchResult:
+    cache_id = hashlib.sha1(url.encode("utf-8")).hexdigest()[:12]
+    cache_dir = CACHE_DIR / "import" / cache_id
+    if cache_dir.exists():
+        shutil.rmtree(cache_dir)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    upstream_path: str | None = None
+    used_ref = ref
+    source_url = url
+
+    local = Path(url)
+    if local.exists():
+        _copy_local(local, cache_dir)
+        used_ref = used_ref or "local"
+    else:
+        gh = _parse_github(url)
+        if not gh:
+            raise ValueError(
+                "Unsupported URL. Provide a GitHub tree/blob/raw URL or a local path."
+            )
+        owner, repo, url_ref, path = gh
+        used_ref = ref or url_ref
+        upstream_path = path
+        try:
+            _fetch_github_dir(owner, repo, used_ref, path, cache_dir)
+        except urllib.error.HTTPError as exc:
+            raise RuntimeError(f"Failed to fetch {url}: HTTP {exc.code}") from exc
+
+    skill_md = _find_skill_md(cache_dir)
+    # If only a single markdown file without SKILL.md, treat it as candidate body.
+    if skill_md is None:
+        md_files = sorted(cache_dir.glob("*.md"))
+        if len(md_files) == 1:
+            skill_md = md_files[0]
+
+    summary = _summarize(cache_dir, skill_md if skill_md and skill_md.name == "SKILL.md" else None)
+    summary_path = cache_dir / "_skillvault_summary.json"
+    summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+
+    result = FetchResult(
+        cache_dir=cache_dir,
+        source_url=source_url,
+        ref=used_ref,
+        upstream_path=upstream_path,
+        skill_md=skill_md,
+        summary=summary,
+    )
+
+    if apply:
+        if not name:
+            if skill_md and skill_md.name == "SKILL.md":
+                meta, _ = read_frontmatter(skill_md)
+                name = str(meta.get("name") or skill_md.parent.name)
+            elif skill_md:
+                name = skill_md.stem.replace("_", "-").lower()
+            else:
+                raise ValueError("--apply requires --name when SKILL.md is missing")
+        apply_import(result, name=name)
+
+    return result
+
+
+def apply_import(result: FetchResult, *, name: str) -> Path:
+    validate_skill_name(name)
+    dest = VAULT_IMPORTED / name
+    if dest.exists():
+        shutil.rmtree(dest)
+    dest.mkdir(parents=True)
+
+    # Copy fetched files except summary sidecar
+    for item in result.cache_dir.rglob("*"):
+        if item.name == "_skillvault_summary.json":
+            continue
+        rel = item.relative_to(result.cache_dir)
+        target = dest / rel
+        if item.is_dir():
+            target.mkdir(parents=True, exist_ok=True)
+        else:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(item, target)
+
+    # Normalize single markdown into SKILL.md if needed
+    skill_md = dest / "SKILL.md"
+    if not skill_md.is_file():
+        md_files = sorted(dest.glob("*.md"))
+        if len(md_files) == 1 and md_files[0].name != "SOURCE.md":
+            content = md_files[0].read_text(encoding="utf-8")
+            if not content.startswith("---"):
+                content = (
+                    f"---\nname: {name}\n"
+                    f"description: Imported skill {name}. Review and improve this description.\n"
+                    f"---\n\n{content}"
+                )
+            skill_md.write_text(content, encoding="utf-8")
+            if md_files[0].name != "SKILL.md":
+                md_files[0].unlink()
+
+    source_md = dest / "SOURCE.md"
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    source_md.write_text(
+        "\n".join(
+            [
+                "# Source",
+                "",
+                f"- Upstream: {result.source_url}",
+                f"- Ref: {result.ref or 'unknown'}",
+                f"- Path: {result.upstream_path or '.'}",
+                f"- Imported: {now}",
+                "- License: unknown",
+                "- Notes: Raw apply via `sv import --apply`. Review/normalize with meta-skills/import-from-url.",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    _upsert_registry(
+        name=name,
+        url=result.source_url,
+        ref=result.ref or "main",
+        path=result.upstream_path,
+        license_name="unknown",
+        last_synced=now,
+    )
+    return dest
+
+
+def _upsert_registry(
+    *,
+    name: str,
+    url: str,
+    ref: str,
+    path: str | None,
+    license_name: str,
+    last_synced: str,
+) -> None:
+    data = load_yaml(REGISTRY_PATH)
+    skills = list(data.get("skills") or [])
+    entry = {
+        "name": name,
+        "url": url,
+        "ref": ref,
+        "path": path,
+        "local": f"vault/imported/{name}",
+        "license": license_name,
+        "last_synced": last_synced,
+    }
+    replaced = False
+    for idx, existing in enumerate(skills):
+        if existing.get("name") == name:
+            skills[idx] = entry
+            replaced = True
+            break
+    if not replaced:
+        skills.append(entry)
+    dump_yaml(REGISTRY_PATH, {"skills": skills})
+
+
+def print_import_summary(result: FetchResult) -> str:
+    lines = [
+        f"Cached at: {result.cache_dir}",
+        f"Source: {result.source_url}",
+        f"Ref: {result.ref}",
+        f"Upstream path: {result.upstream_path or '.'}",
+        f"Has SKILL.md: {result.summary.get('has_skill_md')}",
+        "Files:",
+    ]
+    for f in result.summary.get("files", []):
+        lines.append(f"  - {f}")
+    meta = result.summary.get("frontmatter") or {}
+    if meta:
+        lines.append(f"Frontmatter name: {meta.get('name')}")
+        lines.append(f"Frontmatter description: {meta.get('description')}")
+    lines.append(
+        "Next: convert with meta-skills/import-from-url, or re-run with --apply --name <name>."
+    )
+    return "\n".join(lines)
