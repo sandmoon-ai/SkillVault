@@ -12,7 +12,7 @@ vault/imported/<category>/<skill-name>/SKILL.md
 ```
 
 2. **类目按工作阶段**（粗粒度、尽量互斥），**不按 IDE** 分。  
-3. **标签**写在 frontmatter `metadata.tags`，表达交叉维度（语言、场景、是否含脚本等）。常用：`from-book`（书系拆出的 Skill）+ 书系短名（如 `minto` / `krug`）。  
+3. **标签**写在 frontmatter `metadata.tags`，表达交叉维度（语言、场景、是否含脚本等）。常用：`from-book`（书系拆出的 Skill）+ 书系短名（如 `minto` / `krug`）。**书系正文只放私有仓**，见 [design/personal-vault.md](./design/personal-vault.md)；公开仓不得合入 `from-book` 包。  
 4. **`metadata.category`** 应与目录 `<category>` 一致，便于校验与列表。  
 5. 拿不准先放 `inbox`，定期归类。  
 6. 特殊目录：`vault/own/_template/` 为模板，**不是**类目，不安装。  
