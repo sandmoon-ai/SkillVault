@@ -10,6 +10,7 @@ from cli.common import KNOWN_CATEGORIES, iter_vault_skills, validate_category
 from cli.import_cmd import apply_import, import_from_url, print_import_summary
 from cli.install_cmd import install_skills
 from cli.paths import list_ides
+from cli.ide_sync import compare_vault_to_ide, format_ide_sync_report
 from cli.security_scan import scan_tree, write_reports
 from cli.sync_cmd import sync_skills
 
@@ -102,13 +103,48 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     p_scan.set_defaults(func=cmd_security_scan)
 
-    p_sync = sub.add_parser("sync", help="Re-fetch registered upstream skills")
-    p_sync.add_argument("skills", nargs="*", help="Skill name(s)")
-    p_sync.add_argument("--all", action="store_true", help="Sync all registry entries")
+    p_sync = sub.add_parser(
+        "sync",
+        help=(
+            "Vault↔IDE presence report (--ide/--os), or re-fetch upstream "
+            "registry skills (names / --all)"
+        ),
+    )
+    p_sync.add_argument("skills", nargs="*", help="Upstream skill name(s) to re-fetch")
+    p_sync.add_argument(
+        "--all",
+        action="store_true",
+        help="Re-fetch all registry upstream entries",
+    )
     p_sync.add_argument(
         "--apply",
         action="store_true",
-        help="Apply upstream files into vault/imported",
+        help="Apply upstream files into vault/imported (upstream mode only)",
+    )
+    p_sync.add_argument("--ide", choices=list_ides(), help="IDE for vault↔IDE report")
+    p_sync.add_argument(
+        "--os",
+        choices=["linux", "macos", "windows"],
+        dest="os_name",
+        help="OS for vault↔IDE report",
+    )
+    p_sync.add_argument(
+        "--scope",
+        default="user",
+        choices=["user", "project"],
+        help="Scope for vault↔IDE report (default: user)",
+    )
+    p_sync.add_argument(
+        "--project-root",
+        type=Path,
+        default=None,
+        help="Project root when --scope project",
+    )
+    p_sync.add_argument(
+        "--home",
+        type=Path,
+        default=None,
+        help=argparse.SUPPRESS,
     )
     p_sync.set_defaults(func=cmd_sync)
 
@@ -196,6 +232,34 @@ def cmd_security_scan(args: argparse.Namespace) -> int:
 
 
 def cmd_sync(args: argparse.Namespace) -> int:
+    ide_mode = args.ide is not None or args.os_name is not None
+    upstream_mode = bool(args.skills) or args.all or args.apply
+
+    if ide_mode and upstream_mode:
+        raise ValueError(
+            "Use either vault↔IDE mode (--ide/--os) or upstream mode "
+            "(skill names / --all), not both."
+        )
+    if ide_mode:
+        if not args.ide or not args.os_name:
+            raise ValueError("vault↔IDE sync requires both --ide and --os")
+        if args.scope == "project" and args.project_root is None:
+            raise ValueError("--project-root is required when --scope project")
+        report = compare_vault_to_ide(
+            ide=args.ide,
+            os_name=args.os_name,
+            scope=args.scope,
+            project_root=args.project_root,
+            home_override=args.home,
+        )
+        print(format_ide_sync_report(report))
+        return 0
+
+    if not upstream_mode:
+        raise ValueError(
+            "Specify --ide/--os for vault↔IDE report, or skill names / --all "
+            "for upstream re-fetch."
+        )
     reports = sync_skills(args.skills, all_skills=args.all, apply=args.apply)
     print("\n\n".join(reports))
     return 0
