@@ -55,6 +55,15 @@ metadata:
 - 安装目标仍是 IDE 的 `skills/<skill-name>/`（**不**把 category 带进 IDE 路径，保持各工具扁平发现）  
 - 收录转化：默认写入 `vault/imported/inbox/<name>/`，Gate B 再归入正式类目  
 
-## 索引（可选）
+## 索引（自动生成）
 
-[`registry/catalog.yaml`](../registry/catalog.yaml) 可手维或由脚本生成，便于浏览；真相源仍是目录树。
+收录 Skill 变更后须刷新索引（`sv import --apply` / `sv sync --apply` 会自动跑）：
+
+```bash
+py cli/sv.py catalog          # 重写 registry/catalog.yaml + docs/skills-index.md
+py cli/sv.py catalog --check  # CI：过期则非零退出
+```
+
+- 机器可读：[`registry/catalog.yaml`](../registry/catalog.yaml)  
+- 人读总览：[`docs/skills-index.md`](./skills-index.md)  
+- 真相源仍是 `vault/**/SKILL.md` 目录树；**勿手改**上述两份生成物。

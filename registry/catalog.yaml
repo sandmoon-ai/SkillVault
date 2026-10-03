@@ -1,8 +1,904 @@
-# Optional browse index. Source of truth is the vault directory tree.
-# category list: see docs/taxonomy.md
+generated_by: py cli/sv.py catalog
+generated_at: '2026-10-03T06:54:45Z'
+counts:
+  total: 76
+  own: 1
+  imported: 75
+  by_category:
+    define: 5
+    deliver: 7
+    design: 4
+    discover: 5
+    engineering: 6
+    foundation: 11
+    meta: 28
+    ops: 10
 skills:
-  - name: hello-skillvault
-    category: meta
-    origin: own
-    tags: [smoke, skillvault]
-    path: vault/own/meta/hello-skillvault
+- name: define-hypothesis
+  category: define
+  origin: imported
+  path: vault/imported/define/define-hypothesis
+  description: Defines a testable hypothesis with clear success metrics and a validation
+    approach. Use when forming assumptions to test or aligning a team on what success
+    loo…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/define-hypothesis
+- name: define-jtbd-canvas
+  category: define
+  origin: imported
+  path: vault/imported/define/define-jtbd-canvas
+  description: Creates a Jobs to be Done canvas capturing the functional, emotional,
+    and social dimensions of a customer job. Use when deeply understanding customer
+    motivatio…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/define-jtbd-canvas
+- name: define-opportunity-tree
+  category: define
+  origin: imported
+  path: vault/imported/define/define-opportunity-tree
+  description: Creates an opportunity solution tree connecting a desired outcome to
+    customer opportunities and candidate solutions, preventing solution-first jumps
+    in continu…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/define-opportunity-tree
+- name: define-prioritization-framework
+  category: define
+  origin: imported
+  path: vault/imported/define/define-prioritization-framework
+  description: Run applicable prioritization frameworks (RICE, ICE, MoSCoW, Weighted
+    Scoring, Kano) against a list of features or initiatives. Produces a comparison
+    table sho…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/define-prioritization-framework
+- name: define-problem-statement
+  category: define
+  origin: imported
+  path: vault/imported/define/define-problem-statement
+  description: Creates a clear problem framing document with user impact, business
+    context, and success criteria. Use when starting a new initiative, realigning
+    a drifted pro…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/define-problem-statement
+- name: deliver-acceptance-criteria
+  category: deliver
+  origin: imported
+  path: vault/imported/deliver/deliver-acceptance-criteria
+  description: Generates structured Given/When/Then acceptance criteria for a user
+    story or feature slice, covering the happy path, key failure scenarios, and non-functional…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/deliver-acceptance-criteria
+- name: deliver-edge-cases
+  category: deliver
+  origin: imported
+  path: vault/imported/deliver/deliver-edge-cases
+  description: Documents edge cases, error states, boundary conditions, race conditions,
+    and recovery paths for a feature - the systematic catalog of what can go wrong
+    and th…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/deliver-edge-cases
+- name: deliver-launch-checklist
+  category: deliver
+  origin: imported
+  path: vault/imported/deliver/deliver-launch-checklist
+  description: Creates a cross-functional pre-launch checklist covering engineering,
+    design, marketing, support, legal, and operations readiness, with owners, dates,
+    and go/n…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/deliver-launch-checklist
+- name: deliver-prd
+  category: deliver
+  origin: imported
+  path: vault/imported/deliver/deliver-prd
+  description: Creates a comprehensive Product Requirements Document that aligns stakeholders
+    on what to build, why, and how success will be measured. Use when specifying fea…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/deliver-prd
+- name: deliver-release-notes
+  category: deliver
+  origin: imported
+  path: vault/imported/deliver/deliver-release-notes
+  description: Creates user-facing release notes that communicate new features, improvements,
+    and fixes in clear, benefit-focused language. Use when shipping updates to commu…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/deliver-release-notes
+- name: deliver-user-stories
+  category: deliver
+  origin: imported
+  path: vault/imported/deliver/deliver-user-stories
+  description: Generates user stories in the standard persona, action, benefit story
+    format from product requirements or feature descriptions. Use when breaking a
+    feature int…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/deliver-user-stories
+- name: internal-comms
+  category: deliver
+  origin: imported
+  path: vault/imported/deliver/internal-comms
+  description: A set of resources to help me write all kinds of internal communications,
+    using the formats that my company likes to use. Claude should use this skill whenever…
+  license: Apache-2.0
+  tags: []
+  upstream: https://github.com/anthropics/skills/tree/main/skills/internal-comms
+- name: canvas-design
+  category: design
+  origin: imported
+  path: vault/imported/design/canvas-design
+  description: Create beautiful visual art in .png and .pdf documents using design
+    philosophy. You should use this skill when the user asks to create a poster, piece
+    of art,…
+  license: Apache-2.0
+  tags: []
+  upstream: https://github.com/anthropics/skills/tree/main/skills/canvas-design
+- name: frontend-design
+  category: design
+  origin: imported
+  path: vault/imported/design/frontend-design
+  description: Guidance for distinctive, intentional visual design when building new
+    UI or reshaping an existing one. Helps with aesthetic direction, typography, and
+    making c…
+  license: Apache-2.0
+  tags: []
+  upstream: https://github.com/anthropics/skills/tree/main/skills/frontend-design
+- name: theme-factory
+  category: design
+  origin: imported
+  path: vault/imported/design/theme-factory
+  description: Toolkit for styling artifacts with a theme. These artifacts can be
+    slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes
+    with colors/f…
+  license: Apache-2.0
+  tags: []
+  upstream: https://github.com/anthropics/skills/tree/main/skills/theme-factory
+- name: web-artifacts-builder
+  category: design
+  origin: imported
+  path: vault/imported/design/web-artifacts-builder
+  description: Suite of tools for creating elaborate, multi-component claude.ai HTML
+    artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui).
+    Use fo…
+  license: Apache-2.0
+  tags: []
+  upstream: https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder
+- name: discover-competitive-analysis
+  category: discover
+  origin: imported
+  path: vault/imported/discover/discover-competitive-analysis
+  description: Creates a structured competitive analysis comparing features, pricing,
+    and positioning across 3-5 direct and indirect competitors, with a 2x2 map and
+    actionabl…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/discover-competitive-analysis
+- name: discover-interview-synthesis
+  category: discover
+  origin: imported
+  path: vault/imported/discover/discover-interview-synthesis
+  description: Synthesizes user research interviews into actionable insights, patterns,
+    and recommendations. Use after conducting user interviews, customer calls, or
+    usabilit…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/discover-interview-synthesis
+- name: discover-journey-map
+  category: discover
+  origin: imported
+  path: vault/imported/discover/discover-journey-map
+  description: Maps a customer journey across stages, touchpoints, emotional curve,
+    pain points, and moments of truth into a markdown artifact with an optional mermaid
+    timeli…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/discover-journey-map
+- name: discover-market-sizing
+  category: discover
+  origin: imported
+  path: vault/imported/discover/discover-market-sizing
+  description: Estimate market opportunity (TAM, SAM, SOM) using multiple sizing frameworks
+    (top-down, bottom-up, comparable company, analogous market). Triangulates across
+    f…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/discover-market-sizing
+- name: discover-stakeholder-summary
+  category: discover
+  origin: imported
+  path: vault/imported/discover/discover-stakeholder-summary
+  description: Maps the people and groups with a stake in a project, documenting their
+    needs, concerns, influence, and engagement approach. Use at project kickoff, when
+    takin…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/discover-stakeholder-summary
+- name: commit-generate
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/commit-generate
+  description: Generate bilingual (English + Traditional Chinese) commit messages
+    from staged git changes. Use when the user asks for a commit message, conventional
+    commit ta…
+  license: MIT
+  tags:
+  - git
+  - commit
+  - bilingual
+  upstream: https://github.com/agenvoy/skill-commit-generate/tree/master
+- name: develop-adr
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/develop-adr
+  description: Creates an Architecture Decision Record following the Nygard format
+    to document significant technical decisions, their context, and consequences.
+    Use when maki…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/develop-adr
+- name: develop-design-rationale
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/develop-design-rationale
+  description: Documents the reasoning behind design decisions including alternatives
+    considered, trade-offs evaluated, and principles applied. Use when making significant
+    UX…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/develop-design-rationale
+- name: develop-solution-brief
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/develop-solution-brief
+  description: Creates a concise one-page solution overview that communicates the
+    proposed approach, key decisions, and trade-offs. Use when pitching solutions
+    to stakeholder…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/develop-solution-brief
+- name: develop-spike-summary
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/develop-spike-summary
+  description: Documents the results of a completed technical or design spike, capturing
+    the original question, approach, evidence-backed findings, and a clear proceed-or-not…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/develop-spike-summary
+- name: webapp-testing
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/webapp-testing
+  description: Toolkit for interacting with and testing local web applications using
+    Playwright. Supports verifying frontend functionality, debugging UI behavior,
+    capturing b…
+  license: Apache-2.0
+  tags: []
+  upstream: https://github.com/anthropics/skills/tree/main/skills/webapp-testing
+- name: foundation-build-risk-review
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-build-risk-review
+  description: Runs a fast pre-build risk review on a product idea, feature request,
+    or scope change, naming the single assumption most likely to make it fail and
+    returning a…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-build-risk-review
+- name: foundation-lean-canvas
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-lean-canvas
+  description: Produces a one-page lean canvas across nine interlocking blocks (problem,
+    customer, UVP, solution, channels, revenue, cost, metrics, unfair advantage) with
+    opt…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-lean-canvas
+- name: foundation-meeting-agenda
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-meeting-agenda
+  description: Produces an attendee-facing agenda that sets what will be discussed,
+    who owns each topic, and how time will be spent. Supports ten meeting type variants
+    (stand…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-meeting-agenda
+- name: foundation-meeting-brief
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-meeting-brief
+  description: Produces a private strategic preparation document for the user before
+    a meeting that matters. Captures stakes, stakeholder positions and reads, ranked
+    desired…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-meeting-brief
+- name: foundation-meeting-recap
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-meeting-recap
+  description: Produces a topic-segmented post-meeting summary for attendees with
+    decisions highlighted and actions captured inline per topic (plus a consolidated
+    action view…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-meeting-recap
+- name: foundation-meeting-synthesize
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-meeting-synthesize
+  description: Cross-meeting archaeology skill. Consumes multiple meeting recaps (or
+    raw notes) over a period and surfaces patterns invisible in any single meeting.
+    Shows how…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-meeting-synthesize
+- name: foundation-okr-writer
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-okr-writer
+  description: Drafts, reviews, rewrites, and coaches outcome-based OKR sets across
+    team, department, product, or company scopes. Supports five entry modes (Guided
+    default, O…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-okr-writer
+- name: foundation-persona
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-persona
+  description: Generates an evidence-calibrated product or marketing persona using
+    the canonical v2.5 output contract. Use when shaping artifact perspective, stress-testing
+    d…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-persona
+- name: foundation-prioritized-action-plan
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-prioritized-action-plan
+  description: Produce a comprehensive, evidence-grounded prioritized action plan
+    from any PM input (notes, transcripts, drafts, executive asks, Slack threads,
+    or a raw situa…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-prioritized-action-plan
+- name: foundation-stakeholder-briefings
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-stakeholder-briefings
+  description: Turns any source artifact (spec, discovery, research, GTM plan, experiment
+    results, retro, or raw notes) into one canonical master document plus a set of
+    audie…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-stakeholder-briefings
+- name: foundation-stakeholder-update
+  category: foundation
+  origin: imported
+  path: vault/imported/foundation/foundation-stakeholder-update
+  description: Produces async communication to stakeholders, primarily non-attendees
+    and secondarily some attendees who want a reference. Translates meeting outcomes
+    into wha…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-stakeholder-update
+- name: tool-design-sprint-brief
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-design-sprint-brief
+  description: Pre-sprint brief that locks challenge, sprint questions, team and role
+    assignments, customer recruiting plan, prototype medium, interview format, logistics,
+    an…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-design-sprint-brief
+- name: tool-design-sprint-decide-and-storyboard
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-design-sprint-decide-and-storyboard
+  description: Day 3 (Wednesday) move of a Design Sprint that runs the art museum
+    layout, heat map, speed critique, straw poll, Decider supervote, rumble-vs-all-in-one
+    decisi…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-design-sprint-decide-and-storyboard
+- name: tool-design-sprint-map-and-target
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-design-sprint-map-and-target
+  description: Day 1 (Monday) move of a Design Sprint that produces the bundled Monday
+    artifact containing long-term goal, sprint questions (3-7 testable risks), customer
+    or…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-design-sprint-map-and-target
+- name: tool-design-sprint-prototype-plan
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-design-sprint-prototype-plan
+  description: Day 4 (Thursday) move of a Design Sprint that produces the planning
+    artifact for the day. Output covers the prototype role plan (Maker, Stitcher,
+    Writer, Asset…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-design-sprint-prototype-plan
+- name: tool-design-sprint-readiness
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-design-sprint-readiness
+  description: Pre-sprint diagnostic that determines whether a team should run a Design
+    Sprint now, postpone it, or do prerequisite work first. Produces a Go / Conditional
+    Go…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-design-sprint-readiness
+- name: tool-design-sprint-sketch
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-design-sprint-sketch
+  description: Day 2 (Tuesday) move of a Design Sprint that structures lightning demos
+    and the four-step independent solution sketch protocol (Notes, Ideas, Crazy 8s,
+    Solutio…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-design-sprint-sketch
+- name: tool-design-sprint-test-and-score
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-design-sprint-test-and-score
+  description: Day 5 (Friday) sprint-closing move of a Design Sprint that produces
+    the bundled Friday artifact covering per-customer interview observations, best
+    quotes, scor…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-design-sprint-test-and-score
+- name: tool-foundation-sprint-approach-options
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-foundation-sprint-approach-options
+  description: Day 2 morning move of a Foundation Sprint. Forces generation of 3 to
+    7 candidate approaches as one-page summaries before the team converges on a top
+    bet. Use a…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-foundation-sprint-approach-options
+- name: tool-foundation-sprint-basics
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-foundation-sprint-basics
+  description: Day 1 morning move of a Foundation Sprint. Forces explicit team choices
+    on target customer, important problem, team advantage, and competitors and alternatives…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-foundation-sprint-basics
+- name: tool-foundation-sprint-brief
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-foundation-sprint-brief
+  description: Pre-sprint brief that locks scope, the decision the sprint must unlock,
+    team and role assignments, logistics, inputs to bring, and success criteria before
+    Day…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-foundation-sprint-brief
+- name: tool-foundation-sprint-differentiation
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-foundation-sprint-differentiation
+  description: Day 1 afternoon move of a Foundation Sprint. Converts the morning's
+    Basics frame into a defensible strategic position by scoring differentiator candidates
+    agai…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-foundation-sprint-differentiation
+- name: tool-foundation-sprint-founding-hypothesis
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-foundation-sprint-founding-hypothesis
+  description: Day 2 end capstone move of a Foundation Sprint. Compresses the sprint's
+    full strategic frame into a single canonical sentence (the Founding Hypothesis)
+    plus an…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-foundation-sprint-founding-hypothesis
+- name: tool-foundation-sprint-magic-lenses
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-foundation-sprint-magic-lenses
+  description: Day 2 afternoon move of a Foundation Sprint. Evaluates the candidate
+    approach set through multiple lenses (4 classic plus at least 1 custom) to surface
+    trade-o…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-foundation-sprint-magic-lenses
+- name: tool-foundation-sprint-readiness
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-foundation-sprint-readiness
+  description: Pre-sprint diagnostic that determines whether a team should run a Foundation
+    Sprint now, postpone it, or do prerequisite work first. Produces a Go / Conditiona…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-foundation-sprint-readiness
+- name: tool-note-and-vote
+  category: meta
+  origin: imported
+  path: vault/imported/meta/tool-note-and-vote
+  description: Structured group-decision mechanic that captures silent ideation, voting
+    summaries, and Decider sign-off in a single bundled artifact. Use when a small
+    team ne…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/tool-note-and-vote
+- name: utility-mermaid-diagrams
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-mermaid-diagrams
+  description: Teaches PMs to create syntactically valid mermaid diagrams by selecting
+    the right diagram type for their communication need, following syntax validity
+    rules, a…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-mermaid-diagrams
+- name: utility-pm-changelog-curator
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-changelog-curator
+  description: Draft CHANGELOG entries from git log via the pm-changelog-curator sub-agent,
+    applying the repo hygiene rules (describe what changed, public paths only, no
+    attr…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-changelog-curator
+- name: utility-pm-critic
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-critic
+  description: Run adversarial review on a PM artifact via the pm-critic sub-agent.
+    Returns findings graded P0/P1/P2/P3 with a concrete fix suggestion per finding
+    and a machi…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-critic
+- name: utility-pm-release-conductor
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-release-conductor
+  description: Walk the guided 6-gate release runbook (G0 readiness, G1 adversarial
+    review, G2 version bump and CHANGELOG, G2.5 commit and re-verify, G3 tag and push,
+    G4 post…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-release-conductor
+- name: utility-pm-skill-auditor
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-skill-auditor
+  description: Run a repo-wide cross-cutting governance audit via the pm-skill-auditor
+    sub-agent. Aggregates the enforcing validator suite, re-derives aggregate counters,
+    and…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-skill-auditor
+- name: utility-pm-skill-builder
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-skill-builder
+  description: Guides contributors from a PM skill idea to a complete Skill Implementation
+    Packet aligned with pm-skills conventions. Runs gap analysis, validates through
+    a W…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-skill-builder
+- name: utility-pm-skill-iterate
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-skill-iterate
+  description: Applies targeted improvements to an existing pm-skills skill based
+    on feedback, validation reports, or convention changes. Reads current files, previews
+    propos…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-skill-iterate
+- name: utility-pm-skill-validate
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-skill-validate
+  description: Audits an existing pm-skills skill against structural conventions and
+    quality criteria. Produces a structured validation report with pass/fail checks,
+    severity…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-skill-validate
+- name: utility-pm-workflow-builder
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-workflow-builder
+  description: Guides a contributor from a workflow idea to a complete Workflow Implementation
+    Packet (draft workflow file, draft workflow command, cross-cutting update check…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-workflow-builder
+- name: utility-pm-workflow-orchestrator
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-pm-workflow-orchestrator
+  description: Run an ordered sequence of pm-skills against one input, pausing for
+    go/no-go and stopping on a failed or empty step. Accepts a saved prioritized action
+    plan (M…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-pm-workflow-orchestrator
+- name: utility-slideshow-creator
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-slideshow-creator
+  description: Generates professional presentations from a JSON deck specification
+    using 18 slide types with dark/light variants, content-to-layout decision logic,
+    and calibr…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-slideshow-creator
+- name: utility-update-pm-skills
+  category: meta
+  origin: imported
+  path: vault/imported/meta/utility-update-pm-skills
+  description: Checks for newer pm-skills releases, compares local vs. latest version,
+    previews what would change, and updates local files after user confirmation. Generates…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/utility-update-pm-skills
+- name: iterate-lessons-log
+  category: ops
+  origin: imported
+  path: vault/imported/ops/iterate-lessons-log
+  description: Creates a structured lessons learned entry for organizational memory.
+    Use after an incident, a completed project, or a significant learning to record
+    knowledge…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/iterate-lessons-log
+- name: iterate-pivot-decision
+  category: ops
+  origin: imported
+  path: vault/imported/ops/iterate-pivot-decision
+  description: Documents a strategic pivot or persevere decision with the evidence,
+    analysis, and rationale. Use when evaluating whether to change direction on a
+    product, fea…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/iterate-pivot-decision
+- name: iterate-refinement-notes
+  category: ops
+  origin: imported
+  path: vault/imported/ops/iterate-refinement-notes
+  description: Documents backlog refinement session outcomes including stories refined,
+    estimates, questions raised, and decisions made. Use during or after refinement
+    to cap…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/iterate-refinement-notes
+- name: iterate-retrospective
+  category: ops
+  origin: imported
+  path: vault/imported/ops/iterate-retrospective
+  description: Facilitates and documents a team retrospective capturing what went
+    well, what to improve, and action items. Use at the end of a sprint, project,
+    or milestone t…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/iterate-retrospective
+- name: measure-dashboard-requirements
+  category: ops
+  origin: imported
+  path: vault/imported/ops/measure-dashboard-requirements
+  description: Specifies what questions a dashboard must answer and the metrics, visualizations,
+    filters, and data sources it needs, so data teams build something that inform…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/measure-dashboard-requirements
+- name: measure-experiment-design
+  category: ops
+  origin: imported
+  path: vault/imported/ops/measure-experiment-design
+  description: Designs an A/B test or experiment with variants, success metrics, sample
+    size, and duration for an existing hypothesis. Use when planning an experiment
+    to vali…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/measure-experiment-design
+- name: measure-experiment-results
+  category: ops
+  origin: imported
+  path: vault/imported/ops/measure-experiment-results
+  description: Documents the results of a completed experiment or A/B test with statistical
+    analysis, learnings, and recommendations. Use after experiments conclude to commun…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/measure-experiment-results
+- name: measure-instrumentation-spec
+  category: ops
+  origin: imported
+  path: vault/imported/ops/measure-instrumentation-spec
+  description: Specifies what analytics events to track, when they fire, and what
+    properties to include, as a contract between product and engineering that prevents
+    undertrac…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/measure-instrumentation-spec
+- name: measure-okr-grader
+  category: ops
+  origin: imported
+  path: vault/imported/ops/measure-okr-grader
+  description: Scores completed OKR sets at cycle close with KR-level scoring per
+    the canonical OKR type enum (committed | aspirational | learning | operational_health
+    | comp…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/measure-okr-grader
+- name: measure-survey-analysis
+  category: ops
+  origin: imported
+  path: vault/imported/ops/measure-survey-analysis
+  description: Analyze survey results into actionable PM insights. Produces persona
+    segmentation, hypothesis validation status, thematic clustering of open-text responses,
+    st…
+  license: Apache-2.0
+  tags:
+  - pm-skills
+  - apache-2.0
+  upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/measure-survey-analysis
+- name: hello-skillvault
+  category: meta
+  origin: own
+  path: vault/own/meta/hello-skillvault
+  description: Smoke-test SkillVault install. Use when verifying that a skill was
+    installed correctly into an IDE user or project skills directory.
+  license: MIT
+  tags:
+  - smoke
+  - skillvault

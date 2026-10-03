@@ -151,4 +151,7 @@ def sync_skills(
 
     if apply:
         dump_yaml(REGISTRY_PATH, {"skills": skills})
+        from cli.catalog_cmd import refresh_catalog_after_mutation
+
+        refresh_catalog_after_mutation()
     return reports
