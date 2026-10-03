@@ -136,7 +136,7 @@ AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，
 | [docs/architecture.md](docs/architecture.md) | 格式标准、边界、产物链、门禁、治理 |
 | [docs/ide-targets.md](docs/ide-targets.md) | 各 IDE 用户级 / 项目级路径 |
 | [docs/script-testing.md](docs/script-testing.md) | Skill 脚本测试硬性规范 |
-| [docs/ci.md](docs/ci.md) | CI 是什么、本仓库怎么跑、如何强制门禁 |
+| [docs/ci.md](docs/ci.md) | CI 说明、强制门禁、成本/存储防护 |
 | [agentskills.io](https://agentskills.io/specification) | 外部规范（本仓库格式真相源） |
 | [meta-skills/](meta-skills/) | AI 收录 / AI 安装一等通路 |
 

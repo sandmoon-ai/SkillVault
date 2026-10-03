@@ -1,0 +1,61 @@
+# 定期清理 Actions Artifacts，避免「上传后忘记删」导致存储按小时一直累计。
+# 当前主 CI 并不上传 artifact；本 workflow 是预防以后有人加上传。
+
+name: Actions storage cleanup
+
+on:
+  schedule:
+    - cron: "0 3 1 * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cleanup-artifacts:
+    name: Delete old artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cost hygiene guard
+        run: python .github/scripts/check_actions_cost_hygiene.py
+
+      - name: Delete artifacts older than 7 days
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const maxAgeMs = 7 * 24 * 60 * 60 * 1000;
+            const now = Date.now();
+            let deleted = 0;
+            let kept = 0;
+
+            const artifacts = await github.paginate(
+              github.rest.actions.listArtifactsForRepo,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100,
+              }
+            );
+
+            for (const artifact of artifacts) {
+              const age = now - Date.parse(artifact.created_at);
+              if (age > maxAgeMs) {
+                core.info(
+                  `Deleting artifact ${artifact.id} (${artifact.name}) created ${artifact.created_at}`
+                );
+                await github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                });
+                deleted += 1;
+              } else {
+                kept += 1;
+              }
+            }
+
+            core.info(`Done. Deleted=${deleted}, kept(within 7d)=${kept}`);

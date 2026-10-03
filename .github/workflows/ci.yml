@@ -1,6 +1,9 @@
 # SkillVault 持续集成（CI）
-# 每次有人往仓库推代码或开/更新 PR 时，GitHub 用一台干净的虚拟机跑这里的步骤。
-# 本地没跑测试也能在网页上看到红叉/绿勾；再配合分支保护，就能拦住不合格的合并。
+# 成本约定（详见 docs/ci.md）：
+# - 默认只用 ubuntu-latest（公开仓标准 runner 分钟免费）
+# - 不要无 retention-days 地上传 artifact
+# - 不要无意义地上 cache；用 cache 必须有 key
+# - 日志会自动过期，一般不必手动删
 
 name: CI
 
@@ -10,32 +13,36 @@ on:
   pull_request:
     branches: [main]
 
-# 同一 PR 连续推送时，取消旧的还在跑的任务，省额度
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# 最小权限：本 job 只读代码即可
+permissions:
+  contents: read
+
 jobs:
-  # 一个 job = 一组在同一台机器上顺序执行的步骤
   skill-script-tests:
     name: Skill script tests
-    # GitHub 托管的 Ubuntu 虚拟机（免费额度内对公开仓库一般够用）
     runs-on: ubuntu-latest
     steps:
-      # 1. 把当前提交的代码检出到虚拟机
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. 装指定版本的 Python
+      # 在装依赖前先跑：防止以后 PR 偷偷加上昂贵 runner / 无过期时间的 artifact
+      - name: Cost hygiene guard
+        run: python .github/scripts/check_actions_cost_hygiene.py
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          # 若启用 cache: pip，依赖 actions/cache，会占每仓缓存额度；
+          # 小项目安装很快，默认关闭。需要时再打开并接受缓存占用。
+          # cache: pip
 
-      # 3. 安装本仓库（含 pytest）
       - name: Install package
         run: python -m pip install -e ".[dev]"
 
-      # 4. 跑 Skill 脚本冒烟测试（清单在各 skill 的 scripts/tests.yaml）
       - name: Run skill script tests
         run: python -m pytest tests/test_skill_scripts.py -v

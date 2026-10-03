@@ -77,10 +77,68 @@ py -m pytest tests/test_skill_scripts.py -v
 
 失败了：点进日志，修脚本或 `scripts/tests.yaml`，再 push，CI 会再跑一轮。
 
-## 以后可以加什么（不必现在做）
+## 成本与存储防护（对策）
+
+计费分两块（详见 [GitHub Actions 计费](https://docs.github.com/zh/billing/concepts/product-billing/github-actions)）：
+
+| 类型 | 会不会“跑完还一直扣” | 本仓库对策 |
+|------|----------------------|------------|
+| 运行分钟 | 否，跑完即止 | 默认 `ubuntu-latest`；公开仓标准 runner 分钟免费 |
+| Artifact 存储 | **会**，按存放小时累计 | 上传必须带 `retention-days`（≤7）；每月清理 >7 天的 artifact |
+| Cache 存储 | 占用每仓额度，超了才可能收费 | 默认不开 pip cache；若用 `actions/cache` 必须有 `key` |
+| 日志 / summary | 不计 artifact 配额 | 无需手动删 |
+
+### 已自动化的防护
+
+1. **每次 CI 先跑卫生检查**：[`.github/scripts/check_actions_cost_hygiene.py`](../.github/scripts/check_actions_cost_hygiene.py)  
+   - 禁止无 `retention-days` 的 `upload-artifact`  
+   - `retention-days` 不得超过 7  
+   - 禁止直接上 `windows-latest` / `macos-*` / larger runner（除非文件顶部 `# cost-allow: ...`）  
+   - 使用 `actions/cache` 必须有 `key`
+2. **每月清理 artifact**：[`.github/workflows/actions-storage-cleanup.yml`](../.github/workflows/actions-storage-cleanup.yml)  
+   - 删除超过 7 天的 artifact（也可在 Actions 里手动 `Run workflow`）
+
+### 以后加功能时请遵守
+
+```yaml
+# ✅ 允许的上传示例
+- uses: actions/upload-artifact@v4
+  with:
+    name: pytest-report
+    path: report/
+    retention-days: 3   # 必填，且 <= 7
+
+# ❌ 禁止：没有 retention-days
+- uses: actions/upload-artifact@v4
+  with:
+    name: pytest-report
+    path: report/
+```
+
+若确需 Windows/macOS 矩阵，在对应 workflow 顶部加：
+
+```yaml
+# cost-allow: windows-latest
+```
+
+并在 PR 说明理由（私有仓分钟更贵；公开仓 Windows/macOS 也可能按文档产生费用）。
+
+### 建议在 GitHub 网页再点两下（仓库级）
+
+1. **Settings → Actions → General**  
+   - Artifact 保留期调短（例如 7 天，与仓库策略一致）  
+   - 不需要时关闭 “Allow GitHub Actions to create and approve pull requests” 等多余权限  
+2. **Settings → Billing / Budgets**（有付款方式时）  
+   - 给 Actions 设预算告警，到 90%/100% 发邮件  
+
+### 当前主 CI 的现状
+
+主流程**不上传 artifact、不启用 cache**，因此跑完没有会持续计费的残留。上面的 guard + 月度清理是为「以后有人加上传」预留的闸门。
+
+## 以后可以加什么（功能向，仍受成本规则约束）
 
 - CLI 单元测试（`cli/` 路径解析、frontmatter 裁剪）
-- 多 OS 矩阵（`windows-latest` + `ubuntu-latest`）——脚本跨平台更严
-- sync 上游的定时任务（那是 CD/自动化的另一种用法，和「每次 PR 质检」不同）
+- 多 OS 矩阵（需 `# cost-allow` + PR 说明）
+- sync 上游的定时任务（与「每次 PR 质检」不同；同样避免无过期时间的产物）
 
-先把「PR 必跑 skill 脚本测试」稳住，就够用。
+先把「PR 必跑 skill 脚本测试 + 成本卫生」稳住，就够用。
