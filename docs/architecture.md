@@ -1,7 +1,9 @@
 # SkillVault 架构
 
 本文说明 SkillVault 在 AI-native SDLC 中的位置、产物链、门禁与目录职责。  
-概念对齐：[The AI-native SDLC playbook](https://claude.com/blog/the-ai-native-sdlc-playbook)。
+概念对齐：[The AI-native SDLC playbook](https://claude.com/blog/the-ai-native-sdlc-playbook)。  
+
+**落地进度与 GitHub 已启用配置**见 [status.md](./status.md)；CI / Ruleset 细节见 [ci.md](./ci.md)。
 
 ## 1. 定位
 

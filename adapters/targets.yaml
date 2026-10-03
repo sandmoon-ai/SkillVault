@@ -1,0 +1,66 @@
+# IDE × OS × scope → install path templates
+# Placeholders:
+#   {home}         - user home directory
+#   {project_root} - required when scope=project
+#   {skill}        - skill directory name (appended by installer)
+
+ides:
+  cursor:
+    user:
+      linux: "{home}/.cursor/skills"
+      macos: "{home}/.cursor/skills"
+      windows: "{home}/.cursor/skills"
+    project:
+      linux: "{project_root}/.cursor/skills"
+      macos: "{project_root}/.cursor/skills"
+      windows: "{project_root}/.cursor/skills"
+
+  claude-code:
+    user:
+      linux: "{home}/.claude/skills"
+      macos: "{home}/.claude/skills"
+      windows: "{home}/.claude/skills"
+    project:
+      linux: "{project_root}/.claude/skills"
+      macos: "{project_root}/.claude/skills"
+      windows: "{project_root}/.claude/skills"
+
+  codex:
+    user:
+      linux: "{home}/.agents/skills"
+      macos: "{home}/.agents/skills"
+      windows: "{home}/.agents/skills"
+    project:
+      linux: "{project_root}/.agents/skills"
+      macos: "{project_root}/.agents/skills"
+      windows: "{project_root}/.agents/skills"
+
+  copilot:
+    user:
+      linux: "{home}/.copilot/skills"
+      macos: "{home}/.copilot/skills"
+      windows: "{home}/.copilot/skills"
+    project:
+      linux: "{project_root}/.github/skills"
+      macos: "{project_root}/.github/skills"
+      windows: "{project_root}/.github/skills"
+
+  pi:
+    user:
+      linux: "{home}/.pi/agent/skills"
+      macos: "{home}/.pi/agent/skills"
+      windows: "{home}/.pi/agent/skills"
+    project:
+      linux: "{project_root}/.pi/skills"
+      macos: "{project_root}/.pi/skills"
+      windows: "{project_root}/.pi/skills"
+
+  opencode:
+    user:
+      linux: "{home}/.config/opencode/skills"
+      macos: "{home}/.config/opencode/skills"
+      windows: "{home}/.config/opencode/skills"
+    project:
+      linux: "{project_root}/.opencode/skills"
+      macos: "{project_root}/.opencode/skills"
+      windows: "{project_root}/.opencode/skills"
