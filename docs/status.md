@@ -85,7 +85,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | 收录前安全检查 | **v1 已完成** | `sv security-scan`；import 自动扫描；见 [design/import-security.md](./design/import-security.md) |
 | 安全规则定期检知 | **设计已定 / 实现待做** | 见 [design/security-rules-watch.md](./design/security-rules-watch.md)；Issue 收集，人决定采纳 |
 | Issue / Milestone 标准 | **设计已定** | 见 [design/issue-milestone-standard.md](./design/issue-milestone-standard.md)；模板在 `.github/ISSUE_TEMPLATE/` |
-| Phase 3 sync + 换机文档 | **设计已定 / 硬化待做** | 见 [design/m3-sync-harden.md](./design/m3-sync-harden.md) |
+| Phase 3 sync + 换机文档 | **已完成** | `sv sync --ide/--os` vault↔IDE 对照；见 [design/m3-sync-harden.md](./design/m3-sync-harden.md) |
 | 上游定时检知 + Issue | **设计已定 / 实现待做** | 见 [design/upstream-watch.md](./design/upstream-watch.md)；registry 有样例后再落地 |
 | Phase 4 硬化 | **部分完成** | Skill 脚本 pytest + CI 全量 `tests/` + 成本卫生 + Ruleset；CLI paths/install/list 单测已有 |
 

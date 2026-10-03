@@ -165,7 +165,7 @@ vault/{own|imported}/<category>/<skill-name>/
 | 通路 | 怎么用 | 适合 |
 |------|--------|------|
 | **AI 通路** | 在任意支持 Skills 的 Agent 里打开本仓库，调用 `meta-skills/import-from-url` 或 `meta-skills/install`；AI 读 `adapters/`、读写文件、停在各 Gate 等人确认 | 日常对话驱动、转化理解、换机引导 |
-| **CLI 通路** | `py cli/sv.py import\|install\|list\|sync ...` | 批量、CI、可脚本化重复 |
+| **CLI 通路** | `py cli/sv.py import\|install\|list\|sync ...`（`sync --ide/--os` = vault↔IDE；`sync <name>\|--all` = 上游） | 批量、CI、可脚本化重复 |
 
 共同约束：
 

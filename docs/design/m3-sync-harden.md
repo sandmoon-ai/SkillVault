@@ -1,6 +1,7 @@
 # M3 — Sync 与硬化设计
 
-**状态：** 设计已定；单测与文档收束待做  
+**状态：** 已完成（2026-10-03）  
+
 **关联：** [status.md](../status.md)、[architecture.md](../architecture.md)、[`cli/`](../../cli/)  
 **上游 URL↔vault 定时检知**见 [upstream-watch.md](./upstream-watch.md)（勿与本文混淆）。
 
@@ -17,7 +18,11 @@
 ### 2.1 命令（目标形态）
 
 ```bash
+# vault ↔ IDE 有无对照（本里程碑）
 py cli/sv.py sync --ide <ide> --os <os> [--scope user|project] [--project-root <path>]
+
+# 上游 registry 再拉取（既有能力；勿与上混用同一条命令）
+py cli/sv.py sync <name>|--all [--apply]
 ```
 
 ### 2.2 报告语义
@@ -63,10 +68,10 @@ py cli/sv.py sync --ide <ide> --os <os> [--scope user|project] [--project-root <
 
 ## 4. 完成标准
 
-- [ ] `tests/test_sync.py` 合入且 CI 绿  
-- [ ] 换机清单可按步骤执行（至少作者自测一遍）  
-- [ ] `status.md` 与设计目录链接完整  
-- [ ] 验收记录已填  
+- [x] `tests/test_ide_sync.py` 合入且 CI 绿  
+- [x] 换机清单可按步骤执行（至少作者自测一遍）  
+- [x] `status.md` 与设计目录链接完整  
+- [x] 验收记录已填  
 
 ## 5. 换机清单（定稿）
 
@@ -86,7 +91,7 @@ Windows 注意：bash 若为 WSL stub，脚本测试会 skip bash runner（见 `
 
 | 日期 | sync 单测 | 换机清单自测 | status 已刷新 |
 |------|-----------|--------------|---------------|
-| _待填_ | | | |
+| 2026-10-03 | pass（test_ide_sync） | pass：list / install 已有；`sv sync --ide cursor --os windows` 输出 pending/orphan/in_sync | pass |
 
 ## 7. 非目标（M3）
 
