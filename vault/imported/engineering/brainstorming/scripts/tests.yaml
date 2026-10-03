@@ -1,0 +1,15 @@
+# SkillVault smoke tests for brainstorming companion helpers.
+tests:
+  - script: start-server.sh
+    platforms: [linux, macos, windows]
+    runner: bash
+    optional_runner: true
+    args: ["--not-a-real-flag"]
+    expect_exit: 1
+    expect_stdout_contains: "Unknown argument"
+  - script: stop-server.sh
+    platforms: [linux, macos, windows]
+    runner: bash
+    optional_runner: true
+    expect_exit: 1
+    expect_stdout_contains: "Usage: stop-server.sh"

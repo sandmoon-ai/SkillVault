@@ -78,3 +78,13 @@ descriptions:
   measure-instrumentation-spec: 规定埋点事件、触发时机与属性，作为产研数据契约。
   measure-okr-grader: 周期结束时按 OKR 类型枚举给 KR 打分并给出下一周期建议。
   measure-survey-analysis: 分析问卷：画像分段、假设验证、开放题主题聚类与可执行洞察。
+  brainstorming: 创意/功能动手前先对齐意图与设计；通过对话收敛需求并拿到认可后再实现。
+  writing-plans: 有规格后、动代码前：把工作拆成可独立验证的小任务实现计划。
+  executing-plans: 在当前会话按计划逐步执行（非每任务子代理）；适合内联落地。
+  test-driven-development: 实现功能或修 bug 前先写失败测试，再最小实现通过（红绿重构）。
+  systematic-debugging: 遇 bug/失败时先查根因再改；禁止无根因的症状式修补。
+  verification-before-completion: 声称完成/通过前必须跑验证命令并出示证据。
+  requesting-code-review: 任务完成或合并前请求码评；按严重级别处理反馈。
+  receiving-code-review: 收到码评后先核实再改，避免表演式同意或盲从。
+  using-git-worktrees: 需要隔离工作区时用原生工具或 git worktree 建干净环境。
+  finishing-a-development-branch: 实现与测试通过后决定合并/开 PR/保留/丢弃并清理 worktree。

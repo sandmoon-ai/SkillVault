@@ -1,0 +1,8 @@
+# SkillVault smoke tests for systematic-debugging helpers.
+tests:
+  - script: find-polluter.sh
+    platforms: [linux, macos, windows]
+    runner: bash
+    optional_runner: true
+    expect_exit: 1
+    expect_stdout_contains: "Usage:"
