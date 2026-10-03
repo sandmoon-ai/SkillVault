@@ -1,0 +1,77 @@
+# Vault canonical frontmatter = Agent Skills spec (https://agentskills.io/specification)
+# On install, only `keep` keys for the target IDE are copied (vault source unchanged).
+# Product-specific extensions may exist in vault; strip them for IDEs that ignore them.
+
+canonical:
+  # From agentskills.io — author skills to these fields first
+  required:
+    - name
+    - description
+  optional:
+    - license
+    - compatibility
+    - metadata
+    - allowed-tools
+  # SkillVault-only files (not frontmatter): SOURCE.md is never installed
+
+# Non-spec keys some products recognize; allowed in vault, filtered per IDE on install
+extensions:
+  - disable-model-invocation
+
+ides:
+  cursor:
+    keep:
+      - name
+      - description
+      - license
+      - compatibility
+      - metadata
+      - allowed-tools
+      - disable-model-invocation
+
+  claude-code:
+    keep:
+      - name
+      - description
+      - license
+      - compatibility
+      - metadata
+      - allowed-tools
+      - disable-model-invocation
+
+  codex:
+    keep:
+      - name
+      - description
+      - license
+      - compatibility
+      - metadata
+      - allowed-tools
+
+  copilot:
+    keep:
+      - name
+      - description
+      - license
+      - compatibility
+      - metadata
+      - allowed-tools
+
+  pi:
+    keep:
+      - name
+      - description
+      - license
+      - compatibility
+      - metadata
+      - allowed-tools
+      - disable-model-invocation
+
+  opencode:
+    keep:
+      - name
+      - description
+      - license
+      - compatibility
+      - metadata
+      - allowed-tools

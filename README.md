@@ -1,195 +1,145 @@
 # SkillVault
 
-个人 Agent Skill 仓库：自建与收录的 Skills 统一版本管理，可在桌面、笔记本与云端环境间同步；对来自公开项目的 Skill，可跟踪上游并自动更新。
+个人 / 小团队的 **Agent Skill 制度知识库**：用 Git 统一管理自建与收录的 Skills，在 Linux / Windows 与多 IDE 间一致安装；公开源可通过 URL 拉取，经转化与人审后合入。
 
-面向各类支持 Skill / 指令包的 Agent 工具（如 Cursor、Claude Code、Codex、Windsurf 等），本仓库是**中立的内容源**，不绑定某一产品。
+工具中立，不绑定单一产品。当前目标适配：**Cursor、Codex、Claude Code、Copilot、Pi、OpenCode**。
 
-## 为什么需要 SkillVault
+**包格式标准：** [Agent Skills](https://agentskills.io)（[Specification](https://agentskills.io/specification)）。vault 内 Skill 必须是规范的目录 + `SKILL.md` 包。
 
-- **多机一致**：各工具本地 Skill 目录容易漂移，用 Git 当唯一真相源。
-- **自建 + 收录**：自己的 Skill 与公开项目 Skill 分目录存放，职责清晰。
-- **上游可更新**：收录的公开 Skill 绑定来源仓库/路径，一键拉取最新版本。
-- **可审计**：每次变更都有 commit，方便回滚与对比。
-- **工具无关**：仓库只存 Skill 内容；安装时再映射到各工具的本地路径。
+流程与治理对齐 [AI-native SDLC playbook](https://claude.com/blog/the-ai-native-sdlc-playbook)：
+
+- **提交产物、人审门禁**（而不是无审自动合入）
+- **Skill = 需一致执行的制度知识**（不是项目杂项提示）
+- **Git 为真相源**；安装只是把真相源投影到各 IDE 路径
+
+完整架构见 [`docs/architecture.md`](docs/architecture.md)。
+
+## Skill 放什么、不放什么
+
+| 放进 SkillVault | 留在各业务仓库 |
+|-----------------|----------------|
+| 可跨项目复用的流程、规范、审查清单 | `CLAUDE.md` / `AGENTS.md`（命令、目录约定、易错点） |
+| 触发条件清晰的专用工作流 | 与单一仓库强绑定的说明 |
+| 公开 Skill 转化后的规范包 + 溯源 | 业务 `intent.md` / `spec.md` / `plan.md` |
+
+经验法则：**要处处一致执行 → Skill；只要这个仓的新成员知道怎么干活 → 项目上下文文件。**  
+Skill 是建议性控制；必须强制的规则用 hook / CI / 评审，不要只靠 Skill。
+
+## 产物链（先理解这个，再谈命令）
+
+```text
+intent-import   →  Gate：值得收吗？
+      ↓
+fetch (.cache)  →  源长什么样？
+      ↓
+转化 + SOURCE   →  Gate：diff 能合入吗？
+      ↓
+vault + registry（git commit）
+      ↓
+install --ide --os   （默认用户级）
+```
+
+- **默认不自动合入**：拉取只进 `.cache`，人审通过后才进 `vault/imported`。
+- **默认用户级安装**：只有明确指定项目级时才写入某仓库。
 
 ## 目录结构
 
 ```text
 SkillVault/
-├── own/                    # 自己编写的 Skill（完整纳入版本控制）
-│   └── example-skill/
-│       └── SKILL.md
-├── vendor/                 # 从公开项目收录的 Skill（由同步脚本维护）
-│   └── upstream-name/
-│       └── skill-name/
-│           └── SKILL.md
-├── sources.yaml            # 公开 Skill 的上游来源清单
-├── targets.yaml            # 各 Agent 工具的本地安装路径（本机/按环境）
-├── scripts/
-│   └── sync-vendor.sh      # 按 sources.yaml 拉取/更新 vendor
-├── install.sh              # 将本仓库 Skill 同步到 targets 中声明的路径
-└── README.md
+├── docs/                    # 架构与 IDE 路径说明
+├── adapters/                # ide × os × scope 路径与 frontmatter 适配
+├── registry/sources.yaml    # 已收录上游索引
+├── intents/                 # 收录意图（intent-import 产物）
+├── vault/
+│   ├── own/                 # 自建 Skill
+│   └── imported/            # 公开源转化结果（经门禁）
+├── meta-skills/             # AI 一等通路（import / install）
+├── cli/                     # CLI 等价通路
+└── .cache/                  # 本地缓存（不提交）
 ```
 
-| 目录 / 文件 | 用途 | 是否手改 |
-|-------------|------|----------|
-| `own/` | 个人/团队自建 Skill | 是，直接编辑并 commit |
-| `vendor/` | 镜像公开上游的 Skill | 否，由 `sync-vendor` 生成 |
-| `sources.yaml` | 声明上游仓库、路径、目标目录 | 是，增删收录来源时改 |
-| `targets.yaml` | 声明各工具本机 Skill 目录 | 是，按本机工具配置（可 gitignore 本地覆盖） |
-
-每个 Skill 为独立目录，且必须包含 `SKILL.md`（建议含 YAML frontmatter：`name`、`description` 等）。具体字段以目标工具的 Skill 规范为准；编写时尽量保持通用，避免写死某一产品的专有路径或内部 API。
-
-## 快速开始
-
-### 1. 克隆仓库
-
-```bash
-git clone https://github.com/sandmoon-ai/SkillVault.git
-cd SkillVault
-```
-
-### 2. 配置本机安装目标
-
-在 `targets.yaml` 中声明要用的 Agent 工具及其 Skill 目录，例如：
-
-```yaml
-# targets.yaml（示例，按本机实际路径修改）
-targets:
-  - name: tool-a
-    path: ~/.config/tool-a/skills
-  - name: tool-b
-    path: ~/Library/Application Support/tool-b/skills
-  # Windows 示例：
-  # - name: tool-c
-  #   path: "%USERPROFILE%\\.tool-c\\skills"
-```
-
-不同工具的路径各不相同，以各自文档为准。SkillVault 只负责把 `own/` + `vendor/` 同步到你声明的目录。
-
-### 3. 安装到本机
-
-```bash
-# 按 targets.yaml 同步 own + vendor
-./install.sh
-
-# 或手动：将 SkillVault/own/* 与 SkillVault/vendor/*/*/
-# 复制或符号链接到各工具的 Skill 目录
-```
-
-Windows 可用 PowerShell 版安装脚本（`install.ps1`），或自行 junction / symlink / 同步。
-
-### 4. 新机器上线检查清单
-
-1. Clone 本仓库（或 `git pull`）
-2. 配置或复制本机 `targets.yaml`
-3. 运行 sync 更新公开 Skill
-4. 运行 install 同步到各工具目录
-5. 重启或重新加载对应 Agent，确认 Skill 已出现
-
-## 公开 Skill 自动更新
-
-### 来源清单 `sources.yaml`
-
-```yaml
-# sources.yaml
-skills:
-  - name: example-public-skill
-    repo: https://github.com/org/awesome-skills.git
-    ref: main                    # branch / tag / commit
-    path: skills/example         # 上游仓库内路径
-    target: vendor/org/example-public-skill
-    license: MIT                 # 可选，便于合规核对
-```
-
-### 同步流程
-
-```bash
-./scripts/sync-vendor.sh
-# 1. 按 sources.yaml 浅克隆或拉取上游
-# 2. 将指定 path 同步到 target
-# 3. 若有变更，可自动 git add + 提示 commit
-```
-
-建议工作流：
-
-1. **定时或换机时**运行 sync，检查 `git status`
-2. 上游有更新 → 审阅 diff → commit → push
-3. 其他机器 `git pull` + `install` 即与上游对齐
-
-也可在 CI（如 GitHub Actions）中定时跑 sync，发现更新时开 PR，实现「自动检测、人工合并」。
-
-### 收录新公开 Skill
-
-1. 在 `sources.yaml` 增加一条来源
-2. 运行 sync 脚本生成 `vendor/...`
-3. 确认许可证与用途合适后 commit
-4. 本机执行 install，在目标 Agent 中验证能否正确加载
-
-**注意**：不要直接手改 `vendor/` 下的文件；需要定制时，在 `own/` 中 fork 一份并注明源自何处。
-
-## 自建 Skill
-
-在 `own/<skill-name>/` 下创建：
+单个 Skill 包（[agentskills.io](https://agentskills.io/specification)）：
 
 ```text
-own/my-workflow/
-├── SKILL.md          # 必需
-├── reference.md      # 可选：长文档
-├── examples.md       # 可选：示例
-└── scripts/          # 可选：辅助脚本
+<skill-name>/          # 目录名 = name
+├── SKILL.md           # 必需
+├── scripts/           # 可选
+├── references/        # 可选
+├── assets/            # 可选
+└── SOURCE.md          # 仅 vault/imported 溯源；安装时不拷贝
 ```
 
-`SKILL.md` 最小模板：
+## 使用概览：AI 与 CLI 双通路
 
-```markdown
----
-name: my-workflow
-description: 一句话说明做什么、何时使用
----
+收录和安装都是 **AI 通路与 CLI 通路并列**（规则相同，见 [`docs/architecture.md`](docs/architecture.md) §6.1）。日常优先对话驱动；批量/CI 用脚本。
 
-# My Workflow
+| 场景 | AI 通路（推荐日常） | CLI 通路 |
+|------|---------------------|----------|
+| 安装到本机 IDE | 打开本仓库，让 Agent 按 [`meta-skills/install`](meta-skills/install/SKILL.md) 执行 | `py cli/sv.py install ...` |
+| 收录公开 Skill | 给出 URL，按 [`meta-skills/import-from-url`](meta-skills/import-from-url/SKILL.md) | `py cli/sv.py import <url>`（只进 cache）+ AI 转化 |
+| 上游更新 | 让 Agent 跑 sync 流程并展示 diff | `py cli/sv.py sync ...` |
 
-## 何时使用
-...
+### 换机 / 日常安装
 
-## 步骤
-...
-```
-
-写完后：
+1. `git clone` 或 `git pull` 本仓库  
+2. **AI：**「把 `<skill>` 以用户级装到 Windows 的 Cursor」→ Agent 读 adapter、确认路径、复制文件  
+   **或 CLI：**
 
 ```bash
-git add own/my-workflow
-git commit -m "Add own skill: my-workflow"
-git push
-# 其他机器 pull 后重新 install
+py cli/sv.py list
+py cli/sv.py install <skill> --ide cursor --os windows
+py cli/sv.py install <skill> --ide claude-code --os linux
+
+# 项目级必须显式
+py cli/sv.py install <skill> --ide cursor --os windows \
+  --scope project --project-root /path/to/repo
 ```
 
-## 推荐约定
+3. 重载 Agent；必要时做触发抽检  
 
-- **命名**：Skill 目录与 frontmatter `name` 使用小写 + 连字符（如 `folder-structure`）。
-- **边界**：`own` 可自由迭代；`vendor` 只通过 sync 更新。
-- **工具中立**：正文避免写死某一产品的内部路径；安装映射放在 `targets.yaml`。
-- **密钥**：切勿把 API Key、token、私钥写进 Skill 或 commit。
-- **体积**：大二进制、数据集不要放进仓库；用链接或外部存储。
-- **许可**：收录第三方 Skill 时保留其 LICENSE / 版权声明。
+路径对照：[docs/ide-targets.md](docs/ide-targets.md)。
 
-## 多机同步模式（任选）
+### 收录公开 Skill
 
-| 模式 | 做法 | 适合 |
-|------|------|------|
-| Git 中心 | 各机 clone，改完 push / pull | 默认推荐 |
-| 符号链接 | 工具本地 Skill 目录 → 指向本仓库 checkout | 单机开发最省事 |
-| CI 跟上游 | Actions 定时 sync 并开 PR | 想少操心公开 Skill 更新 |
+1. **AI：**「把 `<url>` 收进 SkillVault」→ 写 intent → fetch → 转化 → 等人审 → 合入 registry  
+2. **或：** `sv import <url>` 只拉到 `.cache`，再由 AI 完成转化与门禁  
+3. 需要落地时继续 **AI 安装** 或 `sv install`  
+4. 未人审不得进 `vault/imported`
 
-## 路线图（可选后续）
+### 上游更新
 
-- [ ] 完善 `install.sh` / `install.ps1`（读取 `targets.yaml`）
-- [ ] 完善 `scripts/sync-vendor.sh`（浅克隆、ref 锁定、变更报告）
-- [ ] GitHub Actions：定时检测上游更新并创建 PR
-- [ ] Skill 索引页（名称、来源、上次同步时间、适用工具备注）
+AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，确认后再 apply / 开 PR。
+
+## 支持的 IDE 与 OS
+
+| 维度 | 支持 |
+|------|------|
+| OS | Windows、Linux、macOS |
+| IDE | Cursor、Codex、Claude Code、Copilot、Pi、OpenCode |
+| 范围 | 默认 `user`；`project` 需显式指定 |
+
+## 约定
+
+- 格式遵循 [Agent Skills Specification](https://agentskills.io/specification)：`name` / `description` 规则与目录名一致  
+- `description` 写清触发场景（agent 靠它决定是否加载）  
+- `vault/own` 可直接改；`vault/imported` 经门禁合入，定制请 fork 到 `own/`  
+- 正文保持工具中立；安装路径只存在于 `adapters/`  
+- 不提交密钥、大二进制；第三方许可写在 `SOURCE.md` 或 `license` 字段  
+- 脚本尽量双平台，否则在 `compatibility` 中标明限制  
+- **脚本必测**：`scripts/` 下每个脚本须在 `scripts/tests.yaml` 声明，并经 `py -m pytest tests/test_skill_scripts.py` 通过（见 [docs/script-testing.md](docs/script-testing.md)）  
+
+
+## 文档
+
+| 文档 | 内容 |
+|------|------|
+| [docs/architecture.md](docs/architecture.md) | 格式标准、边界、产物链、门禁、治理 |
+| [docs/ide-targets.md](docs/ide-targets.md) | 各 IDE 用户级 / 项目级路径 |
+| [docs/script-testing.md](docs/script-testing.md) | Skill 脚本测试硬性规范 |
+| [docs/ci.md](docs/ci.md) | CI 是什么、本仓库怎么跑、如何强制门禁 |
+| [agentskills.io](https://agentskills.io/specification) | 外部规范（本仓库格式真相源） |
+| [meta-skills/](meta-skills/) | AI 收录 / AI 安装一等通路 |
 
 ## 许可证
 
-本仓库整体以 [MIT License](./LICENSE) 发布。`vendor/` 下各 Skill 遵循其**各自上游许可证**；收录时请保留原作者声明。
+本仓库以 [MIT License](./LICENSE) 发布。`vault/imported/` 下各 Skill 遵循其上游许可证；收录时保留原作者与许可声明。

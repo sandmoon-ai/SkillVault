@@ -1,0 +1,22 @@
+# Skill 脚本冒烟测试清单（由 tests/test_skill_scripts.py 读取）
+# 每个 scripts/ 下的可执行文件都应在此声明；详见 docs/script-testing.md
+tests:
+  # Windows：PowerShell 版
+  - script: hello.ps1
+    platforms: [windows]
+    expect_exit: 0
+    expect_stdout_contains: "hello-skillvault: ok (powershell)"
+
+  # Linux / macOS：bash 版
+  - script: hello.sh
+    platforms: [linux, macos]
+    expect_exit: 0
+    expect_stdout_contains: "hello-skillvault: ok (bash)"
+
+  # Windows 上若有可用 bash（如 Git Bash）再试；失败则 skip，不算红
+  - script: hello.sh
+    platforms: [windows]
+    runner: bash
+    expect_exit: 0
+    expect_stdout_contains: "hello-skillvault: ok (bash)"
+    optional_runner: true
