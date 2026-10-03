@@ -84,6 +84,30 @@ def test_require_report_missing(tmp_path: Path) -> None:
         require_report_for_apply(skill)
 
 
+def test_import_summary_allows_frontmatter_dates(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """YAML may parse dates; summary JSON must still serialize (pm-skills)."""
+    import cli.common as common
+    import cli.import_cmd as import_cmd
+
+    monkeypatch.setattr(common, "CACHE_DIR", tmp_path / "cache")
+    monkeypatch.setattr(import_cmd, "CACHE_DIR", tmp_path / "cache")
+    src = tmp_path / "dated-skill"
+    src.mkdir()
+    (src / "SKILL.md").write_text(
+        "---\nname: dated-skill\n"
+        "description: Skill with a YAML date in frontmatter for import summary.\n"
+        "license: MIT\n"
+        "metadata:\n  released: 2026-01-15\n---\n\n# Dated\n",
+        encoding="utf-8",
+    )
+    (src / "LICENSE").write_text("MIT\n", encoding="utf-8")
+    result = import_from_url(str(src), name="dated-skill", apply=False)
+    summary = (result.cache_dir / "_skillvault_summary.json").read_text(encoding="utf-8")
+    assert "2026-01-15" in summary
+
+
 def test_require_report_stale_fingerprint(tmp_path: Path) -> None:
     skill = _write_clean_skill(tmp_path)
     report = scan_tree(skill)
