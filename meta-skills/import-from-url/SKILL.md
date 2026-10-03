@@ -18,12 +18,15 @@ description: >-
 Import Progress:
 - [ ] Gate A: intents/intent-import-<name>.md（为何收、边界）— 等人确认
 - [ ] Fetch: 拉到 .cache（AI 下载 或 sv import）— 出示摘要
+- [ ] Security: 对 .cache（或转化草稿）跑安全检查 — 出示报告（必做）
 - [ ] Convert: 写成 Agent Skills 包 → vault/imported/<category>/<name>/ + SOURCE.md
       （默认 category=`inbox`，Gate B 再归入 docs/taxonomy.md 标准类目）
-- [ ] Gate B: 展示 diff，确认类目/标签，等人确认
+- [ ] Gate B: 展示 diff + 安全报告，确认类目/标签，等人确认
 - [ ] Gate C: 更新 registry + catalog（可选）+ 建议 commit
 - [ ] 需要落地时 → 走 meta-skills/install（AI 或 CLI）
 ```
+
+安全检查规格见 [`docs/design/import-security.md`](../../docs/design/import-security.md)。实现就绪后优先调用 `sv security-scan`；未实现前按该文档检查项做等价人工/脚本扫查并写出报告文件再进 Gate B。
 
 ## Gate A — 意图（AI 起草，人确认）
 
@@ -72,10 +75,11 @@ py cli/sv.py import <url> [--name <skill-name>] [--ref <ref>]
 ## Gate B / C
 
 1. 展示将合入的文件树与关键 diff、`SOURCE.md`
-2. 若存在 `scripts/`：确认 `tests.yaml` 覆盖每个脚本，并执行 `py -m pytest tests/test_skill_scripts.py -v`（或至少跑该 skill 相关用例）
-3. **等人确认**后写入 `vault/imported/` 与 `registry/sources.yaml`
-4. 提示 commit；用户要求时可代为提交
-5. 若用户接着要「装到某 IDE」→ 直接转入 `meta-skills/install`，勿只丢 CLI 文档
+2. **展示安全检查报告**（结论 + critical/warn 列表 + 报告路径）；未展示不得请求合入确认
+3. 若存在 `scripts/`：确认 `tests.yaml` 覆盖每个脚本，并执行 `py -m pytest tests/test_skill_scripts.py -v`（或至少跑该 skill 相关用例）
+4. **等人确认**后写入 `vault/imported/` 与 `registry/sources.yaml`（`critical` 未接受则停止）
+5. 提示 commit；用户要求时可代为提交
+6. 若用户接着要「装到某 IDE」→ 直接转入 `meta-skills/install`，勿只丢 CLI 文档
 
 ## 示例对话意图
 
@@ -86,5 +90,6 @@ py cli/sv.py import <url> [--name <skill-name>] [--ref <ref>]
 ## 不要
 
 - 无 Gate 确认就写入 `vault/imported` 或改 registry
+- 无安全报告（或报告过期）就请求合入确认
 - 只回复「请运行 sv import」却拒绝在可写环境代为拉取/转化（用户要的是收录结果）
-- 把 CLI `--apply` 当成跳过人工审查的捷径
+- 把 CLI `--apply` 当成跳过人工审查或跳过安全检查的捷径

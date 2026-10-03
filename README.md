@@ -13,7 +13,9 @@
 - **Git 为真相源**；安装只是把真相源投影到各 IDE 路径
 
 完整架构见 [`docs/architecture.md`](docs/architecture.md)。  
-**截至目前的落地对照与进度**见 [`docs/status.md`](docs/status.md)。
+**截至目前的落地对照与进度**见 [`docs/status.md`](docs/status.md)。  
+**下一阶段设计（M1–M3）**见 [`docs/design/`](docs/design/README.md)。  
+**参与贡献**：[CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md) · [CONTRIBUTING.md](CONTRIBUTING.md)（English）。
 
 ## 质量与 GitHub 门禁（已启用）
 
@@ -147,6 +149,7 @@ AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，
 
 | 文档 | 内容 |
 |------|------|
+| [CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md) / [CONTRIBUTING.md](CONTRIBUTING.md) | **贡献指南**（收录 / 自建 / PR 门禁） |
 | [docs/status.md](docs/status.md) | **现状整理**：原则、已落地项、进度 |
 | [docs/taxonomy.md](docs/taxonomy.md) | Skill 类目（阶段）+ 标签 |
 | [docs/architecture.md](docs/architecture.md) | 格式标准、边界、产物链、双通路、治理 |

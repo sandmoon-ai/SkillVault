@@ -1,0 +1,61 @@
+name: Manufacturing task / 制造任务
+description: Implement a slice under a Milestone (CLI, scan, workflow, docs).
+labels: ["type:task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Standard: [docs/design/issue-milestone-standard.md](https://github.com/sandmoon-ai/SkillVault/blob/main/docs/design/issue-milestone-standard.md)
+  - type: input
+    id: design_doc
+    attributes:
+      label: Design doc / 设计依据
+      description: Path under docs/design/ and section if possible
+      placeholder: docs/design/m1-install.md §3.1
+    validations:
+      required: true
+  - type: input
+    id: milestone
+    attributes:
+      label: Milestone
+      placeholder: M1 — Install loop
+    validations:
+      required: true
+  - type: textarea
+    id: background
+    attributes:
+      label: Background / 背景
+      description: Why now
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / 范围
+      description: Checklist of what will be done
+      value: |
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: non_scope
+    attributes:
+      label: Non-scope / 非范围
+      value: |
+        -
+  - type: textarea
+    id: dod
+    attributes:
+      label: Definition of done / 完成标准
+      value: |
+        - [ ]
+        - [ ] CI green (if code)
+        - [ ] Design doc checkboxes updated (if applicable)
+    validations:
+      required: true
+  - type: textarea
+    id: test_plan
+    attributes:
+      label: Test plan / 测试计划
+      value: |
+        - [ ]

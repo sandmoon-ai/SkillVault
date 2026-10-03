@@ -1,0 +1,54 @@
+name: Import proposal / 收录提案
+description: Propose importing a public skill (gates A–C).
+labels: ["type:import"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Follow [CONTRIBUTING](https://github.com/sandmoon-ai/SkillVault/blob/main/CONTRIBUTING.md) and `intents/_template-import.md`.
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License
+      placeholder: MIT / Apache-2.0 / …
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Suggested category
+      options:
+        - inbox
+        - foundation
+        - discover
+        - define
+        - deliver
+        - design
+        - engineering
+        - ops
+        - meta
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why import / 收录理由
+    validations:
+      required: true
+  - type: checkboxes
+    id: gates
+    attributes:
+      label: Contributor checklist
+      options:
+        - label: Willing to open a PR with intent + SOURCE.md + registry (not cache-only)
+          required: true
+        - label: Scripts will include scripts/tests.yaml if present
+          required: false
+        - label: Security self-check / scan report will be attached at Gate B
+          required: true

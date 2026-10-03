@@ -79,7 +79,9 @@ intent-import.md          # 为何收录、适用边界、不做的事
         ▼  Gate A：人确认「值得收」
 fetch summary             # CLI 拉取到 .cache；文件树 / frontmatter 摘要
         │
-        ▼  Gate B：人/AI 转化并审阅 diff
+security report           # 收录前安全检查（确定性规则）
+        │
+        ▼  Gate B：人审 diff + 安全报告（可先转化再审）
 converted skill           # vault/imported/<name>/SKILL.md + SOURCE.md
 + registry 条目
         │
@@ -94,9 +96,12 @@ in use                    # 使用中发现问题 → 回写 intent 或修正 Sk
 |------|------|----------------|
 | `intent-import.md` | 人（可与 AI 共写） | 是否收录、范围约束 |
 | `.cache/...` + summary | CLI | 源长什么样、有无脚本/许可线索 |
+| 安全检查报告 | CLI / `sv security-scan` | Gate B：有无密钥、高危脚本等 |
 | `vault/imported/...` + `SOURCE.md` | AI 转化 + 人改 | 规范 Skill 正文与溯源 |
 | `registry/sources.yaml` | import/sync 更新 | 上游 URL、ref、上次同步 |
 | IDE 目录中的 Skill 副本 | `sv install` | Agent 运行时加载 |
+
+安全检查设计见 [`docs/design/import-security.md`](./design/import-security.md)。
 
 默认：**拉取只进 cache，不自动合入 vault。**  
 `--apply` / 合入 registry 视为 Gate B/C 之后的动作，需人审。
