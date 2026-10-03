@@ -687,3 +687,11 @@ skills:
   local: vault/imported/engineering/finishing-a-development-branch
   license: MIT
   last_synced: '2026-10-03T12:32:00Z'
+- name: ocr
+  url: https://github.com/ledin-pro/ocr/tree/main/skills/ocr
+  ref: 396fae9b284e5f111c8cec8d66719c26753e6e62
+  path: skills/ocr
+  category: ops
+  local: vault/imported/ops/ocr
+  license: MIT
+  last_synced: '2026-10-03T13:57:00Z'

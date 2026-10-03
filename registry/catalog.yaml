@@ -1,9 +1,9 @@
 generated_by: py cli/sv.py catalog
-generated_at: '2026-10-03T12:32:53Z'
+generated_at: '2026-10-03T13:57:57Z'
 counts:
-  total: 87
+  total: 88
   own: 1
-  imported: 86
+  imported: 87
   by_category:
     define: 5
     deliver: 7
@@ -12,7 +12,7 @@ counts:
     engineering: 16
     foundation: 11
     meta: 28
-    ops: 10
+    ops: 11
 skills:
 - name: define-hypothesis
   category: define
@@ -1122,6 +1122,22 @@ skills:
   - pm-skills
   - apache-2.0
   upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/measure-survey-analysis
+- name: ocr
+  category: ops
+  origin: imported
+  path: vault/imported/ops/ocr
+  description: Extract text and tables from text-based PDFs, scanned PDFs, and images
+    (PNG/JPG/TIFF/HEIC). Use this skill for PDF-to-Markdown extraction, selectable
+    PDF table…
+  description_zh: 从文本 PDF、扫描件与纯图片 PDF/图片抽取文字与表格（可出 Markdown/可检索 PDF）。默认 tesseract；PaddleOCR
+    等为可选引擎；云 vision 须用户授权。
+  license: MIT
+  tags:
+  - pdf
+  - ocr
+  - documents
+  - scanned
+  upstream: https://github.com/ledin-pro/ocr/tree/main/skills/ocr
 - name: hello-skillvault
   category: meta
   origin: own
