@@ -85,7 +85,8 @@ py cli/sv.py install <skill> --ide <ide> --os <os> [--force]
 ## Issue 与 Milestone
 
 制造与验收按 [docs/design/issue-milestone-standard.md](docs/design/issue-milestone-standard.md) 开 Issue，并挂到对应 Milestone。  
-开 Issue 时优先选用仓库模板（制造任务 / 验收 / 收录提案 / 缺陷）。
+开 Issue 时优先选用仓库模板（制造任务 / 验收 / 收录提案 / 缺陷）。  
+Agent 在本仓做 PR/Issue/Milestone 时遵循 [meta-skills/github-ops](meta-skills/github-ops/SKILL.md)。
 
 ## 疑问
 

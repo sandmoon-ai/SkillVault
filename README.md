@@ -93,6 +93,7 @@ vault/own/<category>/<skill-name>/
 |------|---------------------|----------|
 | 安装到本机 IDE | 打开本仓库，让 Agent 按 [`meta-skills/install`](meta-skills/install/SKILL.md) 执行 | `py cli/sv.py install ...` |
 | 收录公开 Skill | 给出 URL，按 [`meta-skills/import-from-url`](meta-skills/import-from-url/SKILL.md) | `py cli/sv.py import <url>`（只进 cache）+ AI 转化 |
+| 本库 GitHub 操作 | 按 [`meta-skills/github-ops`](meta-skills/github-ops/SKILL.md)（PR / Issue / Milestone） | `gh` CLI |
 | 上游更新 | 让 Agent 跑 sync 流程并展示 diff | `py cli/sv.py sync ...` |
 
 ### 换机 / 日常安装
@@ -157,7 +158,7 @@ AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，
 | [docs/script-testing.md](docs/script-testing.md) | Skill 脚本测试硬性规范 |
 | [docs/ci.md](docs/ci.md) | CI、Ruleset、成本/存储防护 |
 | [agentskills.io](https://agentskills.io/specification) | 外部规范（本仓库格式真相源） |
-| [meta-skills/](meta-skills/) | AI 收录 / AI 安装一等通路 |
+| [meta-skills/](meta-skills/) | AI 收录 / 安装 / GitHub 操作一等通路 |
 
 ## 许可证
 

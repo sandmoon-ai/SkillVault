@@ -16,7 +16,7 @@ vault/imported/<category>/<skill-name>/SKILL.md
 4. **`metadata.category`** 应与目录 `<category>` 一致，便于校验与列表。  
 5. 拿不准先放 `inbox`，定期归类。  
 6. 特殊目录：`vault/own/_template/` 为模板，**不是**类目，不安装。  
-7. 仓库根 `meta-skills/` 仍是「操作本库」的 play，不必迁入 `vault/own`。
+7. 仓库根 `meta-skills/` 仍是「操作本库」的 play（含 `import-from-url`、`install`、`github-ops`），不必迁入 `vault/own`。
 
 ## 标准类目
 

@@ -85,7 +85,8 @@ py cli/sv.py install <skill> --ide <ide> --os <os> [--force]
 ## Issues and milestones
 
 Manufacturing work follows [docs/design/issue-milestone-standard.md](docs/design/issue-milestone-standard.md).  
-Prefer the GitHub issue forms (task / acceptance / import / bug) and attach the matching Milestone.
+Prefer the GitHub issue forms (task / acceptance / import / bug) and attach the matching Milestone.  
+Agents operating PRs/Issues/Milestones in this repo should follow [meta-skills/github-ops](meta-skills/github-ops/SKILL.md).
 
 ## Questions
 
