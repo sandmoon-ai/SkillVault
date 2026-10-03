@@ -4,8 +4,21 @@ import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
-from cli.common import REGISTRY_PATH, VAULT_IMPORTED, dump_yaml, load_yaml
+from cli.common import (
+    REGISTRY_PATH,
+    VAULT_IMPORTED,
+    dump_yaml,
+    is_skillvault_sidecar,
+    load_yaml,
+)
 from cli.import_cmd import import_from_url
+from cli.security_scan import require_report_for_apply
+
+
+def _scan_root_for_cache(cache_dir: Path, skill_md: Path | None) -> Path:
+    if skill_md is not None and skill_md.name == "SKILL.md":
+        return skill_md.parent
+    return cache_dir
 
 
 def _dir_diff(left: Path, right: Path) -> list[str]:
@@ -14,21 +27,15 @@ def _dir_diff(left: Path, right: Path) -> list[str]:
     if not left.exists() or not right.exists():
         return ["<missing-side>"]
 
-    skip = {
-        "SOURCE.md",
-        "_skillvault_summary.json",
-        "_skillvault_security.json",
-        "_skillvault_security.md",
-    }
     left_files = {
         p.relative_to(left).as_posix()
         for p in left.rglob("*")
-        if p.is_file() and p.name not in skip
+        if p.is_file() and p.name != "SOURCE.md" and not is_skillvault_sidecar(p.name)
     }
     right_files = {
         p.relative_to(right).as_posix()
         for p in right.rglob("*")
-        if p.is_file() and p.name not in skip
+        if p.is_file() and p.name != "SOURCE.md" and not is_skillvault_sidecar(p.name)
     }
 
     for rel in sorted(left_files | right_files):
@@ -60,7 +67,13 @@ def _files_equal(left: Path, right: Path) -> bool:
     ).replace(b"\r", b"\n")
 
 
-def sync_skills(names: list[str] | None, *, all_skills: bool = False, apply: bool = False) -> list[str]:
+def sync_skills(
+    names: list[str] | None,
+    *,
+    all_skills: bool = False,
+    apply: bool = False,
+    accept_security_risks: bool = False,
+) -> list[str]:
     data = load_yaml(REGISTRY_PATH)
     skills = list(data.get("skills") or [])
     if not skills:
@@ -91,6 +104,10 @@ def sync_skills(names: list[str] | None, *, all_skills: bool = False, apply: boo
         report = [f"## {name}", f"cache: {result.cache_dir}", f"diff count: {len(diffs)}"]
         report.extend(f"  - {d}" for d in diffs[:50])
         if apply:
+            scan_root = _scan_root_for_cache(result.cache_dir, result.skill_md)
+            require_report_for_apply(
+                scan_root, accept_security_risks=accept_security_risks
+            )
             # Preserve SOURCE.md notes if present, then refresh files from cache.
             old_source = None
             source_path = local / "SOURCE.md"
@@ -100,7 +117,7 @@ def sync_skills(names: list[str] | None, *, all_skills: bool = False, apply: boo
                 shutil.rmtree(local)
             local.mkdir(parents=True)
             for item in result.cache_dir.rglob("*"):
-                if item.name == "_skillvault_summary.json":
+                if is_skillvault_sidecar(item.name):
                     continue
                 rel = item.relative_to(result.cache_dir)
                 target = local / rel

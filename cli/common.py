@@ -13,7 +13,18 @@ ADAPTERS_DIR = REPO_ROOT / "adapters"
 REGISTRY_PATH = REPO_ROOT / "registry" / "sources.yaml"
 CACHE_DIR = REPO_ROOT / ".cache"
 EXCLUDE_ON_INSTALL = {"SOURCE.md", ".gitkeep", "tests.yaml"}
+SKILLVAULT_SIDECAR_PREFIX = "_skillvault_"
 SKIP_SKILL_DIRS = {"_template"}
+
+
+def is_skillvault_sidecar(name: str) -> bool:
+    """SkillVault-generated sidecar files (summary / security reports)."""
+    return name.startswith(SKILLVAULT_SIDECAR_PREFIX)
+
+
+def should_exclude_on_install(name: str) -> bool:
+    """True if a file/dir basename must not be projected into an IDE."""
+    return name in EXCLUDE_ON_INSTALL or is_skillvault_sidecar(name)
 # 与 docs/taxonomy.md 对齐；未知类目仍允许（便于演进），list 时原样显示
 KNOWN_CATEGORIES = frozenset(
     {

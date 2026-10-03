@@ -38,6 +38,9 @@ def _write_skill(root: Path, name: str = "demo-skill") -> Path:
         encoding="utf-8",
     )
     (skill / "SOURCE.md").write_text("# Source\n", encoding="utf-8")
+    (skill / "_skillvault_security.md").write_text("# scan\n", encoding="utf-8")
+    (skill / "_skillvault_security.json").write_text("{}\n", encoding="utf-8")
+    (skill / "_skillvault_summary.json").write_text("{}\n", encoding="utf-8")
     scripts = skill / "scripts"
     scripts.mkdir()
     (scripts / "tests.yaml").write_text("tests: []\n", encoding="utf-8")
@@ -81,6 +84,9 @@ def test_install_excludes_source_and_tests(
     assert not (dest / "SOURCE.md").exists()
     assert not (dest / "scripts" / "tests.yaml").exists()
     assert not (dest / ".gitkeep").exists()
+    assert not (dest / "_skillvault_security.md").exists()
+    assert not (dest / "_skillvault_security.json").exists()
+    assert not (dest / "_skillvault_summary.json").exists()
     # Flat under IDE skills root (no category segment)
     assert dest.parent.name == "skills"
 
