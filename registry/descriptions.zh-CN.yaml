@@ -78,6 +78,7 @@ descriptions:
   measure-instrumentation-spec: 规定埋点事件、触发时机与属性，作为产研数据契约。
   measure-okr-grader: 周期结束时按 OKR 类型枚举给 KR 打分并给出下一周期建议。
   measure-survey-analysis: 分析问卷：画像分段、假设验证、开放题主题聚类与可执行洞察。
+  ocr: 从文本 PDF、扫描件与纯图片 PDF/图片抽取文字与表格（可出 Markdown/可检索 PDF）。默认 tesseract；PaddleOCR 等为可选引擎；云 vision 须用户授权。
   brainstorming: 创意/功能动手前先对齐意图与设计；通过对话收敛需求并拿到认可后再实现。
   writing-plans: 有规格后、动代码前：把工作拆成可独立验证的小任务实现计划。
   executing-plans: 在当前会话按计划逐步执行（非每任务子代理）；适合内联落地。

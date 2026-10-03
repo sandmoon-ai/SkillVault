@@ -2,8 +2,8 @@
 
 > 由 `py cli/sv.py catalog` **自动生成**，请勿手改。真相源是 `vault/**/SKILL.md`；机器可读见 [`registry/catalog.yaml`](../registry/catalog.yaml)；中文简介词条维护于 [`registry/descriptions.zh-CN.yaml`](../registry/descriptions.zh-CN.yaml)。英文版：[skills-index.md](./skills-index.md)。
 
-- 生成时间（UTC）：`2026-10-03T12:32:53Z`
-- 合计：**87**（自建 1 / 收录 86）
+- 生成时间（UTC）：`2026-10-03T13:57:57Z`
+- 合计：**88**（自建 1 / 收录 87）
 
 ## 按类目
 
@@ -16,7 +16,7 @@
 | `engineering` | 工程 | 16 |
 | `foundation` | 立项 / 基础 | 11 |
 | `meta` | 元工具 | 28 |
-| `ops` | 运营 / 度量 | 10 |
+| `ops` | 运营 / 度量 | 11 |
 
 ## 收录（`imported`）
 
@@ -138,6 +138,7 @@
 | [`measure-instrumentation-spec`](../vault/imported/ops/measure-instrumentation-spec/) | Apache-2.0 | 规定埋点事件、触发时机与属性，作为产研数据契约。 |
 | [`measure-okr-grader`](../vault/imported/ops/measure-okr-grader/) | Apache-2.0 | 周期结束时按 OKR 类型枚举给 KR 打分并给出下一周期建议。 |
 | [`measure-survey-analysis`](../vault/imported/ops/measure-survey-analysis/) | Apache-2.0 | 分析问卷：画像分段、假设验证、开放题主题聚类与可执行洞察。 |
+| [`ocr`](../vault/imported/ops/ocr/) | MIT | 从文本 PDF、扫描件与纯图片 PDF/图片抽取文字与表格（可出 Markdown/可检索 PDF）。默认 tesseract；PaddleOCR 等为可选引擎；云 vision 须用户授权。 |
 ## 自建（`own`）
 
 ### 元工具（`meta`）
