@@ -58,3 +58,5 @@
 | **许可** | 多数 Apache-2.0（每 skill 自带 `LICENSE.txt`） |
 | **勿收录** | `document-skills`（`docx`/`pdf`/`pptx`/`xlsx`）：source-available，禁止再分发 |
 | **已收录（公开仓）** | `frontend-design`、`canvas-design`、`theme-factory`、`web-artifacts-builder` → `design/`；`webapp-testing` → `engineering/` |
+
+- 另已收录 internal-comms → deliver/（Apache-2.0）
