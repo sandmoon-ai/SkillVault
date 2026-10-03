@@ -1,5 +1,5 @@
 generated_by: py cli/sv.py catalog
-generated_at: '2026-10-03T06:54:45Z'
+generated_at: '2026-10-03T07:05:03Z'
 counts:
   total: 76
   own: 1
@@ -21,6 +21,7 @@ skills:
   description: Defines a testable hypothesis with clear success metrics and a validation
     approach. Use when forming assumptions to test or aligning a team on what success
     loo…
+  description_zh: 定义可验证假设：写清成功指标与验证路径。用于形成待测假设，或对齐团队对「成功长什么样」的共识。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -33,6 +34,7 @@ skills:
   description: Creates a Jobs to be Done canvas capturing the functional, emotional,
     and social dimensions of a customer job. Use when deeply understanding customer
     motivatio…
+  description_zh: 产出 Jobs to be Done 画布，覆盖功能/情感/社交维度。用于深入理解顾客动机与要完成的「工作」。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -45,6 +47,7 @@ skills:
   description: Creates an opportunity solution tree connecting a desired outcome to
     customer opportunities and candidate solutions, preventing solution-first jumps
     in continu…
+  description_zh: 产出机会解决方案树，把期望结果连到顾客机会与候选方案，避免一上来就跳进具体解法。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -57,6 +60,7 @@ skills:
   description: Run applicable prioritization frameworks (RICE, ICE, MoSCoW, Weighted
     Scoring, Kano) against a list of features or initiatives. Produces a comparison
     table sho…
+  description_zh: 用 RICE/ICE/MoSCoW/加权评分/Kano 等框架给功能或举措打分，产出对比表以辅助取舍。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -69,6 +73,7 @@ skills:
   description: Creates a clear problem framing document with user impact, business
     context, and success criteria. Use when starting a new initiative, realigning
     a drifted pro…
+  description_zh: 写清问题陈述：用户影响、业务背景与成功标准。用于开题、纠偏或重新对齐方向。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -80,6 +85,7 @@ skills:
   path: vault/imported/deliver/deliver-acceptance-criteria
   description: Generates structured Given/When/Then acceptance criteria for a user
     story or feature slice, covering the happy path, key failure scenarios, and non-functional…
+  description_zh: 为用户故事/功能切片生成 Given/When/Then 验收标准，覆盖主路径、关键失败与非功能要求。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -92,6 +98,7 @@ skills:
   description: Documents edge cases, error states, boundary conditions, race conditions,
     and recovery paths for a feature - the systematic catalog of what can go wrong
     and th…
+  description_zh: 系统梳理边界/异常/竞态与恢复路径，形成「什么会出错、如何兜住」的清单。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -104,6 +111,7 @@ skills:
   description: Creates a cross-functional pre-launch checklist covering engineering,
     design, marketing, support, legal, and operations readiness, with owners, dates,
     and go/n…
+  description_zh: 跨职能上线前检查清单（工程、设计、市场、支持、法务、运营），含负责人、日期与 go/no-go。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -115,6 +123,7 @@ skills:
   path: vault/imported/deliver/deliver-prd
   description: Creates a comprehensive Product Requirements Document that aligns stakeholders
     on what to build, why, and how success will be measured. Use when specifying fea…
+  description_zh: 产出对齐干系人的 PRD：做什么、为什么、如何衡量成功。用于功能规格与立项沟通。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -126,6 +135,7 @@ skills:
   path: vault/imported/deliver/deliver-release-notes
   description: Creates user-facing release notes that communicate new features, improvements,
     and fixes in clear, benefit-focused language. Use when shipping updates to commu…
+  description_zh: 写面向用户的发布说明，用收益导向语言说明新功能、改进与修复。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -138,6 +148,7 @@ skills:
   description: Generates user stories in the standard persona, action, benefit story
     format from product requirements or feature descriptions. Use when breaking a
     feature int…
+  description_zh: 从需求/功能描述拆出标准「角色-行动-收益」用户故事。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -149,6 +160,7 @@ skills:
   path: vault/imported/deliver/internal-comms
   description: A set of resources to help me write all kinds of internal communications,
     using the formats that my company likes to use. Claude should use this skill whenever…
+  description_zh: 按公司常用格式撰写内部沟通：3P 更新、周报、领导同步、项目进展、事故通报、FAQ、内刊等。
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/internal-comms
@@ -159,6 +171,7 @@ skills:
   description: Create beautiful visual art in .png and .pdf documents using design
     philosophy. You should use this skill when the user asks to create a poster, piece
     of art,…
+  description_zh: 按设计哲学创作海报/视觉作品（png/pdf）。用户要做海报、静态视觉或艺术表达时使用。
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/canvas-design
@@ -169,6 +182,7 @@ skills:
   description: Guidance for distinctive, intentional visual design when building new
     UI or reshaping an existing one. Helps with aesthetic direction, typography, and
     making c…
+  description_zh: 指导有辨识度、有意图的 UI 视觉方向：审美、字体与差异化，避免千篇一律的默认风。
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/frontend-design
@@ -179,6 +193,7 @@ skills:
   description: Toolkit for styling artifacts with a theme. These artifacts can be
     slides, docs, reportings, HTML landing pages, etc. There are 10 pre-set themes
     with colors/f…
+  description_zh: 为幻灯片/文档/报告/落地页等套用主题；内置约 10 套配色与字体主题。
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/theme-factory
@@ -189,6 +204,7 @@ skills:
   description: Suite of tools for creating elaborate, multi-component claude.ai HTML
     artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui).
     Use fo…
+  description_zh: 用 React/Tailwind/shadcn 搭建复杂多组件 HTML artifact（偏 claude.ai 产物）。
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder
@@ -199,6 +215,7 @@ skills:
   description: Creates a structured competitive analysis comparing features, pricing,
     and positioning across 3-5 direct and indirect competitors, with a 2x2 map and
     actionabl…
+  description_zh: 结构化竞品分析：功能/定价/定位对比（3–5 家）、2x2 图与行动建议。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -211,6 +228,7 @@ skills:
   description: Synthesizes user research interviews into actionable insights, patterns,
     and recommendations. Use after conducting user interviews, customer calls, or
     usabilit…
+  description_zh: 把访谈/可用性测试综合成洞察、模式与建议。访谈完成后使用。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -223,6 +241,7 @@ skills:
   description: Maps a customer journey across stages, touchpoints, emotional curve,
     pain points, and moments of truth into a markdown artifact with an optional mermaid
     timeli…
+  description_zh: 绘制顾客旅程：阶段、触点、情绪曲线、痛点与关键时刻；可附 mermaid 时间线。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -235,6 +254,7 @@ skills:
   description: Estimate market opportunity (TAM, SAM, SOM) using multiple sizing frameworks
     (top-down, bottom-up, comparable company, analogous market). Triangulates across
     f…
+  description_zh: 用自上而下/自下而上/可比公司等方法估算 TAM/SAM/SOM，交叉验证市场规模。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -247,6 +267,7 @@ skills:
   description: Maps the people and groups with a stake in a project, documenting their
     needs, concerns, influence, and engagement approach. Use at project kickoff, when
     takin…
+  description_zh: 梳理干系人需求、关切、影响力与沟通策略。适合 kickoff 或交接。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -259,6 +280,7 @@ skills:
   description: Generate bilingual (English + Traditional Chinese) commit messages
     from staged git changes. Use when the user asks for a commit message, conventional
     commit ta…
+  description_zh: 根据已暂存改动生成中英双语 Conventional Commit 信息。
   license: MIT
   tags:
   - git
@@ -272,6 +294,7 @@ skills:
   description: Creates an Architecture Decision Record following the Nygard format
     to document significant technical decisions, their context, and consequences.
     Use when maki…
+  description_zh: 按 Nygard 格式写架构决策记录（ADR）：上下文、决策与后果。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -284,6 +307,7 @@ skills:
   description: Documents the reasoning behind design decisions including alternatives
     considered, trade-offs evaluated, and principles applied. Use when making significant
     UX…
+  description_zh: 记录设计决策理由：备选方案、权衡与原则。用于重大 UX/设计取舍。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -296,6 +320,7 @@ skills:
   description: Creates a concise one-page solution overview that communicates the
     proposed approach, key decisions, and trade-offs. Use when pitching solutions
     to stakeholder…
+  description_zh: 一页纸方案概述：路径、关键决策与权衡。用于向干系人推销方案。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -307,6 +332,7 @@ skills:
   path: vault/imported/engineering/develop-spike-summary
   description: Documents the results of a completed technical or design spike, capturing
     the original question, approach, evidence-backed findings, and a clear proceed-or-not…
+  description_zh: 总结技术/设计 spike：问题、方法、证据与是否继续的结论。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -319,6 +345,7 @@ skills:
   description: Toolkit for interacting with and testing local web applications using
     Playwright. Supports verifying frontend functionality, debugging UI behavior,
     capturing b…
+  description_zh: 用 Playwright 测本地 Web 应用：功能验证、UI 调试与浏览器自动化。
   license: Apache-2.0
   tags: []
   upstream: https://github.com/anthropics/skills/tree/main/skills/webapp-testing
@@ -329,6 +356,7 @@ skills:
   description: Runs a fast pre-build risk review on a product idea, feature request,
     or scope change, naming the single assumption most likely to make it fail and
     returning a…
+  description_zh: 开建前快速风险审视：点出最可能让想法失败的那条假设，并给出对策。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -341,6 +369,7 @@ skills:
   description: Produces a one-page lean canvas across nine interlocking blocks (problem,
     customer, UVP, solution, channels, revenue, cost, metrics, unfair advantage) with
     opt…
+  description_zh: 产出九宫格精益画布（问题、顾客、UVP、方案、渠道、收入、成本、指标、壁垒）。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -353,6 +382,7 @@ skills:
   description: Produces an attendee-facing agenda that sets what will be discussed,
     who owns each topic, and how time will be spent. Supports ten meeting type variants
     (stand…
+  description_zh: 面向与会者的议程：议题、负责人与时间分配；支持多种会议类型。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -365,6 +395,7 @@ skills:
   description: Produces a private strategic preparation document for the user before
     a meeting that matters. Captures stakes, stakeholder positions and reads, ranked
     desired…
+  description_zh: 会前私用战略简报：利害、各方立场、期望结果与话术准备。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -377,6 +408,7 @@ skills:
   description: Produces a topic-segmented post-meeting summary for attendees with
     decisions highlighted and actions captured inline per topic (plus a consolidated
     action view…
+  description_zh: 会后按议题分段纪要：决策高亮、行动项汇总。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -389,6 +421,7 @@ skills:
   description: Cross-meeting archaeology skill. Consumes multiple meeting recaps (or
     raw notes) over a period and surfaces patterns invisible in any single meeting.
     Shows how…
+  description_zh: 跨多场会议做「考古」：从多份纪要/笔记里抽出单场看不见的模式。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -401,6 +434,7 @@ skills:
   description: Drafts, reviews, rewrites, and coaches outcome-based OKR sets across
     team, department, product, or company scopes. Supports five entry modes (Guided
     default, O…
+  description_zh: 起草/评审/改写结果导向 OKR；支持引导、审稿等多种入口模式。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -413,6 +447,7 @@ skills:
   description: Generates an evidence-calibrated product or marketing persona using
     the canonical v2.5 output contract. Use when shaping artifact perspective, stress-testing
     d…
+  description_zh: 生成证据校准的产品/营销画像，用于定视角或压测定位。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -425,6 +460,7 @@ skills:
   description: Produce a comprehensive, evidence-grounded prioritized action plan
     from any PM input (notes, transcripts, drafts, executive asks, Slack threads,
     or a raw situa…
+  description_zh: 从笔记、纪要、Slack、领导要求等原材料产出有证据支撑的优先级行动计划。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -437,6 +473,7 @@ skills:
   description: Turns any source artifact (spec, discovery, research, GTM plan, experiment
     results, retro, or raw notes) into one canonical master document plus a set of
     audie…
+  description_zh: 把规格/调研/GTM/实验等源材料转成主文档 + 分受众简报。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -449,6 +486,7 @@ skills:
   description: Produces async communication to stakeholders, primarily non-attendees
     and secondarily some attendees who want a reference. Translates meeting outcomes
     into wha…
+  description_zh: 异步同步干系人（尤其未与会者）：把会议结果翻译成对方关心的要点。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -461,6 +499,7 @@ skills:
   description: Pre-sprint brief that locks challenge, sprint questions, team and role
     assignments, customer recruiting plan, prototype medium, interview format, logistics,
     an…
+  description_zh: Design Sprint 会前简报：挑战、问题、角色、招募、原型介质与后勤。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -473,6 +512,7 @@ skills:
   description: Day 3 (Wednesday) move of a Design Sprint that runs the art museum
     layout, heat map, speed critique, straw poll, Decider supervote, rumble-vs-all-in-one
     decisi…
+  description_zh: Design Sprint Day3：艺廊布局、热图、快评、投票与故事板决策。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -485,6 +525,7 @@ skills:
   description: Day 1 (Monday) move of a Design Sprint that produces the bundled Monday
     artifact containing long-term goal, sprint questions (3-7 testable risks), customer
     or…
+  description_zh: Design Sprint Day1：长期目标、可测风险问题、顾客旅程与目标。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -497,6 +538,7 @@ skills:
   description: Day 4 (Thursday) move of a Design Sprint that produces the planning
     artifact for the day. Output covers the prototype role plan (Maker, Stitcher,
     Writer, Asset…
+  description_zh: Design Sprint Day4：原型日角色与制作计划（Maker/Stitcher 等）。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -509,6 +551,7 @@ skills:
   description: Pre-sprint diagnostic that determines whether a team should run a Design
     Sprint now, postpone it, or do prerequisite work first. Produces a Go / Conditional
     Go…
+  description_zh: Design Sprint 就绪诊断：现在开跑 / 推迟 / 先补前提条件。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -521,6 +564,7 @@ skills:
   description: Day 2 (Tuesday) move of a Design Sprint that structures lightning demos
     and the four-step independent solution sketch protocol (Notes, Ideas, Crazy 8s,
     Solutio…
+  description_zh: Design Sprint Day2：闪电演示与四步独立方案草图（含 Crazy 8s）。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -533,6 +577,7 @@ skills:
   description: Day 5 (Friday) sprint-closing move of a Design Sprint that produces
     the bundled Friday artifact covering per-customer interview observations, best
     quotes, scor…
+  description_zh: Design Sprint Day5：访谈观察、金句、打分与学习结论。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -545,6 +590,7 @@ skills:
   description: Day 2 morning move of a Foundation Sprint. Forces generation of 3 to
     7 candidate approaches as one-page summaries before the team converges on a top
     bet. Use a…
+  description_zh: Foundation Sprint Day2 上午：先产出 3–7 个候选打法再收敛。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -556,6 +602,7 @@ skills:
   path: vault/imported/meta/tool-foundation-sprint-basics
   description: Day 1 morning move of a Foundation Sprint. Forces explicit team choices
     on target customer, important problem, team advantage, and competitors and alternatives…
+  description_zh: Foundation Sprint Day1 上午：目标顾客、关键问题、优势与竞对。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -568,6 +615,7 @@ skills:
   description: Pre-sprint brief that locks scope, the decision the sprint must unlock,
     team and role assignments, logistics, inputs to bring, and success criteria before
     Day…
+  description_zh: Foundation Sprint 会前：范围、要解锁的决策、角色与成功标准。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -580,6 +628,7 @@ skills:
   description: Day 1 afternoon move of a Foundation Sprint. Converts the morning's
     Basics frame into a defensible strategic position by scoring differentiator candidates
     agai…
+  description_zh: Foundation Sprint Day1 下午：差异化选项评分，落到可防守定位。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -592,6 +641,7 @@ skills:
   description: Day 2 end capstone move of a Foundation Sprint. Compresses the sprint's
     full strategic frame into a single canonical sentence (the Founding Hypothesis)
     plus an…
+  description_zh: Foundation Sprint 收官：压成一句创立假设 + 支撑要点。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -604,6 +654,7 @@ skills:
   description: Day 2 afternoon move of a Foundation Sprint. Evaluates the candidate
     approach set through multiple lenses (4 classic plus at least 1 custom) to surface
     trade-o…
+  description_zh: Foundation Sprint Day2 下午：多透镜评估候选打法与权衡。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -615,6 +666,7 @@ skills:
   path: vault/imported/meta/tool-foundation-sprint-readiness
   description: Pre-sprint diagnostic that determines whether a team should run a Foundation
     Sprint now, postpone it, or do prerequisite work first. Produces a Go / Conditiona…
+  description_zh: Foundation Sprint 就绪诊断：现在开跑 / 推迟 / 先补前提。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -627,6 +679,7 @@ skills:
   description: Structured group-decision mechanic that captures silent ideation, voting
     summaries, and Decider sign-off in a single bundled artifact. Use when a small
     team ne…
+  description_zh: 结构化「静默发散-投票-决策人签核」群决策，产出捆绑工件。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -639,6 +692,7 @@ skills:
   description: Teaches PMs to create syntactically valid mermaid diagrams by selecting
     the right diagram type for their communication need, following syntax validity
     rules, a…
+  description_zh: 教 PM 选对 mermaid 图类型并写出语法正确、可渲染的图。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -651,6 +705,7 @@ skills:
   description: Draft CHANGELOG entries from git log via the pm-changelog-curator sub-agent,
     applying the repo hygiene rules (describe what changed, public paths only, no
     attr…
+  description_zh: 从 git log 起草 CHANGELOG（公开路径、描述变更、无署名噪音）。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -663,6 +718,7 @@ skills:
   description: Run adversarial review on a PM artifact via the pm-critic sub-agent.
     Returns findings graded P0/P1/P2/P3 with a concrete fix suggestion per finding
     and a machi…
+  description_zh: 对 PM 工件做对抗式评审，按 P0–P3 给出发现与改法。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -675,6 +731,7 @@ skills:
   description: Walk the guided 6-gate release runbook (G0 readiness, G1 adversarial
     review, G2 version bump and CHANGELOG, G2.5 commit and re-verify, G3 tag and push,
     G4 post…
+  description_zh: 引导 6 门禁发布流程（就绪→对抗审→版本/日志→提交→打标→发布后）。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -687,6 +744,7 @@ skills:
   description: Run a repo-wide cross-cutting governance audit via the pm-skill-auditor
     sub-agent. Aggregates the enforcing validator suite, re-derives aggregate counters,
     and…
+  description_zh: 仓库级治理审计：跑校验套件、汇总计数与缺口。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -699,6 +757,7 @@ skills:
   description: Guides contributors from a PM skill idea to a complete Skill Implementation
     Packet aligned with pm-skills conventions. Runs gap analysis, validates through
     a W…
+  description_zh: 从想法走到完整 Skill 实现包（缺口分析、工作表、对齐 pm-skills 约定）。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -711,6 +770,7 @@ skills:
   description: Applies targeted improvements to an existing pm-skills skill based
     on feedback, validation reports, or convention changes. Reads current files, previews
     propos…
+  description_zh: 按反馈/校验/约定变更对既有 skill 做定向改进。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -723,6 +783,7 @@ skills:
   description: Audits an existing pm-skills skill against structural conventions and
     quality criteria. Produces a structured validation report with pass/fail checks,
     severity…
+  description_zh: 按结构与质量约定审计 skill，输出通过/失败与严重度报告。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -734,6 +795,7 @@ skills:
   path: vault/imported/meta/utility-pm-workflow-builder
   description: Guides a contributor from a workflow idea to a complete Workflow Implementation
     Packet (draft workflow file, draft workflow command, cross-cutting update check…
+  description_zh: 从工作流想法走到完整 Workflow 实现包与交叉更新清单。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -746,6 +808,7 @@ skills:
   description: Run an ordered sequence of pm-skills against one input, pausing for
     go/no-go and stopping on a failed or empty step. Accepts a saved prioritized action
     plan (M…
+  description_zh: 按序跑一组 pm-skills，逐步 go/no-go，失败或空输出即停。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -758,6 +821,7 @@ skills:
   description: Generates professional presentations from a JSON deck specification
     using 18 slide types with dark/light variants, content-to-layout decision logic,
     and calibr…
+  description_zh: 从 JSON 讲稿规格生成专业幻灯片（多版式、深/浅色、内容到布局逻辑）。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -769,6 +833,7 @@ skills:
   path: vault/imported/meta/utility-update-pm-skills
   description: Checks for newer pm-skills releases, compares local vs. latest version,
     previews what would change, and updates local files after user confirmation. Generates…
+  description_zh: 检查并预览 pm-skills 新版本，确认后更新本地文件。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -781,6 +846,7 @@ skills:
   description: Creates a structured lessons learned entry for organizational memory.
     Use after an incident, a completed project, or a significant learning to record
     knowledge…
+  description_zh: 结构化经验教训条目，沉淀事故/项目后的组织记忆。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -793,6 +859,7 @@ skills:
   description: Documents a strategic pivot or persevere decision with the evidence,
     analysis, and rationale. Use when evaluating whether to change direction on a
     product, fea…
+  description_zh: 记录 pivot/persevere 决策：证据、分析与理由。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -805,6 +872,7 @@ skills:
   description: Documents backlog refinement session outcomes including stories refined,
     estimates, questions raised, and decisions made. Use during or after refinement
     to cap…
+  description_zh: 记录待办梳理会结果：故事、估点、问题与决定。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -817,6 +885,7 @@ skills:
   description: Facilitates and documents a team retrospective capturing what went
     well, what to improve, and action items. Use at the end of a sprint, project,
     or milestone t…
+  description_zh: 主持并记录回顾：做得好的、待改进与行动项。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -828,6 +897,7 @@ skills:
   path: vault/imported/ops/measure-dashboard-requirements
   description: Specifies what questions a dashboard must answer and the metrics, visualizations,
     filters, and data sources it needs, so data teams build something that inform…
+  description_zh: 明确看板要回答的问题及指标、可视化、筛选与数据源需求。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -840,6 +910,7 @@ skills:
   description: Designs an A/B test or experiment with variants, success metrics, sample
     size, and duration for an existing hypothesis. Use when planning an experiment
     to vali…
+  description_zh: 设计 A/B 或实验：变体、成功指标、样本量与时长。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -851,6 +922,7 @@ skills:
   path: vault/imported/ops/measure-experiment-results
   description: Documents the results of a completed experiment or A/B test with statistical
     analysis, learnings, and recommendations. Use after experiments conclude to commun…
+  description_zh: 记录实验/A/B 结果：统计、学习与建议。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -863,6 +935,7 @@ skills:
   description: Specifies what analytics events to track, when they fire, and what
     properties to include, as a contract between product and engineering that prevents
     undertrac…
+  description_zh: 规定埋点事件、触发时机与属性，作为产研数据契约。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -875,6 +948,7 @@ skills:
   description: Scores completed OKR sets at cycle close with KR-level scoring per
     the canonical OKR type enum (committed | aspirational | learning | operational_health
     | comp…
+  description_zh: 周期结束时按 OKR 类型枚举给 KR 打分并给出下一周期建议。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -887,6 +961,7 @@ skills:
   description: Analyze survey results into actionable PM insights. Produces persona
     segmentation, hypothesis validation status, thematic clustering of open-text responses,
     st…
+  description_zh: 分析问卷：画像分段、假设验证、开放题主题聚类与可执行洞察。
   license: Apache-2.0
   tags:
   - pm-skills
@@ -898,6 +973,7 @@ skills:
   path: vault/own/meta/hello-skillvault
   description: Smoke-test SkillVault install. Use when verifying that a skill was
     installed correctly into an IDE user or project skills directory.
+  description_zh: 烟测 SkillVault 安装是否成功。用于确认 Skill 已正确装到 IDE 的用户级或项目级 skills 目录。
   license: MIT
   tags:
   - smoke

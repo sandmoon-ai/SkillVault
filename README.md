@@ -12,7 +12,9 @@
 - **Skill = 需一致执行的制度知识**（不是项目杂项提示）
 - **Git 为真相源**；安装只是把真相源投影到各 IDE 路径
 
-**收录 Skill 索引（按类目浏览 / 可全文搜索）：** [`docs/skills-index.md`](docs/skills-index.md)  
+**收录 Skill 索引（仓库主页 / 按类目浏览 / 可全文搜索）：**  
+[中文版 skills-index.zh-CN.md](docs/skills-index.zh-CN.md) · [English skills-index.md](docs/skills-index.md)
+
 完整架构见 [`docs/architecture.md`](docs/architecture.md)。  
 **截至目前的落地对照与进度**见 [`docs/status.md`](docs/status.md)。  
 **下一阶段设计**见 [`docs/design/`](docs/design/README.md)。  

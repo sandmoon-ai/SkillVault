@@ -60,10 +60,12 @@ metadata:
 收录 Skill 变更后须刷新索引（`sv import --apply` / `sv sync --apply` 会自动跑）：
 
 ```bash
-py cli/sv.py catalog          # 重写 registry/catalog.yaml + docs/skills-index.md
+py cli/sv.py catalog          # 重写 catalog.yaml + skills-index.md + skills-index.zh-CN.md
 py cli/sv.py catalog --check  # CI：过期则非零退出
 ```
 
 - 机器可读：[`registry/catalog.yaml`](../registry/catalog.yaml)  
-- 人读总览：[`docs/skills-index.md`](./skills-index.md)  
-- 真相源仍是 `vault/**/SKILL.md` 目录树；**勿手改**上述两份生成物。
+- 人读总览（中文）：[`docs/skills-index.zh-CN.md`](./skills-index.zh-CN.md)  
+- 人读总览（英文）：[`docs/skills-index.md`](./skills-index.md)  
+- 中文简介词条：[`registry/descriptions.zh-CN.yaml`](../registry/descriptions.zh-CN.yaml)（新人 Skill 可补译，否则中文索引显示英文+「待译」）  
+- 真相源仍是 `vault/**/SKILL.md`；**勿手改**自动生成的 index / catalog。
