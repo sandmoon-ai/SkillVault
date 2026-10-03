@@ -52,7 +52,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | 配置 | 状态 |
 |------|------|
 | Actions Artifact/日志保留期 | **1 天**（Settings → Actions → General） |
-| 分支 Ruleset `protect-main` | **Active**；目标 `main`；必需检查 `Skill script tests`；禁删分支 / 禁 force push；无 bypass；**未**强制「必须走 PR」 |
+| 分支 Ruleset `protect-main` | **Active**；目标 `main`；必需检查 `CI tests`；禁删分支 / 禁 force push；无 bypass；**未**强制「必须走 PR」 |
 | Ruleset 链接 | https://github.com/sandmoon-ai/SkillVault/rules/24400124 |
 
 ### 本机可选（不进仓库、项目控制不了）
@@ -88,7 +88,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | 上游定时检知 + Issue | **已完成** | `sv watch upstream` + weekly workflow；见 [design/upstream-watch.md](./design/upstream-watch.md) |
 | 安全规则定期检知 | **已完成** | `sv watch security-sources` + monthly workflow；见 [design/security-rules-watch.md](./design/security-rules-watch.md) |
 | Phase 4 硬化 | **基本完成** | 全量 tests CI、Ruleset、成本卫生、双 watch workflow |
-| M6 Gate hardening | **进行中** | 见 [Milestone M6](https://github.com/sandmoon-ai/SkillVault/milestone/6)；P0 #23–#25 已合入；#26/#27/#28/#31（doctor 等）在本 PR；书系 own Skill 已迁入（`from-book`，#32） |
+| M6 Gate hardening | **进行中** | 见 [Milestone M6](https://github.com/sandmoon-ai/SkillVault/milestone/6)；书系已迁入；余 #29/#30（拉取限额、报告指纹、CI 名） |
 
 下一阶段执行顺序与非目标：[`docs/design/README.md`](./design/README.md)。
 
@@ -99,7 +99,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | `tests/test_skill_scripts.py` | 清单驱动；未声明脚本或冒烟失败则红 |
 | `tests/test_vault_gates.py` | imported 须有 SOURCE/SKILL、registry 对齐、安全扫描非 FAIL、无 sidecar |
 | GitHub Actions `CI` | 每次 push/PR 跑卫生检查 + 全量 pytest |
-| Ruleset `protect-main` | 合入/更新 `main` 相关流程要求 `Skill script tests` 通过；禁 force push / 删分支 |
+| Ruleset `protect-main` | 合入/更新 `main` 相关流程要求 `CI tests` 通过；禁 force push / 删分支 |
 | Gate A–C（人工 + AI play） | 收录语义与合入 vault |
 
 ## 6. 文档索引

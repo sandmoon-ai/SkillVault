@@ -74,7 +74,7 @@ py -m pytest tests/test_skill_scripts.py -v
 ## 与 CI / 分支保护
 
 - GitHub Actions 每次 push/PR 会跑本测试（见 [ci.md](./ci.md)）  
-- Ruleset `protect-main` 将检查名 **`Skill script tests`** 设为必需  
+- Ruleset `protect-main` 将检查名 **`CI tests`** 设为必需  
 - 个人可另加 Cursor 用户级 hook（`~/.cursor/hooks.json`）在 Agent 结束时提醒跑测；**不进本仓库、不能强制他人**  
 
 现状总览：[status.md](./status.md)。

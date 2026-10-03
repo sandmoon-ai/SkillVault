@@ -91,7 +91,7 @@ gh issue develop <n> --name <branch>    # 若环境支持；否则手动建分�
 ```bash
 pip install -e ".[dev]"   # 若尚未
 py -m pytest -q
-gh pr checks <n>          # 或看 PR 页 CI：Skill script tests
+gh pr checks <n>          # 或看 PR 页 CI：CI tests
 ```
 
 Ruleset `protect-main` 要求检查通过；勿 force push / 删 `main`。

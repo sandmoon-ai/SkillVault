@@ -23,7 +23,7 @@
 3. 禁止密钥、大二进制、以及仅限内部的流程文档进入本公开仓。
 4. `scripts/` 下脚本必须有 `scripts/tests.yaml` 且 pytest 通过——[docs/script-testing.md](docs/script-testing.md)。
 5. 上游许可须兼容；在 `SOURCE.md` / registry 中写明。
-6. 维护者审门禁；CI（`Skill script tests`）必须绿。
+6. 维护者审门禁；CI（`CI tests`）必须绿。
 
 ## 路径 A — 收录公开 Skill
 
@@ -65,7 +65,7 @@ AI 通路（门禁相同）：在仓库工作区按 [meta-skills/import-from-url
 - [ ] 变更目的单一（收录 / 自建 / 工具）
 - [ ] 收录：intent + `SOURCE.md` + registry 条目
 - [ ] 收录：附安全报告或链接（扫描器未就绪前附自查摘要）
-- [ ] 脚本：有 `tests.yaml`；CI `Skill script tests` 通过
+- [ ] 脚本：有 `tests.yaml`；CI `CI tests` 通过
 - [ ] 无密钥；第三方内容已注明许可
 - [ ] 若影响使用方式，已更新文档
 
@@ -78,7 +78,7 @@ py cli/sv.py install <skill> --ide <ide> --os <os> [--force]
 
 ## 维护者
 
-- 分支 Ruleset `protect-main` 要求 `Skill script tests`；禁止 force push / 删分支——[docs/ci.md](docs/ci.md)。
+- 分支 Ruleset `protect-main` 要求 `CI tests`；禁止 force push / 删分支——[docs/ci.md](docs/ci.md)。
 - 外部变更优先经 PR 合并。
 - Gate 是否通过由人决定；CI 不能代替 A–C。
 - Intent 中 Gate 批准人签字**必须是人类**（账户名或 PR review）；Agent 可起草材料，禁止代签。

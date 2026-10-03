@@ -21,7 +21,7 @@
 本仓库当前 CI 主要跑：
 
 1. 成本卫生检查：`.github/scripts/check_actions_cost_hygiene.py`  
-2. Skill 脚本冒烟：`python -m pytest tests/test_skill_scripts.py -v`
+2. 全量测试：`python -m pytest tests/ -v`（含脚本门禁、CLI、vault gates）
 
 对应文件：[`.github/workflows/ci.yml`](../.github/workflows/ci.yml)。  
 Actions 页面：https://github.com/sandmoon-ai/SkillVault/actions  
@@ -44,8 +44,8 @@ checkout → 成本卫生检查 → 装 Python → pip install → pytest
 
 - **Workflow（工作流）**：`ci.yml` / `actions-storage-cleanup.yml`
 - **Trigger（触发）**：push / PR 到 `main`；清理任务还有每月定时
-- **Job**：如 `Skill script tests`
-- **Status check**：检查名 **`Skill script tests`**（Ruleset 里勾的就是这个）
+- **Job**：`CI tests`
+- **Status check**：检查名 **`CI tests`**（Ruleset 里勾的就是这个；旧名 `Skill script tests` 已弃用）
 
 ## 分支保护（已启用 — Ruleset）
 
@@ -56,7 +56,7 @@ checkout → 成本卫生检查 → 装 Python → pip install → pytest
 | 名称 | `protect-main` |
 | 状态 | Active |
 | 目标 | `refs/heads/main` |
-| 必需检查 | `Skill script tests`（要求分支相对基线最新） |
+| 必需检查 | `CI tests`（要求分支相对基线最新） |
 | 其它 | 禁止删除分支、禁止 force push |
 | Bypass | 无（当前用户也不可绕过） |
 | 必须 PR | **未开启**（仍可直接 push `main`；他人 PR 合并会卡检查） |
@@ -78,7 +78,7 @@ py -m pytest tests/test_skill_scripts.py -v
 **推到 GitHub 后：**
 
 1. 打开 **Actions**，看 `CI` 是否绿  
-2. 或打开 PR，看检查 **`Skill script tests`**
+2. 或打开 PR，看检查 **`CI tests`**
 
 失败了：点进日志，修脚本或 `scripts/tests.yaml` / workflow 违规写法，再 push。
 

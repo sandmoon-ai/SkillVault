@@ -89,7 +89,7 @@ Intent Gate B 勾选（见模板）：
 
 | 通路 | 行为 |
 |------|------|
-| CLI | fetch 后自动 scan；`import --apply` 与 **`sync --apply`** 前均校验报告存在且非 FAIL（除非 `--accept-security-risks`，须 Gate B 记录）；`_skillvault_*` sidecar 不进 vault / IDE |
+| CLI | fetch 后自动 scan；硬限额（默认 ≤200 文件 / ≤5MiB，超限直接失败）；`GITHUB_TOKEN`/`GH_TOKEN` 用于提高 API 限额；`import --apply` 与 **`sync --apply`** 前校验报告存在、**内容指纹未过期**、且非 FAIL（除非 `--accept-security-risks`）；`_skillvault_*` sidecar 不进 vault / IDE |
 | AI | 与 CLI 相同检查器（优先调用 `sv security-scan`）；把 MD 报告纳入 Gate B 材料 |
 | CI | `tests/test_vault_gates.py` 校验 `vault/imported/**` 结构、registry、安全再扫（FAIL 则红） |
 
