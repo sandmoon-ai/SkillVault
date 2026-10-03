@@ -104,6 +104,7 @@ vault/own/<category>/<skill-name>/
 
 ```bash
 py cli/sv.py list
+py cli/sv.py list --category meta
 py cli/sv.py install <skill> --ide cursor --os windows
 py cli/sv.py install <skill> --ide claude-code --os linux
 
