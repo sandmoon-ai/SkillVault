@@ -89,8 +89,9 @@ Intent Gate B 勾选（见模板）：
 
 | 通路 | 行为 |
 |------|------|
-| CLI | fetch 后自动 scan；`--apply` 前校验报告存在且非 FAIL（除非 `--accept-security-risks` + 原因文件，高级慎用） |
+| CLI | fetch 后自动 scan；`import --apply` 与 **`sync --apply`** 前均校验报告存在且非 FAIL（除非 `--accept-security-risks`，须 Gate B 记录）；`_skillvault_*` sidecar 不进 vault / IDE |
 | AI | 与 CLI 相同检查器（优先调用 `sv security-scan`）；把 MD 报告纳入 Gate B 材料 |
+| CI | `tests/test_vault_gates.py` 校验 `vault/imported/**` 结构、registry、安全再扫（FAIL 则红） |
 
 同一套规则，避免 AI「口头说没事」却无报告文件。
 

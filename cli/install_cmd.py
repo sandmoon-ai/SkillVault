@@ -3,7 +3,7 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from cli.common import EXCLUDE_ON_INSTALL, iter_vault_skills, resolve_skill
+from cli.common import iter_vault_skills, resolve_skill, should_exclude_on_install
 from cli.frontmatter_util import write_filtered_skill_md
 from cli.paths import resolve_install_dir
 
@@ -35,9 +35,9 @@ def _copy_skill(
     dest.mkdir(parents=True, exist_ok=True)
     for item in src.rglob("*"):
         rel = item.relative_to(src)
-        if any(part in EXCLUDE_ON_INSTALL for part in rel.parts):
+        if any(should_exclude_on_install(part) for part in rel.parts):
             continue
-        if item.name in EXCLUDE_ON_INSTALL:
+        if should_exclude_on_install(item.name):
             continue
         target = dest / rel
         if item.is_dir():

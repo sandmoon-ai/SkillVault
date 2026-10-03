@@ -88,6 +88,7 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | 上游定时检知 + Issue | **已完成** | `sv watch upstream` + weekly workflow；见 [design/upstream-watch.md](./design/upstream-watch.md) |
 | 安全规则定期检知 | **已完成** | `sv watch security-sources` + monthly workflow；见 [design/security-rules-watch.md](./design/security-rules-watch.md) |
 | Phase 4 硬化 | **基本完成** | 全量 tests CI、Ruleset、成本卫生、双 watch workflow |
+| M6 Gate hardening | **进行中** | [#23](https://github.com/sandmoon-ai/SkillVault/issues/23)–[#25](https://github.com/sandmoon-ai/SkillVault/issues/25) 门禁修复已落地（sync/install/CI）；其余见 [Milestone M6](https://github.com/sandmoon-ai/SkillVault/milestone/6) |
 
 下一阶段执行顺序与非目标：[`docs/design/README.md`](./design/README.md)。
 
@@ -96,7 +97,8 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | 门禁 | 作用 |
 |------|------|
 | `tests/test_skill_scripts.py` | 清单驱动；未声明脚本或冒烟失败则红 |
-| GitHub Actions `CI` | 每次 push/PR 跑卫生检查 + 脚本测试 |
+| `tests/test_vault_gates.py` | imported 须有 SOURCE/SKILL、registry 对齐、安全扫描非 FAIL、无 sidecar |
+| GitHub Actions `CI` | 每次 push/PR 跑卫生检查 + 全量 pytest |
 | Ruleset `protect-main` | 合入/更新 `main` 相关流程要求 `Skill script tests` 通过；禁 force push / 删分支 |
 | Gate A–C（人工 + AI play） | 收录语义与合入 vault |
 

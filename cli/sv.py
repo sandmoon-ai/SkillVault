@@ -127,6 +127,14 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Apply upstream files into vault/imported (upstream mode only)",
     )
+    p_sync.add_argument(
+        "--accept-security-risks",
+        action="store_true",
+        help=(
+            "Allow upstream --apply when security verdict is FAIL "
+            "(Gate B must document acceptance)"
+        ),
+    )
     p_sync.add_argument("--ide", choices=list_ides(), help="IDE for vault↔IDE report")
     p_sync.add_argument(
         "--os",
@@ -311,7 +319,12 @@ def cmd_sync(args: argparse.Namespace) -> int:
             "Specify --ide/--os for vault↔IDE report, or skill names / --all "
             "for upstream re-fetch."
         )
-    reports = sync_skills(args.skills, all_skills=args.all, apply=args.apply)
+    reports = sync_skills(
+        args.skills,
+        all_skills=args.all,
+        apply=args.apply,
+        accept_security_risks=args.accept_security_risks,
+    )
     print("\n\n".join(reports))
     return 0
 

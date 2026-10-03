@@ -16,6 +16,7 @@ from cli.common import (
     REGISTRY_PATH,
     VAULT_IMPORTED,
     dump_yaml,
+    is_skillvault_sidecar,
     load_yaml,
     read_frontmatter,
     validate_category,
@@ -220,13 +221,8 @@ def apply_import(result: FetchResult, *, name: str, category: str = "inbox") -> 
     dest.mkdir(parents=True)
 
     # Copy fetched files except SkillVault sidecars
-    skip_sidecars = {
-        "_skillvault_summary.json",
-        "_skillvault_security.json",
-        "_skillvault_security.md",
-    }
     for item in result.cache_dir.rglob("*"):
-        if item.name in skip_sidecars:
+        if is_skillvault_sidecar(item.name):
             continue
         rel = item.relative_to(result.cache_dir)
         target = dest / rel
