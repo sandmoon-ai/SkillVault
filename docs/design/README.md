@@ -14,6 +14,7 @@
 | [import-security.md](./import-security.md) | 收录安全 | 收纳前扫描；Gate B 与人审一并出示 |
 | [security-rules-watch.md](./security-rules-watch.md) | 规则维护 | 定期检知主流规则源 → Issue；人决定是否采纳 |
 | [issue-milestone-standard.md](./issue-milestone-standard.md) | 推进方式 | Issue / Milestone 命名、模板、DoD |
+| [personal-vault.md](./personal-vault.md) | 个人私有仓（L3） | 书系 / 私有 own 多机同步；不进公开仓 |
 
 制造阶段用 GitHub **Milestone + Issue** 推进；标准见上表末行。Issue 表单在 `.github/ISSUE_TEMPLATE/`。
 
@@ -43,4 +44,5 @@ M1 单测与安装验收
 **M2 收录闭环：已完成**（2026-10-03；含 security-scan v1 + commit-generate 样例）。  
 **M3 Sync 与硬化：已完成**（2026-10-03；`sv doctor --ide/--os`）。  
 **M4 / M5 定时检知：已完成**（`sv watch upstream` / `security-sources` + Actions）。  
-**M6 Gate hardening：进行中**（Milestone [#6](https://github.com/sandmoon-ai/SkillVault/milestone/6)；P0/P1 门禁 #23–#25 优先）。
+**M6 Gate hardening：已完成**。  
+**个人书系 L3：已定案**（私有 [`SkillVault-personal`](https://github.com/sandmoon-ai/SkillVault-personal)；见 [personal-vault.md](./personal-vault.md)）。

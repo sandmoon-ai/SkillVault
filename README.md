@@ -14,8 +14,10 @@
 
 完整架构见 [`docs/architecture.md`](docs/architecture.md)。  
 **截至目前的落地对照与进度**见 [`docs/status.md`](docs/status.md)。  
-**下一阶段设计（M1–M3）**见 [`docs/design/`](docs/design/README.md)。  
+**下一阶段设计**见 [`docs/design/`](docs/design/README.md)。  
 **参与贡献**：[CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md) · [CONTRIBUTING.md](CONTRIBUTING.md)（English）。
+
+> **书系 / 个人笔记 Skills** 不在本公开仓。维护者多机同步请用私有仓 [`SkillVault-personal`](https://github.com/sandmoon-ai/SkillVault-personal)（说明：[docs/design/personal-vault.md](docs/design/personal-vault.md)）。
 
 ## 质量与 GitHub 门禁（已启用）
 
