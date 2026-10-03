@@ -1,6 +1,8 @@
 # M2 — 收录闭环设计
 
-**状态：** 设计已定；样例收录待做  
+**状态：** 已完成（2026-10-03）  
+
+
 **关联：** [meta-skills/import-from-url](../../meta-skills/import-from-url/SKILL.md)、[`cli/import_cmd.py`](../../cli/import_cmd.py)、[architecture.md](../architecture.md) 门禁 A–C
 
 ## 1. 目标
@@ -86,18 +88,18 @@ py cli/sv.py import <url> --apply --category <cat> [--name <name>] [--ref <ref>]
 
 ## 7. 完成标准
 
-- [ ] intent 模板已存在并可复制使用  
-- [ ] 收录前安全检查可用，Gate B 展示报告  
-- [ ] 至少 1 个 `vault/imported/<category>/<name>/` 含 `SKILL.md` + `SOURCE.md`  
-- [ ] `registry/sources.yaml` 有对应条目  
-- [ ] 若含脚本：`scripts/tests.yaml` + CI 绿  
-- [ ] 验收记录已填  
+- [x] intent 模板已存在并可复制使用  
+- [x] 收录前安全检查可用，Gate B 展示报告（PR #15）  
+- [x] 至少 1 个 `vault/imported/<category>/<name>/` 含 `SKILL.md` + `SOURCE.md`  
+- [x] `registry/sources.yaml` 有对应条目  
+- [x] 若含脚本：`scripts/tests.yaml` + CI 绿（本样例无 scripts）  
+- [x] 验收记录已填  
 
 ## 8. 验收记录（实现后填写）
 
 | 日期 | Skill name | 来源 URL | category | 许可 | PR |
 |------|------------|----------|----------|------|-----|
-| _待填_ | | | | | |
+| 2026-10-03 | commit-generate | https://github.com/agenvoy/skill-commit-generate | engineering | MIT | （本 PR） |
 
 ## 9. 上游再更新（衔接）
 

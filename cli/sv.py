@@ -75,6 +75,11 @@ def _build_parser() -> argparse.ArgumentParser:
     p_import.add_argument("--name", help="Local skill name")
     p_import.add_argument("--ref", help="Git ref override")
     p_import.add_argument(
+        "--category",
+        default="inbox",
+        help="Category under vault/imported when using --apply (default: inbox)",
+    )
+    p_import.add_argument(
         "--apply",
         action="store_true",
         help="Copy into vault/imported and update registry (raw; prefer AI conversion)",
@@ -152,19 +157,25 @@ def cmd_install(args: argparse.Namespace) -> int:
 
 
 def cmd_import(args: argparse.Namespace) -> int:
+    if args.apply:
+        validate_category(args.category)
     result = import_from_url(
         args.url,
         name=args.name,
         ref=args.ref,
         apply=args.apply,
         accept_security_risks=args.accept_security_risks,
+        category=args.category,
     )
     print(print_import_summary(result))
     if args.apply:
         if not args.name and result.skill_md:
             # apply_import already ran inside import_from_url when apply=True
             pass
-        print(f"Applied to vault/imported/{args.name or '(from frontmatter)'}")
+        print(
+            f"Applied to vault/imported/{args.category}/"
+            f"{args.name or '(from frontmatter)'}"
+        )
     return 0
 
 

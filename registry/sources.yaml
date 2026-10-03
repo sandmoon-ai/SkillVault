@@ -1,12 +1,9 @@
-# Tracked upstream skills. Updated by `sv import` / `sv sync`.
-#
-# skills:
-#   - name: example-skill
-#     url: https://github.com/org/repo/tree/main/skills/example
-#     ref: main
-#     path: skills/example
-#     local: vault/imported/example-skill
-#     license: MIT
-#     last_synced: 2026-01-01T00:00:00Z
-
-skills: []
+skills:
+- name: commit-generate
+  url: https://github.com/agenvoy/skill-commit-generate/tree/master
+  ref: master
+  path: null
+  category: engineering
+  local: vault/imported/engineering/commit-generate
+  license: MIT
+  last_synced: '2026-10-03T02:27:29Z'
