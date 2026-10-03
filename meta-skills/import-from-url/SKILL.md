@@ -18,9 +18,10 @@ description: >-
 Import Progress:
 - [ ] Gate A: intents/intent-import-<name>.md（为何收、边界）— 等人确认
 - [ ] Fetch: 拉到 .cache（AI 下载 或 sv import）— 出示摘要
-- [ ] Convert: 写成 Agent Skills 包 → vault/imported/<name>/ + SOURCE.md
-- [ ] Gate B: 展示 diff，等人确认
-- [ ] Gate C: 更新 registry + 建议 commit（可代为 commit，若用户要求）
+- [ ] Convert: 写成 Agent Skills 包 → vault/imported/<category>/<name>/ + SOURCE.md
+      （默认 category=`inbox`，Gate B 再归入 docs/taxonomy.md 标准类目）
+- [ ] Gate B: 展示 diff，确认类目/标签，等人确认
+- [ ] Gate C: 更新 registry + catalog（可选）+ 建议 commit
 - [ ] 需要落地时 → 走 meta-skills/install（AI 或 CLI）
 ```
 
@@ -57,9 +58,9 @@ py cli/sv.py import <url> [--name <skill-name>] [--ref <ref>]
 
 目标格式：[Agent Skills Specification](https://agentskills.io/specification)。
 
-- 输出：`vault/imported/<name>/SKILL.md`（目录名 = `name`）
+- 输出：`vault/imported/<category>/<name>/SKILL.md`（目录名 = `name`；分类见 [taxonomy.md](../../docs/taxonomy.md)）
 - 任意源形态 → 规范目录包（`scripts/` / `references/` / `assets/` 按需）
-- Frontmatter：必需 `name`、`description`；可选 `license` / `compatibility` / `metadata` / `allowed-tools`
+- Frontmatter：必需 `name`、`description`；`metadata.category` + `metadata.tags`；可选 `license` / `compatibility` / `allowed-tools`
 - `name`：小写+数字+连字符，1–64，与目录名一致
 - `description`：1–1024，做什么 + **何时触发**
 - 去掉写死 IDE 路径；改为经 SkillVault 安装

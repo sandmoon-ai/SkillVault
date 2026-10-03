@@ -1,0 +1,8 @@
+# Optional browse index. Source of truth is the vault directory tree.
+# category list: see docs/taxonomy.md
+skills:
+  - name: hello-skillvault
+    category: meta
+    origin: own
+    tags: [smoke, skillvault]
+    path: vault/own/meta/hello-skillvault

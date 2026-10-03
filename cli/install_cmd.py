@@ -84,7 +84,7 @@ def install_skills(
         selected = [resolve_skill(n) for n in names]
 
     installed: list[Path] = []
-    for name, src, _origin in selected:
+    for name, src, _origin, _category in selected:
         dest = base / name
         installed.append(
             _copy_skill(src, dest, ide=ide, force=force, link=link)

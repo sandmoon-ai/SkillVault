@@ -6,12 +6,15 @@ description: >-
 license: MIT
 compatibility: linux, windows
 metadata:
+  category: inbox
+  tags: []
   vault: own
 ---
 
 # Skill Name
 
 Format: [Agent Skills](https://agentskills.io/specification).  
+Place under `vault/own/<category>/<skill-name>/` — see [docs/taxonomy.md](../../../docs/taxonomy.md).  
 Directory name must equal frontmatter `name`.
 
 ## When to use

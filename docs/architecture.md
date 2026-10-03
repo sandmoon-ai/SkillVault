@@ -105,37 +105,40 @@ in use                    # 使用中发现问题 → 回写 intent 或修正 Sk
 
 ```text
 SkillVault/
-├── README.md
-├── LICENSE
 ├── docs/
-│   ├── architecture.md          # 本文
-│   └── ide-targets.md           # IDE 路径对照
+│   ├── architecture.md
+│   ├── taxonomy.md              # Skill 分类约定
+│   └── ...
 ├── adapters/
-│   ├── targets.yaml             # ide × os × scope → 路径模板
-│   └── frontmatter.yaml         # 安装时 frontmatter 字段裁剪
 ├── registry/
-│   └── sources.yaml             # 已收录上游索引
+│   ├── sources.yaml
+│   └── catalog.yaml             # 可选浏览索引
 ├── vault/
-│   ├── own/                     # 自建（可直接编辑）
-│   └── imported/                # 公开源转化结果（经门禁后合入）
-├── meta-skills/                 # AI 一等通路（收录 / 安装 play）
-│   ├── import-from-url/
-│   └── install/
-├── intents/                     # 收录意图（intent-import 产物，可选按日期/名称）
-├── cli/                         # CLI 等价通路：fetch / install / sync
-└── .cache/                      # 本地拉取缓存（不提交）
+│   ├── own/
+│   │   ├── _template/           # 模板（非类目）
+│   │   └── <category>/<skill>/  # 自建，按阶段类目
+│   └── imported/
+│       └── <category>/<skill>/  # 收录后归类；默认先 inbox
+├── meta-skills/                 # 操作本库的 AI play（不进 vault 类目树）
+├── intents/
+├── cli/
+└── .cache/
 ```
+
+分类细则：[taxonomy.md](./taxonomy.md)（阶段类目 + `metadata.tags`）。
 
 ### 规范 Skill 包（agentskills.io）
 
 ```text
-<skill-name>/                 # 目录名 = frontmatter name
-├── SKILL.md                  # 必需（规范核心）
-├── scripts/                  # 可选
+vault/{own|imported}/<category>/<skill-name>/
+├── SKILL.md                  # 必需；name = 目录名
+├── scripts/                  # 可选；须配 tests.yaml
 ├── references/               # 可选
 ├── assets/                   # 可选
-└── SOURCE.md                 # 仅 SkillVault imported；非规范字段，安装排除
+└── SOURCE.md                 # 仅 imported；安装排除
 ```
+
+安装到 IDE 时目标为 `skills/<skill-name>/`（**不**携带 category，保持各工具扁平发现）。
 
 `description` 必须写清**何时触发**；转化公开 Skill 时这是 Gate B 审查重点。校验可参考上游 [skills-ref](https://github.com/agentskills/agentskills/tree/main/skills-ref)。
 
