@@ -270,8 +270,8 @@ def cmd_catalog(args: argparse.Namespace) -> int:
     catalog = write_catalog()
     counts = catalog.get("counts") or {}
     print(
-        f"Wrote registry/catalog.yaml and docs/skills-index.md "
-        f"({counts.get('total', 0)} skills)."
+        f"Wrote registry/catalog.yaml, docs/skills-index.md, "
+        f"and docs/skills-index.zh-CN.md ({counts.get('total', 0)} skills)."
     )
     return 0
 

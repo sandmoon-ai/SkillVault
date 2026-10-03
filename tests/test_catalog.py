@@ -87,11 +87,21 @@ def test_cli_catalog_check_exit_codes(tmp_path: Path, monkeypatch, capsys) -> No
     _patch_roots(monkeypatch, tmp_path)
 
     assert main(["catalog", "--check"]) == 2
+    # Optional Chinese blurb
+    (tmp_path / "registry" / "descriptions.zh-CN.yaml").write_text(
+        "descriptions:\n  hello-a: 简短中文简介。\n",
+        encoding="utf-8",
+    )
+
     assert main(["catalog"]) == 0
     out = capsys.readouterr().out
-    assert "Wrote registry/catalog.yaml" in out
+    assert "skills-index.zh-CN.md" in out
     assert main(["catalog", "--check"]) == 0
     data = yaml.safe_load(
         (tmp_path / "registry" / "catalog.yaml").read_text(encoding="utf-8")
     )
     assert data["counts"]["total"] == 2
+    zh = (tmp_path / "docs" / "skills-index.zh-CN.md").read_text(encoding="utf-8")
+    assert "Skill 索引（中文）" in zh
+    assert "简短中文简介" in zh
+    assert "demo-skill" in zh and "待译" in zh
