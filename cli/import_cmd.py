@@ -21,6 +21,7 @@ from cli.common import (
     validate_category,
     validate_skill_name,
 )
+from cli.security_scan import require_report_for_apply, scan_tree, write_reports
 
 GITHUB_TREE_RE = re.compile(
     r"^https?://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+)/tree/(?P<ref>[^/]+)(?:/(?P<path>.*))?$"
@@ -137,6 +138,7 @@ def import_from_url(
     name: str | None = None,
     ref: str | None = None,
     apply: bool = False,
+    accept_security_risks: bool = False,
 ) -> FetchResult:
     cache_id = hashlib.sha1(url.encode("utf-8")).hexdigest()[:12]
     cache_dir = CACHE_DIR / "import" / cache_id
@@ -177,6 +179,13 @@ def import_from_url(
     summary_path = cache_dir / "_skillvault_summary.json"
     summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
+    scan_root = skill_md.parent if skill_md and skill_md.name == "SKILL.md" else cache_dir
+    report = scan_tree(scan_root)
+    write_reports(scan_root, report)
+    summary["security_verdict"] = report.verdict
+    summary["security_counts"] = report.counts
+    summary_path.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+
     result = FetchResult(
         cache_dir=cache_dir,
         source_url=source_url,
@@ -187,6 +196,7 @@ def import_from_url(
     )
 
     if apply:
+        require_report_for_apply(scan_root, accept_security_risks=accept_security_risks)
         if not name:
             if skill_md and skill_md.name == "SKILL.md":
                 meta, _ = read_frontmatter(skill_md)
@@ -208,9 +218,14 @@ def apply_import(result: FetchResult, *, name: str, category: str = "inbox") -> 
         shutil.rmtree(dest)
     dest.mkdir(parents=True)
 
-    # Copy fetched files except summary sidecar
+    # Copy fetched files except SkillVault sidecars
+    skip_sidecars = {
+        "_skillvault_summary.json",
+        "_skillvault_security.json",
+        "_skillvault_security.md",
+    }
     for item in result.cache_dir.rglob("*"):
-        if item.name == "_skillvault_summary.json":
+        if item.name in skip_sidecars:
             continue
         rel = item.relative_to(result.cache_dir)
         target = dest / rel
@@ -315,7 +330,15 @@ def print_import_summary(result: FetchResult) -> str:
     if meta:
         lines.append(f"Frontmatter name: {meta.get('name')}")
         lines.append(f"Frontmatter description: {meta.get('description')}")
+    verdict = result.summary.get("security_verdict")
+    if verdict:
+        lines.append(f"Security verdict: {verdict}")
+        lines.append(
+            f"Security report: {result.cache_dir / '_skillvault_security.md'} "
+            f"(or next to SKILL.md if nested)"
+        )
     lines.append(
-        "Next: convert with meta-skills/import-from-url, or re-run with --apply --name <name>."
+        "Next: review security report + convert with meta-skills/import-from-url, "
+        "or re-run with --apply --name <name> after Gate B."
     )
     return "\n".join(lines)
