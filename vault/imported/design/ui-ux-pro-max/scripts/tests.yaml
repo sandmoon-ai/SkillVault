@@ -1,0 +1,34 @@
+# SkillVault smoke tests for ui-ux-pro-max scripts.
+# Upstream also ships scripts/tests/ (pytest suite); keep it for fidelity.
+tests:
+  - script: search.py
+    platforms: [linux, macos, windows]
+    runner: python
+    args: ["saas dashboard analytics", "--design-system", "-p", "Smoke"]
+    expect_exit: 0
+    expect_stdout_contains: "RECOMMENDED DESIGN SYSTEM"
+  - script: search.py
+    platforms: [linux, macos, windows]
+    runner: python
+    args: ["focus keyboard", "--domain", "ux", "-n", "2"]
+    expect_exit: 0
+    expect_stdout_contains: "UI Pro Max Search Results"
+  - script: validate_data.py
+    platforms: [linux, macos, windows]
+    runner: python
+    expect_exit: 0
+    expect_stdout_contains: "OK: validated"
+  - script: design_system.py
+    platforms: [linux, macos, windows]
+    runner: python
+    args: ["saas product landing", "--format", "markdown"]
+    expect_exit: 0
+    expect_stdout_contains: "Design System"
+  - script: core.py
+    platforms: [linux, macos, windows]
+    runner: python
+    expect_exit: 0
+  - script: reasoning_contract.py
+    platforms: [linux, macos, windows]
+    runner: python
+    expect_exit: 0
