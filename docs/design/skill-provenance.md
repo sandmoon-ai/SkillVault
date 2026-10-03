@@ -49,3 +49,12 @@
 ## C — 书系等
 
 无 GitHub Skill 源 → 仅 [SkillVault-personal](https://github.com/sandmoon-ai/SkillVault-personal)（L3）。
+
+## D — Anthropic official example-skills
+
+| 项 | 值 |
+|----|-----|
+| **原始仓** | [anthropics/skills](https://github.com/anthropics/skills) |
+| **许可** | 多数 Apache-2.0（每 skill 自带 `LICENSE.txt`） |
+| **勿收录** | `document-skills`（`docx`/`pdf`/`pptx`/`xlsx`）：source-available，禁止再分发 |
+| **已收录（公开仓）** | `frontend-design`、`canvas-design`、`theme-factory`、`web-artifacts-builder` → `design/`；`webapp-testing` → `engineering/` |

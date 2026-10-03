@@ -551,3 +551,43 @@ skills:
   local: vault/imported/meta/utility-update-pm-skills
   license: Apache-2.0
   last_synced: '2026-10-03T06:08:19Z'
+- name: frontend-design
+  url: https://github.com/anthropics/skills/tree/main/skills/frontend-design
+  ref: main
+  path: skills/frontend-design
+  category: design
+  local: vault/imported/design/frontend-design
+  license: Apache-2.0
+  last_synced: '2026-10-03T06:26:55Z'
+- name: canvas-design
+  url: https://github.com/anthropics/skills/tree/main/skills/canvas-design
+  ref: main
+  path: skills/canvas-design
+  category: design
+  local: vault/imported/design/canvas-design
+  license: Apache-2.0
+  last_synced: '2026-10-03T06:26:55Z'
+- name: theme-factory
+  url: https://github.com/anthropics/skills/tree/main/skills/theme-factory
+  ref: main
+  path: skills/theme-factory
+  category: design
+  local: vault/imported/design/theme-factory
+  license: Apache-2.0
+  last_synced: '2026-10-03T06:26:55Z'
+- name: web-artifacts-builder
+  url: https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder
+  ref: main
+  path: skills/web-artifacts-builder
+  category: design
+  local: vault/imported/design/web-artifacts-builder
+  license: Apache-2.0
+  last_synced: '2026-10-03T06:26:55Z'
+- name: webapp-testing
+  url: https://github.com/anthropics/skills/tree/main/skills/webapp-testing
+  ref: main
+  path: skills/webapp-testing
+  category: engineering
+  local: vault/imported/engineering/webapp-testing
+  license: Apache-2.0
+  last_synced: '2026-10-03T06:26:55Z'
