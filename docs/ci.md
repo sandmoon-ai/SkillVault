@@ -136,4 +136,9 @@ py -m pytest tests/test_skill_scripts.py -v
 
 - CLI 单元测试  
 - 多 OS 矩阵（需 `# cost-allow`）  
-- 上游 sync 定时任务（同样遵守产物保留规则）  
+- **上游定时检知 + 自动 Issue**（设计已定）：见 [design/upstream-watch.md](./design/upstream-watch.md)  
+  - 每周 1 次、`ubuntu-latest`、只扫 registry、无 diff 安静退出、有 diff 开/更新 Issue  
+  - **不**在 Action 里 `--apply`；不上传大 artifact  
+- **安全规则来源检知 + 自动 Issue**（设计已定）：见 [design/security-rules-watch.md](./design/security-rules-watch.md)  
+  - 每月 1 次、钉扎 SkillSafe / SkillSpector / Gitleaks / OWASP 等指纹  
+  - 有变化开/更新 `security-rules` Issue；**不**自动改 `security_rules.yaml`  

@@ -1,0 +1,29 @@
+name: Bug / 缺陷
+description: Behavior disagrees with design or broken CI/CLI.
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected / 期望
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual / 实际
+    validations:
+      required: true
+  - type: input
+    id: design_ref
+    attributes:
+      label: Design or doc reference（若有）
+      placeholder: docs/design/m1-install.md
+  - type: textarea
+    id: repro
+    attributes:
+      label: Repro / 复现步骤
+      value: |
+        1.
+    validations:
+      required: true

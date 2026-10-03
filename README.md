@@ -13,7 +13,9 @@
 - **Git 为真相源**；安装只是把真相源投影到各 IDE 路径
 
 完整架构见 [`docs/architecture.md`](docs/architecture.md)。  
-**截至目前的落地对照与进度**见 [`docs/status.md`](docs/status.md)。
+**截至目前的落地对照与进度**见 [`docs/status.md`](docs/status.md)。  
+**下一阶段设计（M1–M3）**见 [`docs/design/`](docs/design/README.md)。  
+**参与贡献**：[CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md) · [CONTRIBUTING.md](CONTRIBUTING.md)（English）。
 
 ## 质量与 GitHub 门禁（已启用）
 
@@ -91,6 +93,7 @@ vault/own/<category>/<skill-name>/
 |------|---------------------|----------|
 | 安装到本机 IDE | 打开本仓库，让 Agent 按 [`meta-skills/install`](meta-skills/install/SKILL.md) 执行 | `py cli/sv.py install ...` |
 | 收录公开 Skill | 给出 URL，按 [`meta-skills/import-from-url`](meta-skills/import-from-url/SKILL.md) | `py cli/sv.py import <url>`（只进 cache）+ AI 转化 |
+| 本库 GitHub 操作 | 按 [`meta-skills/github-ops`](meta-skills/github-ops/SKILL.md)（PR / Issue / Milestone） | `gh` CLI |
 | 上游更新 | 让 Agent 跑 sync 流程并展示 diff | `py cli/sv.py sync ...` |
 
 ### 换机 / 日常安装
@@ -147,6 +150,7 @@ AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，
 
 | 文档 | 内容 |
 |------|------|
+| [CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md) / [CONTRIBUTING.md](CONTRIBUTING.md) | **贡献指南**（收录 / 自建 / PR 门禁） |
 | [docs/status.md](docs/status.md) | **现状整理**：原则、已落地项、进度 |
 | [docs/taxonomy.md](docs/taxonomy.md) | Skill 类目（阶段）+ 标签 |
 | [docs/architecture.md](docs/architecture.md) | 格式标准、边界、产物链、双通路、治理 |
@@ -154,7 +158,7 @@ AI 或 `sv sync` 重新拉取并给出 diff；**默认不覆盖**已审内容，
 | [docs/script-testing.md](docs/script-testing.md) | Skill 脚本测试硬性规范 |
 | [docs/ci.md](docs/ci.md) | CI、Ruleset、成本/存储防护 |
 | [agentskills.io](https://agentskills.io/specification) | 外部规范（本仓库格式真相源） |
-| [meta-skills/](meta-skills/) | AI 收录 / AI 安装一等通路 |
+| [meta-skills/](meta-skills/) | AI 收录 / 安装 / GitHub 操作一等通路 |
 
 ## 许可证
 

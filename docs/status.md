@@ -20,8 +20,8 @@
 
 ```text
 intent-import → Gate A
-fetch (.cache) → 摘要
-转化 + SOURCE.md → Gate B
+fetch (.cache) → 摘要 → 安全检查报告
+转化 + SOURCE.md → Gate B（同时审 diff + 安全报告）
 vault + registry commit → Gate C
 install --ide/--os（默认 user）→ Gate D（可选抽检）
 ```
@@ -68,21 +68,28 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 - `adapters/targets.yaml`
 - `meta-skills/import-from-url`、`meta-skills/install`
 - `registry/sources.yaml`
-- `intents/`
+- `intents/_template-import.md`（收录 intent 模板）
 - `vault/own/_template/`、`vault/imported/`
 - `cli/`（Python CLI 草稿：list/install/import/sync）
+- `docs/design/`（M1–M3 设计说明；实现与验收按各篇勾选）
 
-> CLI 已能支撑双通路中的脚本侧，但验收与 IDE 实测仍属推进中项（见下节）。
+> CLI 已能支撑双通路中的脚本侧；M1–M3 **设计已定**，实现与实机验收见 `docs/design/`。
 
 ## 4. 推进进度（相对计划）
 
 | 阶段 | 状态 | 备注 |
 |------|------|------|
 | Phase 0 文档与产物链 / agentskills 规范 | **基本完成** | architecture / README / meta-skills / 脚本测试规范 |
-| Phase 1 安装闭环 | **进行中** | CLI 与 meta-skill 已有；需收敛验证 + 多 IDE 实测 |
-| Phase 2 收录闭环（门禁） | **进行中** | import meta-skill + CLI 草稿有；待真实公开 Skill 样例 |
-| Phase 3 sync + 换机文档 | **部分** | sync 草稿有；换机流程在 README |
+| Phase 1 安装闭环 | **设计已定 / 实现待做** | 见 [design/m1-install.md](./design/m1-install.md) |
+| Phase 2 收录闭环（门禁） | **设计已定 / 样例待做** | 见 [design/m2-import.md](./design/m2-import.md)；模板 `intents/_template-import.md` |
+| 收录前安全检查 | **设计已定 / 实现待做** | 见 [design/import-security.md](./design/import-security.md)；Gate B 必看报告 |
+| 安全规则定期检知 | **设计已定 / 实现待做** | 见 [design/security-rules-watch.md](./design/security-rules-watch.md)；Issue 收集，人决定采纳 |
+| Issue / Milestone 标准 | **设计已定** | 见 [design/issue-milestone-standard.md](./design/issue-milestone-standard.md)；模板在 `.github/ISSUE_TEMPLATE/` |
+| Phase 3 sync + 换机文档 | **设计已定 / 硬化待做** | 见 [design/m3-sync-harden.md](./design/m3-sync-harden.md) |
+| 上游定时检知 + Issue | **设计已定 / 实现待做** | 见 [design/upstream-watch.md](./design/upstream-watch.md)；registry 有样例后再落地 |
 | Phase 4 硬化 | **部分完成** | Skill 脚本 pytest + CI + 成本卫生 + Ruleset；CLI 单测仍缺 |
+
+下一阶段执行顺序与非目标：[`docs/design/README.md`](./design/README.md)。
 
 ## 5. 质量门禁一览
 
@@ -102,6 +109,8 @@ install --ide/--os（默认 user）→ Gate D（可选抽检）
 | [ide-targets.md](./ide-targets.md) | 六 IDE 用户/项目路径 |
 | [script-testing.md](./script-testing.md) | Skill 脚本测试规范 |
 | [ci.md](./ci.md) | CI 概念、用法、成本防护、**已启用的 Ruleset** |
+| [design/](./design/README.md) | 下一阶段设计（M1 / M2 / M3 / 上游检知） |
+| [CONTRIBUTING.zh-CN.md](../CONTRIBUTING.zh-CN.md) / [CONTRIBUTING.md](../CONTRIBUTING.md) | 对外贡献：fork + PR + 门禁 |
 | [status.md](./status.md) | 本文：现状与落地对照 |
 
 外部规范：[agentskills.io/specification](https://agentskills.io/specification)

@@ -1,0 +1,46 @@
+name: Acceptance / 验收
+description: Manual or sample acceptance against a design doc checklist.
+labels: ["type:acceptance"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill the design doc「验收记录」when done. Standard: [issue-milestone-standard.md](https://github.com/sandmoon-ai/SkillVault/blob/main/docs/design/issue-milestone-standard.md)
+  - type: input
+    id: design_doc
+    attributes:
+      label: Design doc / 设计依据
+      placeholder: docs/design/m1-install.md §5
+    validations:
+      required: true
+  - type: input
+    id: milestone
+    attributes:
+      label: Milestone
+      placeholder: M1 — Install loop
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Acceptance steps / 验收步骤
+      value: |
+        - [ ]
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 环境
+      placeholder: Windows 11, Cursor, Claude Code, …
+    validations:
+      required: true
+  - type: textarea
+    id: dod
+    attributes:
+      label: Pass criteria / 通过标准
+      value: |
+        - [ ]
+        - [ ] Acceptance table in design doc filled with date/result
+    validations:
+      required: true
