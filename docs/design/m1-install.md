@@ -1,6 +1,7 @@
 # M1 — 安装闭环设计
 
-**状态：** 设计已定；实现 / 实机验收待做  
+**状态：** 已完成（2026-10-03）  
+
 **关联：** [meta-skills/install](../../meta-skills/install/SKILL.md)、[`cli/install_cmd.py`](../../cli/install_cmd.py)、[`adapters/targets.yaml`](../../adapters/targets.yaml)
 
 ## 1. 目标
@@ -89,16 +90,16 @@ py cli/sv.py install hello-skillvault --ide claude-code --os windows --force
 
 ## 4. 完成标准
 
-- [ ] `test_paths.py` / `test_install.py` 合入 `main`，CI 绿  
-- [ ] `list --category` 可用  
-- [ ] Windows：cursor + claude-code 用户级安装实测通过  
-- [ ] 下方「验收记录」已填写日期与结果  
+- [x] `test_paths.py` / `test_install.py` 合入 `main`，CI 绿（PR #9）  
+- [x] `list --category` 可用（PR #10）  
+- [x] Windows：cursor + claude-code 用户级安装实测通过  
+- [x] 下方「验收记录」已填写日期与结果  
 
 ## 5. 验收记录（实现后填写）
 
 | 日期 | 操作者 | cursor | claude-code | AI 通路 | 备注 |
 |------|--------|--------|-------------|---------|------|
-| _待填_ | | | | | |
+| 2026-10-03 | moyueshuwx / agent | pass | pass | pass | 路径 `~\.cursor\skills\hello-skillvault`、`~\.claude\skills\hello-skillvault`；无 SOURCE.md/tests.yaml；有 scripts；AI 通路在用户「继续」授权后覆盖装入 Cursor |
 
 ## 6. 非目标（M1）
 
