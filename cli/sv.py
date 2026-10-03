@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 from cli import __version__
-from cli.common import iter_vault_skills
+from cli.common import KNOWN_CATEGORIES, iter_vault_skills, validate_category
 from cli.import_cmd import apply_import, import_from_url, print_import_summary
 from cli.install_cmd import install_skills
 from cli.paths import list_ides
@@ -22,6 +22,14 @@ def _build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_list = sub.add_parser("list", help="List skills in the vault")
+    p_list.add_argument(
+        "--category",
+        metavar="CAT",
+        help=(
+            "Filter by taxonomy category (see docs/taxonomy.md). "
+            f"Known: {', '.join(sorted(KNOWN_CATEGORIES))}"
+        ),
+    )
     p_list.set_defaults(func=cmd_list)
 
     p_install = sub.add_parser("install", help="Install skill(s) into an IDE path")
@@ -85,14 +93,27 @@ def _build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def cmd_list(_: argparse.Namespace) -> int:
+def cmd_list(args: argparse.Namespace) -> int:
     skills = iter_vault_skills()
+    category = getattr(args, "category", None)
+    if category:
+        validate_category(category)
+        skills = [s for s in skills if s[3] == category]
+        if not skills:
+            tip = ""
+            if category not in KNOWN_CATEGORIES:
+                tip = (
+                    f" Note: '{category}' is not in the known taxonomy set "
+                    f"({', '.join(sorted(KNOWN_CATEGORIES))})."
+                )
+            print(f"No skills matching category '{category}'.{tip}")
+            return 0
     if not skills:
         print("No skills in vault.")
         return 0
     print("name\tcategory\torigin\tpath")
-    for name, path, origin, category in skills:
-        print(f"{name}\t{category}\t{origin}\t{path}")
+    for name, path, origin, cat in skills:
+        print(f"{name}\t{cat}\t{origin}\t{path}")
     return 0
 
 
