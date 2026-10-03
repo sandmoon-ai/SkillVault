@@ -43,7 +43,7 @@
 
 - [x] 路径：`vault/imported/ops/ocr/`（材料已落盘；签字仍须人类）
 - [x] `registry/sources.yaml` 已更新
-- [ ] PR 链接：
+- [x] PR 链接：https://github.com/sandmoon-ai/SkillVault/pull/48
 - [ ] CI 绿（待 PR）
 - [ ] **批准人签字/日期（人类）：** _______________
 
