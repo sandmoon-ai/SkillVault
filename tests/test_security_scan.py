@@ -82,3 +82,17 @@ def test_require_report_missing(tmp_path: Path) -> None:
     skill = _write_clean_skill(tmp_path)
     with pytest.raises(ValueError, match="Missing security report"):
         require_report_for_apply(skill)
+
+
+def test_require_report_stale_fingerprint(tmp_path: Path) -> None:
+    skill = _write_clean_skill(tmp_path)
+    report = scan_tree(skill)
+    write_reports(skill, report)
+    require_report_for_apply(skill)  # fresh report ok
+
+    (skill / "SKILL.md").write_text(
+        (skill / "SKILL.md").read_text(encoding="utf-8") + "\n<!-- changed -->\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="stale"):
+        require_report_for_apply(skill)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from dataclasses import asdict, dataclass, field
@@ -7,7 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from cli.common import load_yaml, read_frontmatter
+from cli.common import is_skillvault_sidecar, load_yaml, read_frontmatter
 
 RULES_PATH = Path(__file__).resolve().parent / "security_rules.yaml"
 REPORT_JSON = "_skillvault_security.json"
@@ -31,10 +32,29 @@ class ScanReport:
     scanned_at: str
     counts: dict[str, int] = field(default_factory=dict)
     findings: list[Finding] = field(default_factory=list)
+    content_fingerprint: str = ""
 
     @property
     def ok_to_apply(self) -> bool:
         return self.verdict != "FAIL"
+
+
+def content_fingerprint(root: Path) -> str:
+    """Stable hash of skill tree files (excludes SkillVault sidecars)."""
+    root = root.resolve()
+    digest = hashlib.sha256()
+    files = sorted(
+        p
+        for p in root.rglob("*")
+        if p.is_file() and not is_skillvault_sidecar(p.name)
+    )
+    for path in files:
+        rel = path.relative_to(root).as_posix().encode("utf-8")
+        digest.update(rel)
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
 
 
 def load_rules() -> dict[str, Any]:
@@ -304,6 +324,7 @@ def scan_tree(root: Path) -> ScanReport:
     else:
         verdict = "PASS"
 
+    fp = content_fingerprint(root)
     return ScanReport(
         verdict=verdict,
         root=str(root),
@@ -311,6 +332,7 @@ def scan_tree(root: Path) -> ScanReport:
         scanned_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         counts=counts,
         findings=findings,
+        content_fingerprint=fp,
     )
 
 
@@ -318,11 +340,14 @@ def write_reports(root: Path, report: ScanReport) -> tuple[Path, Path]:
     root = root.resolve()
     json_path = root / REPORT_JSON
     md_path = root / REPORT_MD
+    if not report.content_fingerprint:
+        report.content_fingerprint = content_fingerprint(root)
     payload = {
         "verdict": report.verdict,
         "root": report.root,
         "rules_version": report.rules_version,
         "scanned_at": report.scanned_at,
+        "content_fingerprint": report.content_fingerprint,
         "counts": report.counts,
         "findings": [asdict(f) for f in report.findings],
     }
@@ -335,6 +360,7 @@ def write_reports(root: Path, report: ScanReport) -> tuple[Path, Path]:
         f"- **Root:** `{report.root}`",
         f"- **Rules version:** `{report.rules_version}`",
         f"- **Scanned at:** `{report.scanned_at}`",
+        f"- **Content fingerprint:** `{report.content_fingerprint}`",
         f"- **Counts:** critical={report.counts.get('critical', 0)}, "
         f"warn={report.counts.get('warn', 0)}, info={report.counts.get('info', 0)}",
         "",
@@ -368,16 +394,29 @@ def load_report(root: Path) -> ScanReport | None:
         scanned_at=str(data.get("scanned_at") or ""),
         counts=dict(data.get("counts") or {}),
         findings=findings,
+        content_fingerprint=str(data.get("content_fingerprint") or ""),
     )
 
 
 def require_report_for_apply(
     root: Path, *, accept_security_risks: bool = False
 ) -> ScanReport:
+    root = root.resolve()
     report = load_report(root)
     if report is None:
         raise ValueError(
             f"Missing security report under {root}. Run: py cli/sv.py security-scan {root}"
+        )
+    if not report.content_fingerprint:
+        raise ValueError(
+            f"Security report under {root} is missing content_fingerprint. "
+            f"Re-run: py cli/sv.py security-scan {root}"
+        )
+    current = content_fingerprint(root)
+    if report.content_fingerprint != current:
+        raise ValueError(
+            f"Security report is stale (source tree changed under {root}). "
+            f"Re-run: py cli/sv.py security-scan {root}"
         )
     if not report.ok_to_apply and not accept_security_risks:
         raise ValueError(

@@ -26,7 +26,7 @@ M1 单测与安装验收
   → 上游定时检知（registry 有样例后）
 ```
 
-全程走分支 + PR（Ruleset `protect-main` 要求 `Skill script tests`）。
+全程走分支 + PR（Ruleset `protect-main` 要求 `CI tests`）。
 
 ## 本周期明确不做
 

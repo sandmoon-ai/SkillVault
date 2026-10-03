@@ -23,7 +23,7 @@ Do **not** open a PR that only writes into `.cache/` — cache is local and not 
 3. No secrets, no large binaries, no private/internal-only process docs in this public repo.
 4. Scripts under `scripts/` need `scripts/tests.yaml` and must pass pytest — [docs/script-testing.md](docs/script-testing.md).
 5. Upstream license must be compatible; record it in `SOURCE.md` / registry.
-6. Maintainers review gates; CI must be green (`Skill script tests`).
+6. Maintainers review gates; CI must be green (`CI tests`).
 
 ## Path A — Import a public skill
 
@@ -65,7 +65,7 @@ Design detail: [docs/design/m2-import.md](docs/design/m2-import.md), [docs/desig
 - [ ] Changes match one clear purpose (import / own skill / tooling)
 - [ ] Import: intent file + `SOURCE.md` + registry entry
 - [ ] Import: security report attached or linked (or explicit self-check summary until scanner ships)
-- [ ] Scripts: `tests.yaml` present; CI `Skill script tests` passes
+- [ ] Scripts: `tests.yaml` present; CI `CI tests` passes
 - [ ] No secrets; license noted for third-party content
 - [ ] Docs updated if you change user-facing behavior
 
@@ -78,7 +78,7 @@ py cli/sv.py install <skill> --ide <ide> --os <os> [--force]
 
 ## Maintainers
 
-- Branch Ruleset `protect-main` requires the `Skill script tests` check; force-push and branch deletion are blocked — [docs/ci.md](docs/ci.md).
+- Branch Ruleset `protect-main` requires the `CI tests` check; force-push and branch deletion are blocked — [docs/ci.md](docs/ci.md).
 - Prefer merging via PR for all external changes.
 - Gate approval is a human decision; bots/CI do not skip A–C.
 - Intent Gate sign-off fields must be filled by a **human** (account name or PR review). Agents may draft materials but must not sign as approver.

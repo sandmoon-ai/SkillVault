@@ -23,7 +23,7 @@
 |----|------|
 | Skill 脚本测试 | `py -m pytest tests/test_skill_scripts.py`；规范见 [docs/script-testing.md](docs/script-testing.md) |
 | CI | push/PR 跑卫生检查 + 脚本测试 → [Actions](https://github.com/sandmoon-ai/SkillVault/actions) |
-| 分支 Ruleset `protect-main` | `main` 要求检查 `Skill script tests`；禁 force push / 删分支 → [规则](https://github.com/sandmoon-ai/SkillVault/rules/24400124) |
+| 分支 Ruleset `protect-main` | `main` 要求检查 `CI tests`；禁 force push / 删分支 → [规则](https://github.com/sandmoon-ai/SkillVault/rules/24400124) |
 | Artifact 保留 | 仓库设置为 **1 天**；CI 另限制 `retention-days`≤7 + 月度清理 |
 
 说明见 [docs/ci.md](docs/ci.md)。

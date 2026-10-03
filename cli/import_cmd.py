@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import urllib.error
@@ -34,6 +35,10 @@ GITHUB_RAW_RE = re.compile(
     r"^https?://raw\.githubusercontent\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+)/(?P<ref>[^/]+)/(?P<path>.+)$"
 )
 
+# Hard stop at fetch time (scan also warns at the same thresholds).
+MAX_FETCH_FILES = 200
+MAX_FETCH_BYTES = 5 * 1024 * 1024  # 5 MiB
+
 
 @dataclass
 class FetchResult:
@@ -45,20 +50,53 @@ class FetchResult:
     summary: dict
 
 
+@dataclass
+class _FetchBudget:
+    """Track download/copy size; raise before a huge tree enters cache."""
+
+    files: int = 0
+    nbytes: int = 0
+    max_files: int = MAX_FETCH_FILES
+    max_bytes: int = MAX_FETCH_BYTES
+
+    def add(self, *, n_files: int = 0, n_bytes: int = 0) -> None:
+        self.files += n_files
+        self.nbytes += n_bytes
+        if self.files > self.max_files:
+            raise ValueError(
+                f"Fetch aborted: too many files ({self.files} > {self.max_files}). "
+                "Narrow the GitHub tree path or raise limits only after review."
+            )
+        if self.nbytes > self.max_bytes:
+            raise ValueError(
+                f"Fetch aborted: tree too large ({self.nbytes} bytes > {self.max_bytes}). "
+                "Narrow the GitHub tree path or raise limits only after review."
+            )
+
+
+def _github_headers(*, json_api: bool = False) -> dict[str, str]:
+    headers = {"User-Agent": "skillvault"}
+    if json_api:
+        headers["Accept"] = "application/vnd.github+json"
+    token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    return headers
+
+
 def _http_get_json(url: str) -> dict | list:
-    req = urllib.request.Request(
-        url,
-        headers={"Accept": "application/vnd.github+json", "User-Agent": "skillvault"},
-    )
+    req = urllib.request.Request(url, headers=_github_headers(json_api=True))
     with urllib.request.urlopen(req, timeout=60) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 
-def _http_download(url: str, dest: Path) -> None:
+def _http_download(url: str, dest: Path, budget: _FetchBudget) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
-    req = urllib.request.Request(url, headers={"User-Agent": "skillvault"})
+    req = urllib.request.Request(url, headers=_github_headers())
     with urllib.request.urlopen(req, timeout=60) as resp, dest.open("wb") as out:
         shutil.copyfileobj(resp, out)
+    size = dest.stat().st_size
+    budget.add(n_files=1, n_bytes=size)
 
 
 def _parse_github(url: str) -> tuple[str, str, str, str | None] | None:
@@ -71,8 +109,14 @@ def _parse_github(url: str) -> tuple[str, str, str, str | None] | None:
 
 
 def _fetch_github_dir(
-    owner: str, repo: str, ref: str, path: str | None, dest: Path
+    owner: str,
+    repo: str,
+    ref: str,
+    path: str | None,
+    dest: Path,
+    budget: _FetchBudget | None = None,
 ) -> None:
+    budget = budget or _FetchBudget()
     api = (
         f"https://api.github.com/repos/{owner}/{repo}/contents/"
         f"{urllib.parse.quote(path or '')}?ref={urllib.parse.quote(ref)}"
@@ -81,7 +125,10 @@ def _fetch_github_dir(
     if isinstance(data, dict) and data.get("type") == "file":
         # Single file URL pointed at a file
         name = data["name"]
-        _http_download(data["download_url"], dest / name)
+        announced = int(data.get("size") or 0)
+        if announced and budget.nbytes + announced > budget.max_bytes:
+            budget.add(n_bytes=announced)  # raises with consistent message
+        _http_download(data["download_url"], dest / name, budget)
         return
     if not isinstance(data, list):
         raise RuntimeError(f"Unexpected GitHub API response for {api}")
@@ -91,20 +138,35 @@ def _fetch_github_dir(
         rel = item["name"]
         target = dest / rel
         if item["type"] == "file":
-            _http_download(item["download_url"], target)
+            announced = int(item.get("size") or 0)
+            if announced and budget.nbytes + announced > budget.max_bytes:
+                budget.add(n_bytes=announced)  # raises
+            _http_download(item["download_url"], target, budget)
         elif item["type"] == "dir":
             child_path = "/".join(p for p in (path, rel) if p)
-            _fetch_github_dir(owner, repo, ref, child_path, target)
+            _fetch_github_dir(owner, repo, ref, child_path, target, budget)
 
 
-def _copy_local(src: Path, dest: Path) -> None:
+def _enforce_tree_budget(root: Path, budget: _FetchBudget | None = None) -> _FetchBudget:
+    """Count files already on disk (local copy path)."""
+    budget = budget or _FetchBudget()
+    for path in root.rglob("*"):
+        if not path.is_file() or is_skillvault_sidecar(path.name):
+            continue
+        budget.add(n_files=1, n_bytes=path.stat().st_size)
+    return budget
+
+
+def _copy_local(src: Path, dest: Path, budget: _FetchBudget | None = None) -> None:
     if src.is_file():
         dest.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dest / src.name)
+        _enforce_tree_budget(dest, budget)
         return
     if dest.exists():
         shutil.rmtree(dest)
     shutil.copytree(src, dest)
+    _enforce_tree_budget(dest, budget)
 
 
 def _find_skill_md(root: Path) -> Path | None:
@@ -152,9 +214,10 @@ def import_from_url(
     used_ref = ref
     source_url = url
 
+    budget = _FetchBudget()
     local = Path(url)
     if local.exists():
-        _copy_local(local, cache_dir)
+        _copy_local(local, cache_dir, budget)
         used_ref = used_ref or "local"
     else:
         gh = _parse_github(url)
@@ -166,7 +229,7 @@ def import_from_url(
         used_ref = ref or url_ref
         upstream_path = path
         try:
-            _fetch_github_dir(owner, repo, used_ref, path, cache_dir)
+            _fetch_github_dir(owner, repo, used_ref, path, cache_dir, budget)
         except urllib.error.HTTPError as exc:
             raise RuntimeError(f"Failed to fetch {url}: HTTP {exc.code}") from exc
 
