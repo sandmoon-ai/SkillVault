@@ -2,7 +2,7 @@
 
 > 由 `py cli/sv.py catalog` **自动生成**，请勿手改。真相源是 `vault/**/SKILL.md`；机器可读副本见 [`registry/catalog.yaml`](../registry/catalog.yaml)。
 
-- 生成时间（UTC）：`2026-10-03T06:51:45Z`
+- 生成时间（UTC）：`2026-10-03T06:53:20Z`
 - 合计：**76**（own 1 / imported 75）
 
 ## 按类目

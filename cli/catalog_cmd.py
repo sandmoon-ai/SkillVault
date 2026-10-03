@@ -7,19 +7,27 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from cli.common import (
-    REPO_ROOT,
-    REGISTRY_PATH,
-    dump_yaml,
-    iter_vault_skills,
-    load_yaml,
-    read_frontmatter,
-)
+from cli import common
+from cli.common import dump_yaml, iter_vault_skills, load_yaml, read_frontmatter
 
-CATALOG_YAML = REPO_ROOT / "registry" / "catalog.yaml"
-SKILLS_INDEX_MD = REPO_ROOT / "docs" / "skills-index.md"
 _DESC_MAX = 160
 _LICENSE_RE = re.compile(r"(?im)^-\s*License:\s*(.+?)\s*$")
+
+
+def _repo_root() -> Path:
+    return common.REPO_ROOT
+
+
+def catalog_yaml_path() -> Path:
+    return _repo_root() / "registry" / "catalog.yaml"
+
+
+def skills_index_md_path() -> Path:
+    return _repo_root() / "docs" / "skills-index.md"
+
+
+def registry_path() -> Path:
+    return common.REGISTRY_PATH
 
 
 def _truncate(text: str, limit: int = _DESC_MAX) -> str:
@@ -40,7 +48,8 @@ def _license_from_source_md(skill_dir: Path) -> str | None:
 
 
 def _registry_by_name() -> dict[str, dict[str, Any]]:
-    data = load_yaml(REGISTRY_PATH) if REGISTRY_PATH.is_file() else {}
+    path = registry_path()
+    data = load_yaml(path) if path.is_file() else {}
     out: dict[str, dict[str, Any]] = {}
     for item in data.get("skills") or []:
         if isinstance(item, dict) and item.get("name"):
@@ -50,6 +59,7 @@ def _registry_by_name() -> dict[str, dict[str, Any]]:
 
 def build_catalog(*, generated_at: str | None = None) -> dict[str, Any]:
     """Scan vault tree and build a deterministic catalog payload."""
+    root = _repo_root()
     registry = _registry_by_name()
     skills: list[dict[str, Any]] = []
     for name, path, origin, category in iter_vault_skills():
@@ -70,11 +80,15 @@ def build_catalog(*, generated_at: str | None = None) -> dict[str, Any]:
             license_name = (
                 reg.get("license") or _license_from_source_md(path) or "see LICENSE.txt"
             )
+        try:
+            rel = path.relative_to(root).as_posix()
+        except ValueError:
+            rel = path.as_posix()
         entry: dict[str, Any] = {
             "name": name,
             "category": category,
             "origin": origin,
-            "path": path.relative_to(REPO_ROOT).as_posix(),
+            "path": rel,
             "description": _truncate(str(meta.get("description") or "")),
             "license": str(license_name),
             "tags": [str(t) for t in tag_list],
@@ -174,8 +188,8 @@ def write_catalog(
     index_path: Path | None = None,
 ) -> dict[str, Any]:
     catalog = build_catalog()
-    yaml_path = catalog_path or CATALOG_YAML
-    md_path = index_path or SKILLS_INDEX_MD
+    yaml_path = catalog_path or catalog_yaml_path()
+    md_path = index_path or skills_index_md_path()
     dump_yaml(yaml_path, catalog)
     md_path.parent.mkdir(parents=True, exist_ok=True)
     md_path.write_text(render_skills_index_md(catalog), encoding="utf-8")
@@ -188,31 +202,34 @@ def catalog_is_fresh(
     index_path: Path | None = None,
 ) -> tuple[bool, str]:
     """Return (ok, message) whether on-disk index matches the vault tree."""
-    yaml_path = catalog_path or CATALOG_YAML
-    md_path = index_path or SKILLS_INDEX_MD
+    root = _repo_root()
+    yaml_path = catalog_path or catalog_yaml_path()
+    md_path = index_path or skills_index_md_path()
     expected = build_catalog(generated_at="CHECK")
     if not yaml_path.is_file():
-        return False, f"missing {yaml_path.relative_to(REPO_ROOT).as_posix()}"
+        try:
+            rel = yaml_path.relative_to(root).as_posix()
+        except ValueError:
+            rel = str(yaml_path)
+        return False, f"missing {rel}"
     if not md_path.is_file():
-        return False, f"missing {md_path.relative_to(REPO_ROOT).as_posix()}"
+        try:
+            rel = md_path.relative_to(root).as_posix()
+        except ValueError:
+            rel = str(md_path)
+        return False, f"missing {rel}"
     on_disk = load_yaml(yaml_path)
     if _catalog_compare_payload(on_disk) != _catalog_compare_payload(expected):
         return False, "registry/catalog.yaml is stale; run: py cli/sv.py catalog"
-    expected_md = render_skills_index_md(
-        {**expected, "generated_at": on_disk.get("generated_at") or "CHECK"}
-    )
-    # Compare MD using on-disk generated_at so timestamp alone doesn't fail
     actual_md = md_path.read_text(encoding="utf-8")
+    expected_md = render_skills_index_md(
+        {
+            **expected,
+            "generated_at": str(on_disk.get("generated_at") or ""),
+        }
+    )
     if actual_md != expected_md:
-        # Allow MD timestamp line to match yaml's generated_at
-        expected_md = render_skills_index_md(
-            {
-                **expected,
-                "generated_at": str(on_disk.get("generated_at") or ""),
-            }
-        )
-        if actual_md != expected_md:
-            return False, "docs/skills-index.md is stale; run: py cli/sv.py catalog"
+        return False, "docs/skills-index.md is stale; run: py cli/sv.py catalog"
     return True, "catalog up to date"
 
 
@@ -220,5 +237,6 @@ def refresh_catalog_after_mutation() -> None:
     """Best-effort regenerate after import/sync; never raises to callers."""
     try:
         write_catalog()
-    except OSError:
+    except Exception:
+        # Tests often monkeypatch vault roots without a writable docs/ tree.
         pass

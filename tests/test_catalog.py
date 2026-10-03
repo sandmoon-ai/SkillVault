@@ -41,18 +41,18 @@ def _seed(root: Path) -> None:
     )
 
 
-def test_write_and_check_catalog(tmp_path: Path, monkeypatch) -> None:
+def _patch_roots(monkeypatch, root: Path) -> None:
     import cli.common as common
 
+    monkeypatch.setattr(common, "REPO_ROOT", root)
+    monkeypatch.setattr(common, "VAULT_OWN", root / "vault" / "own")
+    monkeypatch.setattr(common, "VAULT_IMPORTED", root / "vault" / "imported")
+    monkeypatch.setattr(common, "REGISTRY_PATH", root / "registry" / "sources.yaml")
+
+
+def test_write_and_check_catalog(tmp_path: Path, monkeypatch) -> None:
     _seed(tmp_path)
-    monkeypatch.setattr(common, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(common, "VAULT_OWN", tmp_path / "vault" / "own")
-    monkeypatch.setattr(common, "VAULT_IMPORTED", tmp_path / "vault" / "imported")
-    monkeypatch.setattr(common, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
-    monkeypatch.setattr(catalog_cmd, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(catalog_cmd, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
-    monkeypatch.setattr(catalog_cmd, "CATALOG_YAML", tmp_path / "registry" / "catalog.yaml")
-    monkeypatch.setattr(catalog_cmd, "SKILLS_INDEX_MD", tmp_path / "docs" / "skills-index.md")
+    _patch_roots(monkeypatch, tmp_path)
 
     ok, msg = catalog_cmd.catalog_is_fresh()
     assert not ok
@@ -71,7 +71,6 @@ def test_write_and_check_catalog(tmp_path: Path, monkeypatch) -> None:
     ok, msg = catalog_cmd.catalog_is_fresh()
     assert ok, msg
 
-    # Stale after vault change
     extra = tmp_path / "vault" / "own" / "meta" / "hello-b"
     extra.mkdir(parents=True)
     (extra / "SKILL.md").write_text(
@@ -84,17 +83,8 @@ def test_write_and_check_catalog(tmp_path: Path, monkeypatch) -> None:
 
 
 def test_cli_catalog_check_exit_codes(tmp_path: Path, monkeypatch, capsys) -> None:
-    import cli.common as common
-
     _seed(tmp_path)
-    monkeypatch.setattr(common, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(common, "VAULT_OWN", tmp_path / "vault" / "own")
-    monkeypatch.setattr(common, "VAULT_IMPORTED", tmp_path / "vault" / "imported")
-    monkeypatch.setattr(common, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
-    monkeypatch.setattr(catalog_cmd, "REPO_ROOT", tmp_path)
-    monkeypatch.setattr(catalog_cmd, "REGISTRY_PATH", tmp_path / "registry" / "sources.yaml")
-    monkeypatch.setattr(catalog_cmd, "CATALOG_YAML", tmp_path / "registry" / "catalog.yaml")
-    monkeypatch.setattr(catalog_cmd, "SKILLS_INDEX_MD", tmp_path / "docs" / "skills-index.md")
+    _patch_roots(monkeypatch, tmp_path)
 
     assert main(["catalog", "--check"]) == 2
     assert main(["catalog"]) == 0
