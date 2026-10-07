@@ -1,17 +1,17 @@
 generated_by: py cli/sv.py catalog
-generated_at: '2026-10-03T13:57:57Z'
+generated_at: '2026-10-07T08:09:41Z'
 counts:
-  total: 88
+  total: 94
   own: 1
-  imported: 87
+  imported: 93
   by_category:
     define: 5
     deliver: 7
     design: 5
     discover: 5
-    engineering: 16
+    engineering: 20
     foundation: 11
-    meta: 28
+    meta: 30
     ops: 11
 skills:
 - name: define-hypothesis
@@ -397,6 +397,65 @@ skills:
   - git
   - pr
   upstream: https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch
+- name: ponytail
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/ponytail
+  description: 'Forces the laziest solution that actually works, simplest, shortest,
+    most minimal. Channels a senior dev who has seen everything: question whether
+    the task nee…'
+  description_zh: 强制最懒且能工作的解法（YAGNI、stdlib/原生优先、最短 diff）；支持 lite/full/ultra。用于编码、重构、选依赖或抱怨过度工程时。
+  license: MIT
+  tags:
+  - ponytail
+  - yagni
+  - minimal
+  - over-engineering
+  upstream: https://github.com/DietrichGebert/ponytail/tree/main/skills/ponytail
+- name: ponytail-audit
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/ponytail-audit
+  description: 'Whole-repo audit for over-engineering. Like ponytail-review, but scans
+    the entire codebase instead of a diff: a ranked list of what to delete, simplify,
+    or rep…'
+  description_zh: 全仓过度工程审计（不只看 diff）：按可删减幅度排序的精简建议。
+  license: MIT
+  tags:
+  - ponytail
+  - yagni
+  - audit
+  - over-engineering
+  upstream: https://github.com/DietrichGebert/ponytail/tree/main/skills/ponytail-audit
+- name: ponytail-debt
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/ponytail-debt
+  description: Harvest every `ponytail:` comment in the codebase into a debt ledger,
+    so the deliberate shortcuts and deferrals ponytail leaves behind get tracked instead
+    of r…
+  description_zh: 收集代码里 `ponytail:` 延期标记，汇总成债务台账，避免「以后再说」变永久。
+  license: MIT
+  tags:
+  - ponytail
+  - yagni
+  - debt
+  upstream: https://github.com/DietrichGebert/ponytail/tree/main/skills/ponytail-debt
+- name: ponytail-review
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/ponytail-review
+  description: 'Code review focused exclusively on over-engineering. Finds what to
+    delete: reinvented standard library, unneeded dependencies, speculative abstractions,
+    dead f…'
+  description_zh: 只打「过度工程」的码评：该删什么、用 stdlib/原生替换什么；输出可编号的删除清单。
+  license: MIT
+  tags:
+  - ponytail
+  - yagni
+  - code-review
+  - over-engineering
+  upstream: https://github.com/DietrichGebert/ponytail/tree/main/skills/ponytail-review
 - name: receiving-code-review
   category: engineering
   origin: imported
@@ -647,6 +706,32 @@ skills:
   - pm-skills
   - apache-2.0
   upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/foundation-stakeholder-update
+- name: ponytail-gain
+  category: meta
+  origin: imported
+  path: vault/imported/meta/ponytail-gain
+  description: 'Show ponytail''s measured impact as a compact scoreboard: less code,
+    less cost, more speed, from the agentic benchmark averages. One-shot display,
+    not a persist…'
+  description_zh: 展示 ponytail 上游公开 benchmark 计分板（少代码/少成本/更快）；非本仓实测。
+  license: MIT
+  tags:
+  - ponytail
+  - benchmark
+  upstream: https://github.com/DietrichGebert/ponytail/tree/main/skills/ponytail-gain
+- name: ponytail-help
+  category: meta
+  origin: imported
+  path: vault/imported/meta/ponytail-help
+  description: 'Quick-reference card for all ponytail modes, skills, and commands.
+    One-shot display, not a persistent mode. Trigger: /ponytail-help, "ponytail help",
+    "what pon…'
+  description_zh: ponytail 模式与命令速查卡（one-shot 展示）。
+  license: MIT
+  tags:
+  - ponytail
+  - reference
+  upstream: https://github.com/DietrichGebert/ponytail/tree/main/skills/ponytail-help
 - name: tool-design-sprint-brief
   category: meta
   origin: imported
