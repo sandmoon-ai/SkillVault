@@ -2,8 +2,8 @@
 
 > 由 `py cli/sv.py catalog` **自动生成**，请勿手改。真相源是 `vault/**/SKILL.md`；机器可读见 [`registry/catalog.yaml`](../registry/catalog.yaml)；中文简介词条维护于 [`registry/descriptions.zh-CN.yaml`](../registry/descriptions.zh-CN.yaml)。英文版：[skills-index.md](./skills-index.md)。
 
-- 生成时间（UTC）：`2026-10-03T13:57:57Z`
-- 合计：**88**（自建 1 / 收录 87）
+- 生成时间（UTC）：`2026-10-07T08:09:41Z`
+- 合计：**94**（自建 1 / 收录 93）
 
 ## 按类目
 
@@ -13,9 +13,9 @@
 | `deliver` | 交付 | 7 |
 | `design` | 设计 | 5 |
 | `discover` | 发现 / 调研 | 5 |
-| `engineering` | 工程 | 16 |
+| `engineering` | 工程 | 20 |
 | `foundation` | 立项 / 基础 | 11 |
-| `meta` | 元工具 | 28 |
+| `meta` | 元工具 | 30 |
 | `ops` | 运营 / 度量 | 11 |
 
 ## 收录（`imported`）
@@ -70,6 +70,10 @@
 | [`develop-spike-summary`](../vault/imported/engineering/develop-spike-summary/) | Apache-2.0 | 总结技术/设计 spike：问题、方法、证据与是否继续的结论。 |
 | [`executing-plans`](../vault/imported/engineering/executing-plans/) | MIT | 在当前会话按计划逐步执行（非每任务子代理）；适合内联落地。 |
 | [`finishing-a-development-branch`](../vault/imported/engineering/finishing-a-development-branch/) | MIT | 实现与测试通过后决定合并/开 PR/保留/丢弃并清理 worktree。 |
+| [`ponytail`](../vault/imported/engineering/ponytail/) | MIT | 强制最懒且能工作的解法（YAGNI、stdlib/原生优先、最短 diff）；支持 lite/full/ultra。用于编码、重构、选依赖或抱怨过度工程时。 |
+| [`ponytail-audit`](../vault/imported/engineering/ponytail-audit/) | MIT | 全仓过度工程审计（不只看 diff）：按可删减幅度排序的精简建议。 |
+| [`ponytail-debt`](../vault/imported/engineering/ponytail-debt/) | MIT | 收集代码里 `ponytail:` 延期标记，汇总成债务台账，避免「以后再说」变永久。 |
+| [`ponytail-review`](../vault/imported/engineering/ponytail-review/) | MIT | 只打「过度工程」的码评：该删什么、用 stdlib/原生替换什么；输出可编号的删除清单。 |
 | [`receiving-code-review`](../vault/imported/engineering/receiving-code-review/) | MIT | 收到码评后先核实再改，避免表演式同意或盲从。 |
 | [`requesting-code-review`](../vault/imported/engineering/requesting-code-review/) | MIT | 任务完成或合并前请求码评；按严重级别处理反馈。 |
 | [`systematic-debugging`](../vault/imported/engineering/systematic-debugging/) | MIT | 遇 bug/失败时先查根因再改；禁止无根因的症状式修补。 |
@@ -97,6 +101,8 @@
 
 | 名称 | 许可 | 用途（中文） |
 |------|------|--------------|
+| [`ponytail-gain`](../vault/imported/meta/ponytail-gain/) | MIT | 展示 ponytail 上游公开 benchmark 计分板（少代码/少成本/更快）；非本仓实测。 |
+| [`ponytail-help`](../vault/imported/meta/ponytail-help/) | MIT | ponytail 模式与命令速查卡（one-shot 展示）。 |
 | [`tool-design-sprint-brief`](../vault/imported/meta/tool-design-sprint-brief/) | Apache-2.0 | Design Sprint 会前简报：挑战、问题、角色、招募、原型介质与后勤。 |
 | [`tool-design-sprint-decide-and-storyboard`](../vault/imported/meta/tool-design-sprint-decide-and-storyboard/) | Apache-2.0 | Design Sprint Day3：艺廊布局、热图、快评、投票与故事板决策。 |
 | [`tool-design-sprint-map-and-target`](../vault/imported/meta/tool-design-sprint-map-and-target/) | Apache-2.0 | Design Sprint Day1：长期目标、可测风险问题、顾客旅程与目标。 |
