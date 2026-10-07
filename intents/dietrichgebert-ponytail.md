@@ -74,7 +74,7 @@
 
 - [x] 路径：4×`vault/imported/engineering/ponytail*` + 2×`vault/imported/meta/ponytail*`（材料已落盘）
 - [x] `registry/sources.yaml` 已更新（ref `552acd5`）；`descriptions.zh-CN.yaml` 已补中文词条
-- [ ] PR 链接：
+- [x] PR 链接：https://github.com/sandmoon-ai/SkillVault/pull/50
 - [x] 无脚本；`sv catalog` 刷新索引（本地）
 - [ ] **批准人签字/日期（人类）：** _______________
 
