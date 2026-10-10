@@ -2,8 +2,8 @@
 
 > 由 `py cli/sv.py catalog` **自动生成**，请勿手改。真相源是 `vault/**/SKILL.md`；机器可读见 [`registry/catalog.yaml`](../registry/catalog.yaml)；中文简介词条维护于 [`registry/descriptions.zh-CN.yaml`](../registry/descriptions.zh-CN.yaml)。英文版：[skills-index.md](./skills-index.md)。
 
-- 生成时间（UTC）：`2026-10-07T08:09:41Z`
-- 合计：**94**（自建 1 / 收录 93）
+- 生成时间（UTC）：`2026-10-10T14:30:55Z`
+- 合计：**98**（自建 1 / 收录 97）
 
 ## 按类目
 
@@ -13,7 +13,7 @@
 | `deliver` | 交付 | 7 |
 | `design` | 设计 | 5 |
 | `discover` | 发现 / 调研 | 5 |
-| `engineering` | 工程 | 20 |
+| `engineering` | 工程 | 24 |
 | `foundation` | 立项 / 基础 | 11 |
 | `meta` | 元工具 | 30 |
 | `ops` | 运营 / 度量 | 11 |
@@ -68,8 +68,12 @@
 | [`develop-design-rationale`](../vault/imported/engineering/develop-design-rationale/) | Apache-2.0 | 记录设计决策理由：备选方案、权衡与原则。用于重大 UX/设计取舍。 |
 | [`develop-solution-brief`](../vault/imported/engineering/develop-solution-brief/) | Apache-2.0 | 一页纸方案概述：路径、关键决策与权衡。用于向干系人推销方案。 |
 | [`develop-spike-summary`](../vault/imported/engineering/develop-spike-summary/) | Apache-2.0 | 总结技术/设计 spike：问题、方法、证据与是否继续的结论。 |
+| [`domain-modeling`](../vault/imported/engineering/domain-modeling/) | MIT | 主动 sharpen 领域模型：挑战术语、写 GLOSSARY.md，并在合格权衡时写 ADR。 |
 | [`executing-plans`](../vault/imported/engineering/executing-plans/) | MIT | 在当前会话按计划逐步执行（非每任务子代理）；适合内联落地。 |
 | [`finishing-a-development-branch`](../vault/imported/engineering/finishing-a-development-branch/) | MIT | 实现与测试通过后决定合并/开 PR/保留/丢弃并清理 worktree。 |
+| [`grill-me`](../vault/imported/engineering/grill-me/) | MIT | 用户触发的烧烤访谈入口；委托同套件 `grilling`（无 Skill 链式时显式加载）。 |
+| [`grill-with-docs`](../vault/imported/engineering/grill-with-docs/) | MIT | 烧烤访谈同时写 glossary/ADR；组合 `grilling` + `domain-modeling`。 |
+| [`grilling`](../vault/imported/engineering/grilling/) | MIT | 烧烤式访谈原语：按设计树一轮问完 frontier，每题给推荐答案，直到共享理解再动手。 |
 | [`ponytail`](../vault/imported/engineering/ponytail/) | MIT | 强制最懒且能工作的解法（YAGNI、stdlib/原生优先、最短 diff）；支持 lite/full/ultra。用于编码、重构、选依赖或抱怨过度工程时。 |
 | [`ponytail-audit`](../vault/imported/engineering/ponytail-audit/) | MIT | 全仓过度工程审计（不只看 diff）：按可删减幅度排序的精简建议。 |
 | [`ponytail-debt`](../vault/imported/engineering/ponytail-debt/) | MIT | 收集代码里 `ponytail:` 延期标记，汇总成债务台账，避免「以后再说」变永久。 |

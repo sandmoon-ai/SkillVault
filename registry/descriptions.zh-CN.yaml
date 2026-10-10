@@ -95,3 +95,7 @@ descriptions:
   ponytail-debt: 收集代码里 `ponytail:` 延期标记，汇总成债务台账，避免「以后再说」变永久。
   ponytail-gain: 展示 ponytail 上游公开 benchmark 计分板（少代码/少成本/更快）；非本仓实测。
   ponytail-help: ponytail 模式与命令速查卡（one-shot 展示）。
+  grilling: 烧烤式访谈原语：按设计树一轮问完 frontier，每题给推荐答案，直到共享理解再动手。
+  grill-me: 用户触发的烧烤访谈入口；委托同套件 `grilling`（无 Skill 链式时显式加载）。
+  domain-modeling: 主动 sharpen 领域模型：挑战术语、写 GLOSSARY.md，并在合格权衡时写 ADR。
+  grill-with-docs: 烧烤访谈同时写 glossary/ADR；组合 `grilling` + `domain-modeling`。
