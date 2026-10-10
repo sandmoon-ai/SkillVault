@@ -743,3 +743,35 @@ skills:
   local: vault/imported/meta/ponytail-help
   license: MIT
   last_synced: '2026-10-07T08:08:00Z'
+- name: grilling
+  url: https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling
+  ref: 49dd158d1076134a641b33efb035946536778336
+  path: skills/productivity/grilling
+  category: engineering
+  local: vault/imported/engineering/grilling
+  license: MIT
+  last_synced: '2026-10-10T14:30:00Z'
+- name: grill-me
+  url: https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me
+  ref: 49dd158d1076134a641b33efb035946536778336
+  path: skills/productivity/grill-me
+  category: engineering
+  local: vault/imported/engineering/grill-me
+  license: MIT
+  last_synced: '2026-10-10T14:30:00Z'
+- name: domain-modeling
+  url: https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling
+  ref: 49dd158d1076134a641b33efb035946536778336
+  path: skills/engineering/domain-modeling
+  category: engineering
+  local: vault/imported/engineering/domain-modeling
+  license: MIT
+  last_synced: '2026-10-10T14:30:00Z'
+- name: grill-with-docs
+  url: https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs
+  ref: 49dd158d1076134a641b33efb035946536778336
+  path: skills/engineering/grill-with-docs
+  category: engineering
+  local: vault/imported/engineering/grill-with-docs
+  license: MIT
+  last_synced: '2026-10-10T14:30:00Z'

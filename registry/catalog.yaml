@@ -1,15 +1,15 @@
 generated_by: py cli/sv.py catalog
-generated_at: '2026-10-07T08:09:41Z'
+generated_at: '2026-10-10T14:30:55Z'
 counts:
-  total: 94
+  total: 98
   own: 1
-  imported: 93
+  imported: 97
   by_category:
     define: 5
     deliver: 7
     design: 5
     discover: 5
-    engineering: 20
+    engineering: 24
     foundation: 11
     meta: 30
     ops: 11
@@ -369,6 +369,20 @@ skills:
   - pm-skills
   - apache-2.0
   upstream: https://github.com/product-on-purpose/pm-skills/tree/main/skills/develop-spike-summary
+- name: domain-modeling
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/domain-modeling
+  description: Build and sharpen a project's domain model. Use when discussing codebase
+    terminology, writing or editing a GLOSSARY.md, or recording or editing an ADR.
+  description_zh: 主动 sharpen 领域模型：挑战术语、写 GLOSSARY.md，并在合格权衡时写 ADR。
+  license: MIT
+  tags:
+  - matt-pocock
+  - domain
+  - glossary
+  - adr
+  upstream: https://github.com/mattpocock/skills/tree/main/skills/engineering/domain-modeling
 - name: executing-plans
   category: engineering
   origin: imported
@@ -397,6 +411,49 @@ skills:
   - git
   - pr
   upstream: https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch
+- name: grill-me
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/grill-me
+  description: User-invoked relentless interview to sharpen a plan or design. Use
+    when the user says grill-me, grill this plan, or wants a grilling session before
+    building. D…
+  description_zh: 用户触发的烧烤访谈入口；委托同套件 `grilling`（无 Skill 链式时显式加载）。
+  license: MIT
+  tags:
+  - matt-pocock
+  - grilling
+  - interview
+  upstream: https://github.com/mattpocock/skills/tree/main/skills/productivity/grill-me
+- name: grill-with-docs
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/grill-with-docs
+  description: User-invoked grilling session that also writes glossary and ADRs as
+    decisions crystallise. Use when the user wants grill-with-docs or a grilling session
+    that u…
+  description_zh: 烧烤访谈同时写 glossary/ADR；组合 `grilling` + `domain-modeling`。
+  license: MIT
+  tags:
+  - matt-pocock
+  - grilling
+  - interview
+  - adr
+  - glossary
+  upstream: https://github.com/mattpocock/skills/tree/main/skills/engineering/grill-with-docs
+- name: grilling
+  category: engineering
+  origin: imported
+  path: vault/imported/engineering/grilling
+  description: Grill the user relentlessly about a plan, decision, or idea. Use when
+    the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
+  description_zh: 烧烤式访谈原语：按设计树一轮问完 frontier，每题给推荐答案，直到共享理解再动手。
+  license: MIT
+  tags:
+  - matt-pocock
+  - grilling
+  - interview
+  upstream: https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling
 - name: ponytail
   category: engineering
   origin: imported
